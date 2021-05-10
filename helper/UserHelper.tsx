@@ -4,7 +4,7 @@ export const SetJWTCookie = async (email: string, password: string) => {
   const res = await fetch(`${BACKEND_URL}/auth/login/post/`, {
     method: "POST",
     mode: "cors",
-    credentials: "include",
+    // credentials: "include",
     headers: {
       "Content-Type": "application/json; charset=utf-8",
     },
