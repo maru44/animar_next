@@ -1,4 +1,5 @@
 import { NextPage } from "next";
+import { BACKEND_URL } from "../../helper/Config";
 import { SetJWTCookie, RefreshToken } from "../../helper/UserHelper";
 
 const Login: NextPage = () => {
@@ -16,6 +17,14 @@ const Login: NextPage = () => {
 
   const refreshStart = async (e: any) => {
     const res = await RefreshToken();
+  };
+
+  const getClaims = async (e: any) => {
+    const res = await fetch(`${BACKEND_URL}/auth/cookie/`, {
+      method: "GET",
+      mode: "cors",
+      credentials: "include",
+    });
   };
 
   return (
@@ -37,6 +46,11 @@ const Login: NextPage = () => {
         <div className="">
           <button type="button" onClick={refreshStart}>
             リフレッシュテスト
+          </button>
+        </div>
+        <div className="">
+          <button type="button" onClick={getClaims}>
+            claim
           </button>
         </div>
       </form>
