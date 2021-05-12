@@ -6,10 +6,10 @@ export const fetchPostReview = async (
   star: number
 ) => {
   const res = await fetch(`${BACKEND_URL}/reviews/post/`, {
-    mode: "cors",
-    body: JSON.stringify({ AnimeId: animeId, Content: content, Star: star }),
-    credentials: "include",
     method: "POST",
+    mode: "cors",
+    credentials: "include",
+    body: JSON.stringify({ AnimeId: animeId, Content: content, Star: star }),
   });
   const ret = await res.json();
   return ret;
@@ -22,5 +22,6 @@ export const fetchAnimeReviews = async (animeId: number) => {
     credentials: "include",
   });
   const ret = await res.json();
+  console.log(ret);
   return ret["Data"];
 };
