@@ -22,5 +22,5 @@ export const fetchAnimeReviews = async (animeId: number) => {
     credentials: "include",
   });
   const ret = await res.json();
-  return ret;
+  return ret["Data"];
 };
