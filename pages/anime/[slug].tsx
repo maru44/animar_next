@@ -2,7 +2,7 @@ import { GetServerSideProps, NextPage } from "next";
 import { ParsedUrlQuery } from "querystring";
 import { useEffect, useState } from "react";
 import { BACKEND_URL } from "../../helper/Config";
-import { fetchAnimeReviews } from "../../helper/ReviewHelper";
+import { fetchAnimeReviews, fetchPostReview } from "../../helper/ReviewHelper";
 import { TAnime, TReview } from "../../types/anime";
 
 interface Props {
@@ -25,9 +25,19 @@ const AnimeDetail: NextPage<Props> = (props) => {
     f();
   }, []);
 
+  const startPost = async (e: any) => {
+    e.preventDefault();
+    const content = e.target.content.value;
+    const star = e.target.star.value;
+    const ret = await fetchPostReview(anime.ID, content, star);
+    console.log(ret);
+  };
+
   return (
     <div>
-      <div className="">{anime.Title}</div>
+      <div className="">
+        {anime.ID} {anime.Title}
+      </div>
       <div className="reviewList">
         {reviews &&
           reviews.map((review: TReview, index: number) => (
@@ -36,6 +46,19 @@ const AnimeDetail: NextPage<Props> = (props) => {
             </div>
           ))}
       </div>
+      <form onSubmit={startPost}>
+        <div className="">
+          <label>content</label>
+          <textarea name="content" rows={5} />
+        </div>
+        <div className="">
+          <label>star</label>
+          <input type="number" name="star" />
+        </div>
+        <div className="">
+          <button type="submit">post</button>
+        </div>
+      </form>
     </div>
   );
 };
