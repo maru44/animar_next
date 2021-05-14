@@ -3,6 +3,7 @@ export type TAnime = {
   Slug: string;
   Title: string;
   Content: string;
+  OnAirState: number;
   CreatedAt: string;
   UpdatedAt: string;
 };

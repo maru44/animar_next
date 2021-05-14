@@ -1,7 +1,8 @@
 import { GetServerSideProps, NextPage } from "next";
 import { ParsedUrlQuery } from "querystring";
 import { useEffect, useState } from "react";
-import { BACKEND_URL } from "../../helper/Config";
+import useSWR from "swr";
+import { BACKEND_URL, baseFetcher } from "../../helper/Config";
 import { fetchAnimeReviews, fetchPostReview } from "../../helper/ReviewHelper";
 import { TAnime, TReview } from "../../types/anime";
 
@@ -16,14 +17,12 @@ interface Params extends ParsedUrlQuery {
 
 const AnimeDetail: NextPage<Props> = (props) => {
   const anime = props.anime;
-  const [reviews, setReviews] = useState(null);
-  useEffect(() => {
-    const f = async () => {
-      const reviews = await fetchAnimeReviews(anime.ID);
-      setReviews(reviews);
-    };
-    f();
-  }, []);
+  console.log(anime);
+
+  const { data, error } = useSWR(
+    `${BACKEND_URL}/reviews/anime/?anime=${anime.ID}`,
+    baseFetcher
+  );
 
   const startPost = async (e: any) => {
     e.preventDefault();
@@ -39,8 +38,8 @@ const AnimeDetail: NextPage<Props> = (props) => {
         {anime.ID} {anime.Title}
       </div>
       <div className="reviewList">
-        {reviews &&
-          reviews.map((review: TReview, index: number) => (
+        {data &&
+          data.map((review: TReview, index: number) => (
             <div key={index}>
               {review.Content} {review.UserId}
             </div>
