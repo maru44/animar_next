@@ -2,13 +2,15 @@ import { GetServerSideProps, NextPage } from "next";
 import { ParsedUrlQuery } from "querystring";
 import { useEffect, useState } from "react";
 import useSWR from "swr";
+import WatchStateGraph from "../../components/WatchStateGraph";
 import { BACKEND_URL, baseFetcher } from "../../helper/Config";
 import { fetchAnimeReviews, fetchPostReview } from "../../helper/ReviewHelper";
+import { getWatchCountsList } from "../../helper/WatchHelper";
 import { TAnime, TReview } from "../../types/anime";
 
 interface Props {
-  //reviews: TReview[];
   anime: TAnime;
+  watchCounts: number[];
 }
 
 interface Params extends ParsedUrlQuery {
@@ -18,6 +20,7 @@ interface Params extends ParsedUrlQuery {
 const AnimeDetail: NextPage<Props> = (props) => {
   const anime = props.anime;
   console.log(anime);
+  const watchCountsList = props.watchCounts;
 
   const { data, error } = useSWR(
     `${BACKEND_URL}/reviews/anime/?anime=${anime.ID}`,
@@ -45,6 +48,7 @@ const AnimeDetail: NextPage<Props> = (props) => {
             </div>
           ))}
       </div>
+      <WatchStateGraph title="aaaa" lst={watchCountsList}></WatchStateGraph>
       <form onSubmit={startPost}>
         <div className="">
           <label>content</label>
@@ -68,11 +72,15 @@ export const getServerSideProps: GetServerSideProps<Props, Params> = async (
   const slug = ctx.params.slug;
   const res = await fetch(`${BACKEND_URL}/db/anime/?slug=${slug}`);
   const ret = await res.json();
-  const anime = ret["Data"][0];
+  const anime: TAnime = ret["Data"][0];
+
+  const animeId = anime.ID;
+  const watchCountsList = await getWatchCountsList(animeId);
 
   return {
     props: {
       anime: anime,
+      watchCounts: watchCountsList,
     },
   };
 };

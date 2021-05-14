@@ -17,3 +17,8 @@ export type TReview = {
   UpdatedAt: string;
   UserId: string;
 };
+
+export type TWatchCount = {
+  State: number;
+  Count: number;
+};
