@@ -28,6 +28,8 @@ export const fetchPostWatchStates = async (animeId: number, watch: number) => {
   });
   const ret = await res.json();
 
-  const successWatch = ret["Data"];
+  const successWatch = ret["ID"];
   return successWatch;
 };
+
+export const watchStateList = ["脱落", "視聴中", "視聴済", "周回済", "興味"];

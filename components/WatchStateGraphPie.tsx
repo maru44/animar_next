@@ -16,9 +16,9 @@ const WatchStateGraphPie: NextPage<Props> = (props) => {
   const lst = props.lst;
   const dataList = [
     ["脱落", lst[0]],
-    ["視聴中", lst[2]],
-    ["視聴済み", lst[3]],
-    ["周回済み", lst[4]],
+    ["視聴中", lst[1]],
+    ["視聴済み", lst[2]],
+    ["周回済み", lst[3]],
   ];
   const options: HighCharts.Options = {
     title: {
@@ -30,6 +30,7 @@ const WatchStateGraphPie: NextPage<Props> = (props) => {
         type: "pie",
         pointWidth: 25,
         data: dataList,
+        colors: ["#1f1f1f", "#56ff08", "#ff7308", "#ff3508"],
       },
     ],
     yAxis: {

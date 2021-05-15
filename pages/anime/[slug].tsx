@@ -9,6 +9,7 @@ import { fetchAnimeReviews, fetchPostReview } from "../../helper/ReviewHelper";
 import {
   fetchPostWatchStates,
   getWatchCountsList,
+  watchStateList,
 } from "../../helper/WatchHelper";
 import { TAnime, TReview } from "../../types/anime";
 
@@ -51,14 +52,14 @@ const AnimeDetail: NextPage<Props> = (props) => {
   // watch post start
   const startWatchPost = async (e: any) => {
     e.preventDefault();
-    console.log(anime.ID);
-    const watch = e.target.watch.value;
+    // const watch = e.target.watch.value;
+    const watch = e.target.dataset.id;
     const ret = await fetchPostWatchStates(anime.ID, watch);
     console.log(ret);
   };
 
   return (
-    <div>
+    <div className="content mla mra">
       <div className="">
         {anime.ID} {anime.Title}
       </div>
@@ -74,15 +75,19 @@ const AnimeDetail: NextPage<Props> = (props) => {
         title="みんなの視聴状況"
         lst={watchCountsList}
       ></WatchStateGraphPie>
-      <form onSubmit={startWatchPost}>
-        <div className="field">
-          <label>state</label>
-          <input type="number" name="watch" />
-        </div>
-        <div className="field">
-          <button type="submit">post</button>
-        </div>
-      </form>
+      <div className="mt20">興味: {watchCountsList[4]}人</div>
+      <div className="mt20 flexNormal watchStateZone spBw">
+        {watchStateList &&
+          watchStateList.map((st, index) => (
+            <div
+              className="watchStateBtn flexCen"
+              data-id={index}
+              onClick={startWatchPost}
+            >
+              {st}
+            </div>
+          ))}
+      </div>
       <form onSubmit={startPost} className="mt40">
         <div className="">
           <label>content</label>

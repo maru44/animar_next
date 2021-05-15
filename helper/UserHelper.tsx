@@ -1,5 +1,6 @@
 import { BACKEND_URL } from "./Config";
 
+// set cookie by inputed email and password
 export const SetJWTCookie = async (email: string, password: string) => {
   const res = await fetch(`${BACKEND_URL}/auth/login/post/`, {
     method: "POST",
@@ -16,10 +17,39 @@ export const SetJWTCookie = async (email: string, password: string) => {
   return status;
 };
 
+// refresh idToken by refreshToken
 export const RefreshToken = async () => {
   const res = await fetch(`${BACKEND_URL}/auth/refresh/`, {
     method: "GET",
     mode: "cors",
     credentials: "include",
   });
+};
+
+// get user model from idToken(cookie)
+export const getUserModelFromCookie = async () => {
+  const res = await fetch(`${BACKEND_URL}/auth/user/cookie/`, {
+    method: "GET",
+    mode: "cors",
+    credentials: "include",
+  });
+  const ret = await res.json();
+
+  return ret;
+};
+
+export const fetchCurrentUser = async () => {
+  try {
+    const ret = await getUserModelFromCookie();
+    if (ret["Status"] === 4001) {
+      await RefreshToken();
+      const ret = await getUserModelFromCookie();
+      console.log(ret, "re");
+      return ret["User"];
+    } else if (ret["Status"] === 200) {
+      return ret["User"];
+    }
+  } catch (e) {
+    console.log(e);
+  }
 };

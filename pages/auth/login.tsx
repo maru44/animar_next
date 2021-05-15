@@ -1,6 +1,10 @@
 import { NextPage } from "next";
 import { BACKEND_URL } from "../../helper/Config";
-import { SetJWTCookie, RefreshToken } from "../../helper/UserHelper";
+import {
+  SetJWTCookie,
+  RefreshToken,
+  fetchCurrentUser,
+} from "../../helper/UserHelper";
 
 const Login: NextPage = () => {
   const loginStart = async (e: any) => {
@@ -27,6 +31,10 @@ const Login: NextPage = () => {
     });
   };
 
+  const getUserModel = async (e: any) => {
+    await fetchCurrentUser();
+  };
+
   return (
     <div>
       <form onSubmit={loginStart}>
@@ -51,6 +59,11 @@ const Login: NextPage = () => {
         <div className="">
           <button type="button" onClick={getClaims}>
             claim
+          </button>
+        </div>
+        <div className="">
+          <button type="button" onClick={getUserModel}>
+            model
           </button>
         </div>
       </form>

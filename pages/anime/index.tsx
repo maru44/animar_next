@@ -12,17 +12,25 @@ const AnimeList: NextPage<Props> = (props) => {
 
   return (
     <div>
-      <div className="animeList">
-        {animes &&
-          animes.map((anime, index) => (
-            <div className="hrefBox" key={index}>
-              {anime.Title}
-              <Link href="/anime/[slug]" as={`/anime/${anime.Slug}`} passHref>
-                <a className="hrefBoxIn"></a>
-              </Link>
-            </div>
-          ))}
-      </div>
+      <main>
+        <div className="mla mra content">
+          <div className="animeList">
+            {animes &&
+              animes.map((anime, index) => (
+                <div className="hrefBox" key={index}>
+                  {anime.Title}
+                  <Link
+                    href="/anime/[slug]"
+                    as={`/anime/${anime.Slug}`}
+                    passHref
+                  >
+                    <a className="hrefBoxIn"></a>
+                  </Link>
+                </div>
+              ))}
+          </div>
+        </div>
+      </main>
     </div>
   );
 };
