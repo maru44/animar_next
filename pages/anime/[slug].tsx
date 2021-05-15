@@ -2,7 +2,8 @@ import { GetServerSideProps, NextPage } from "next";
 import { ParsedUrlQuery } from "querystring";
 import { useEffect, useState } from "react";
 import useSWR from "swr";
-import WatchStateGraph from "../../components/WatchStateGraph";
+import WatchStateGraphBar from "../../components/WatchStateGraphBar";
+import WatchStateGraphPie from "../../components/WatchStateGraphPie";
 import { BACKEND_URL, baseFetcher } from "../../helper/Config";
 import { fetchAnimeReviews, fetchPostReview } from "../../helper/ReviewHelper";
 import { getWatchCountsList } from "../../helper/WatchHelper";
@@ -48,7 +49,10 @@ const AnimeDetail: NextPage<Props> = (props) => {
             </div>
           ))}
       </div>
-      <WatchStateGraph title="aaaa" lst={watchCountsList}></WatchStateGraph>
+      <WatchStateGraphPie
+        title="みんなの視聴状況"
+        lst={watchCountsList}
+      ></WatchStateGraphPie>
       <form onSubmit={startPost}>
         <div className="">
           <label>content</label>

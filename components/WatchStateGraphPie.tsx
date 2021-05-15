@@ -12,24 +12,26 @@ interface Props {
   title: string;
 }
 
-const WatchStateGraph: NextPage<Props> = (props) => {
+const WatchStateGraphPie: NextPage<Props> = (props) => {
+  const lst = props.lst;
+  const dataList = [
+    ["脱落", lst[0]],
+    ["視聴中", lst[2]],
+    ["完了", lst[3]],
+    ["周回済み", lst[4]],
+  ];
   const options: HighCharts.Options = {
-    chart: {
-      type: "bar",
-    },
     title: {
       text: props.title,
     },
     series: [
       {
-        type: "line",
-        data: props.lst,
+        name: "", //serieas
+        type: "pie",
+        pointWidth: 25,
+        data: dataList,
       },
     ],
-    xAxis: {
-      categories: ["脱落", "興味", "視聴中", "完了", "周回済み"],
-      title: null,
-    },
     yAxis: {
       min: 0,
       title: {
@@ -46,13 +48,24 @@ const WatchStateGraph: NextPage<Props> = (props) => {
         stacking: "normal",
       },
     },
+    /*
+    legend: {
+      layout: "horizontal",
+      align: "center",
+      verticalAlign: "bottom",
+    },
+    */
   };
 
   return (
     <div>
-      <HighChartsReact highcharts={HighCharts} options={options} />
+      <HighChartsReact
+        highcharts={HighCharts}
+        options={options}
+        // constructorType={"stockChart"}
+      />
     </div>
   );
 };
 
-export default WatchStateGraph;
+export default WatchStateGraphPie;
