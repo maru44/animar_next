@@ -17,7 +17,7 @@ const WatchStateGraphPie: NextPage<Props> = (props) => {
   const dataList = [
     ["脱落", lst[0]],
     ["視聴中", lst[2]],
-    ["完了", lst[3]],
+    ["視聴済み", lst[3]],
     ["周回済み", lst[4]],
   ];
   const options: HighCharts.Options = {
@@ -59,11 +59,7 @@ const WatchStateGraphPie: NextPage<Props> = (props) => {
 
   return (
     <div>
-      <HighChartsReact
-        highcharts={HighCharts}
-        options={options}
-        // constructorType={"stockChart"}
-      />
+      <HighChartsReact highcharts={HighCharts} options={options} />
     </div>
   );
 };
