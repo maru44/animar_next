@@ -34,3 +34,17 @@ export type TWatchJoinAnime = {
   Content: string;
   OnAirState: number;
 };
+
+export type TReviewJoinAnime = {
+  ID: number;
+  Content: string;
+  Star: number;
+  AnimeId: number;
+  UserId: string;
+  CreatedAt: string;
+  UpdatedAt: string;
+  Title: string;
+  Slug: string;
+  AnimeContent: string;
+  OnAirState: string;
+};
