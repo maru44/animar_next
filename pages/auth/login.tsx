@@ -1,4 +1,5 @@
 import { NextPage } from "next";
+import Header from "../../components/Header";
 import { BACKEND_URL } from "../../helper/Config";
 import {
   SetJWTCookie,
@@ -37,36 +38,41 @@ const Login: NextPage = () => {
 
   return (
     <div>
-      <form onSubmit={loginStart}>
-        <div className="">
-          <label htmlFor="email">メールアドレス</label>
-          <input type="email" id="email" name="email" required />
+      <Header></Header>
+      <main>
+        <div className="content mla mra">
+          <form onSubmit={loginStart}>
+            <div className="">
+              <label htmlFor="email">メールアドレス</label>
+              <input type="email" id="email" name="email" required />
+            </div>
+            <div className="">
+              <label htmlFor="password">パスワード</label>
+              <input type="password" id="password" name="password" required />
+            </div>
+            <div className="">
+              <button type="submit" className="">
+                ログイン
+              </button>
+            </div>
+            <div className="">
+              <button type="button" onClick={refreshStart}>
+                リフレッシュテスト
+              </button>
+            </div>
+            <div className="">
+              <button type="button" onClick={getClaims}>
+                claim
+              </button>
+            </div>
+            <div className="">
+              <button type="button" onClick={getUserModel}>
+                model
+              </button>
+            </div>
+          </form>
         </div>
-        <div className="">
-          <label htmlFor="password">パスワード</label>
-          <input type="password" id="password" name="password" required />
-        </div>
-        <div className="">
-          <button type="submit" className="">
-            ログイン
-          </button>
-        </div>
-        <div className="">
-          <button type="button" onClick={refreshStart}>
-            リフレッシュテスト
-          </button>
-        </div>
-        <div className="">
-          <button type="button" onClick={getClaims}>
-            claim
-          </button>
-        </div>
-        <div className="">
-          <button type="button" onClick={getUserModel}>
-            model
-          </button>
-        </div>
-      </form>
+      </main>
     </div>
   );
 };

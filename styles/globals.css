@@ -552,6 +552,12 @@ header {
   background-color: #ff9985;
 }
 
+.headerUserArea .imgCircle {
+  width: 40px;
+  height: 40px;
+  border: 1px solid #edf2f7;
+}
+
 /*///////////////
 main
 ///////////////*/
@@ -573,19 +579,21 @@ anime
   color: #fff;
   background-color: #1f1f1f;
   cursor: pointer;
-}
-.watchStateBtn:hover {
   opacity: 0.6;
 }
+.watchStateBtn:hover,
+.watchStateBtn.selected {
+  opacity: 1;
+}
 .watchStateZone .watchStateBtn:nth-child(2) {
-  background-color: #56ff08;
+  background-color: #ffc908;
 }
 .watchStateZone .watchStateBtn:nth-child(3) {
-  background-color: #ff7308;
+  background-color: #56ff08;
 }
 .watchStateZone .watchStateBtn:nth-child(4) {
-  background-color: #ff3508;
+  background-color: #ff7308;
 }
 .watchStateZone .watchStateBtn:nth-child(5) {
-  background-color: #ffc908;
+  background-color: #ff3508;
 }

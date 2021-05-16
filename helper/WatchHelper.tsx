@@ -32,4 +32,23 @@ export const fetchPostWatchStates = async (animeId: number, watch: number) => {
   return successWatch;
 };
 
-export const watchStateList = ["脱落", "視聴中", "視聴済", "周回済", "興味"];
+export const fetchWatchStateDetail = async (animeId: number) => {
+  const res = await fetch(`${BACKEND_URL}/watch/ua/?anime=${animeId}`, {
+    method: "GET",
+    mode: "cors",
+    credentials: "include",
+  });
+  const ret = await res.json();
+  console.log(ret);
+
+  if (ret["Status"] === 4001) {
+    return null;
+  } else {
+    if (ret["ID"] === -1) {
+      return null;
+    }
+    return ret["ID"];
+  }
+};
+
+export const watchStateList = ["脱落", "興味", "視聴中", "視聴済", "周回済"];

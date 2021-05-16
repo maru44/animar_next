@@ -2,6 +2,7 @@ import { GetServerSideProps, NextPage } from "next";
 import { TAnime } from "../../types/anime";
 import { BACKEND_URL } from "../../helper/Config";
 import Link from "next/link";
+import Header from "../../components/Header";
 
 interface Props {
   animes: TAnime[];
@@ -12,6 +13,7 @@ const AnimeList: NextPage<Props> = (props) => {
 
   return (
     <div>
+      <Header></Header>
       <main>
         <div className="mla mra content">
           <div className="animeList">
