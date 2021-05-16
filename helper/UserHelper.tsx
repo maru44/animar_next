@@ -17,6 +17,21 @@ export const SetJWTCookie = async (email: string, password: string) => {
   return status;
 };
 
+export const fetchRegister = async (email: string, password: string) => {
+  const res = await fetch(`${BACKEND_URL}/auth/register/`, {
+    method: "POST",
+    mode: "cors",
+    credentials: "include", // responseからset-cookieを受け取るために必要
+    headers: {
+      "Content-Type": "application/json; charset=utf-8",
+    },
+    body: JSON.stringify({ Email: email, Password: password }),
+  });
+  const ret = await res.json();
+
+  return ret;
+};
+
 // refresh idToken by refreshToken
 export const RefreshToken = async () => {
   const res = await fetch(`${BACKEND_URL}/auth/refresh/`, {
