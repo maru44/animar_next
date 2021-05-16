@@ -35,13 +35,17 @@ const Header: NextPage<Props> = (props) => {
             <div
               className="imgCircle mla hrefBox"
               style={
-                CurrentUser.PhotoURL
-                  ? { backgroundImage: `url(${CurrentUser.PhotoURL})` }
+                CurrentUser.photoURL
+                  ? { backgroundImage: `url(${CurrentUser.photoURL})` }
                   : { backgroundImage: `url(/anonymous.png)` }
               }
-            ></div>
+            >
+              <Link href="/watch/[uid]" as={`/watch/${CurrentUser.rawId}`}>
+                <a className="hrefBoxIn"></a>
+              </Link>
+            </div>
           ) : (
-            <div>
+            <div className="hrefBox">
               ログイン
               <Link href="/auth/login" passHref>
                 <a className="hrefBoxIn"></a>

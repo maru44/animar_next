@@ -406,14 +406,6 @@ break
 /*//////////////////////
 flex
 //////////////////////*/
-
-.flex-cen {
-  display: flex;
-  display: -webkit-flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .flexCen {
   display: flex;
   display: -webkit-flex;
@@ -579,7 +571,8 @@ anime
   color: #fff;
   background-color: #1f1f1f;
   cursor: pointer;
-  opacity: 0.6;
+  opacity: 0.7;
+  text-shadow: 0 0 5px #000;
 }
 .watchStateBtn:hover,
 .watchStateBtn.selected {
@@ -596,4 +589,47 @@ anime
 }
 .watchStateZone .watchStateBtn:nth-child(5) {
   background-color: #ff3508;
+}
+
+/*/////////////
+watch
+/////////////*/
+
+.aWatch {
+  width: 48%;
+  border-radius: 6px;
+  border: 2px solid #1f1f1f;
+  height: 50px;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.aWatch:hover {
+  opacity: 1;
+}
+.aWatch.watch_1 {
+  border-color: #ffc908;
+}
+.aWatch.watch_2 {
+  border-color: #56ff08;
+}
+.aWatch.watch_3 {
+  border-color: #ff7308;
+}
+.aWatch.watch_4 {
+  border-color: #ff3508;
+}
+.aWatch.watch_0:hover {
+  box-shadow: 6px 10px 10px rgba(31, 31, 31, 0.6);
+}
+.aWatch.watch_1:hover {
+  box-shadow: 6px 10px 10px rgba(255, 201, 8, 0.6);
+}
+.aWatch.watch_2:hover {
+  box-shadow: 6px 10px 10px rgba(86, 255, 8, 0.6);
+}
+.aWatch.watch_3:hover {
+  box-shadow: 6px 10px 10px rgba(255, 115, 8, 0.6);
+}
+.aWatch.watch_4:hover {
+  box-shadow: 6px 10px 10px rgba(255, 53, 8, 0.6);
 }

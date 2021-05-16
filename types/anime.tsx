@@ -22,3 +22,15 @@ export type TWatchCount = {
   State: number;
   Count: number;
 };
+
+export type TWatchJoinAnime = {
+  Watch: number;
+  AnimeId: number;
+  UserId: string;
+  CreatedAt: string;
+  UpdatedAt: string;
+  Title: string;
+  Slug: string;
+  Content: string;
+  OnAirState: number;
+};
