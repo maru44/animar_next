@@ -44,7 +44,6 @@ export const fetchCurrentUser = async () => {
     if (ret["Status"] === 4001) {
       await RefreshToken();
       const ret = await getUserModelFromCookie();
-      console.log(ret, "re");
       return ret["User"];
     } else if (ret["Status"] === 200) {
       return ret["User"];

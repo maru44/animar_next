@@ -558,6 +558,7 @@ main
   min-height: calc(100vh - 162px);
   width: 100%;
   max-width: 800px;
+  padding-bottom: 60px;
 }
 
 /*/////////////////
@@ -589,6 +590,20 @@ anime
 }
 .watchStateZone .watchStateBtn:nth-child(5) {
   background-color: #ff3508;
+}
+
+.reviewStars {
+  color: #fff;
+  text-shadow: 0 0 3px #000;
+}
+.reviewStars .star {
+  cursor: pointer;
+}
+.reviewStars .star.active {
+  color: #1f1f1f;
+}
+.reviewStars:hover {
+  opacity: 0.7;
 }
 
 /*/////////////

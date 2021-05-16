@@ -7,6 +7,8 @@ import { TWatchJoinAnime } from "../../types/anime";
 import Header from "../../components/Header";
 import Link from "next/link";
 
+import { watchStateList } from "../../helper/WatchHelper";
+
 interface Props {
   watches: TWatchJoinAnime[];
 }
@@ -15,31 +17,57 @@ interface Params extends ParsedUrlQuery {
 }
 
 const UsersWatch: NextPage<Props> = (props) => {
+  const [selectShow, setSelectShow] = useState<number>(null);
   const [showWatches, setShowWatches] = useState(props.watches);
+
+  const scopeState = (e: any) => {
+    const id = parseInt(e.target.dataset.id);
+    setSelectShow(id);
+  };
+
   return (
     <div>
       <Header></Header>
       <main>
         <div className="content mla mra">
-          <div className="changeWatchStates"></div>
-          <div className="watchListArea flexNormal alCen spBw flexWrap">
-            {showWatches &&
-              showWatches.map((watch, index) => (
+          <div className="mt20 flexNormal watchStateZone spBw">
+            {watchStateList &&
+              watchStateList.map((st, index) => (
                 <div
-                  className={`aWatch hrefBox mt10 watch_${watch.Watch}`}
+                  className={
+                    selectShow && selectShow == index
+                      ? "watchStateBtn flexCen selected"
+                      : "watchStateBtn flexCen"
+                  }
+                  data-id={index}
+                  onClick={scopeState}
                   key={index}
                 >
-                  {watch.Title}
-                  {watch.Watch}
-                  <Link
-                    href="/anime/[slug]"
-                    as={`/anime/${watch.Slug}`}
-                    passHref
-                  >
-                    <a className="hrefBoxIn"></a>
-                  </Link>
+                  {st}
                 </div>
               ))}
+          </div>
+          <div className="watchListArea flexNormal alCen spBw flexWrap mt40">
+            {showWatches &&
+              showWatches.map(
+                (watch, index) =>
+                  (selectShow === null || selectShow === watch.Watch) && (
+                    <div
+                      className={`aWatch hrefBox mt10 watch_${watch.Watch}`}
+                      key={index}
+                    >
+                      {watch.Title}
+                      {watch.Watch}
+                      <Link
+                        href="/anime/[slug]"
+                        as={`/anime/${watch.Slug}`}
+                        passHref
+                      >
+                        <a className="hrefBoxIn"></a>
+                      </Link>
+                    </div>
+                  )
+              )}
           </div>
         </div>
       </main>
