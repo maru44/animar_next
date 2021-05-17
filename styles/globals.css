@@ -524,7 +524,7 @@ header {
 .headerCon {
   height: 56px;
   width: 100%;
-  max-width: 770px;
+  max-width: 800px;
   margin: 0 auto;
 }
 .headerCon .circle {
@@ -648,4 +648,28 @@ watch
 }
 .aWatch.watch_4:hover {
   box-shadow: 6px 10px 10px rgba(255, 53, 8, 0.6);
+}
+
+/*///////////////////
+responsive
+///////////////////*/
+
+@media screen and (max-width: 799px) {
+  .headerCon,
+  .footerCon,
+  .content {
+    padding: 0 6px;
+  }
+  .watchStateBtn {
+    height: 72px;
+  }
+}
+
+@media screen and (max-width: 559px) {
+  .aWatch {
+    width: 100%;
+  }
+  .watchStateBtn {
+    height: 56px;
+  }
 }

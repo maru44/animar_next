@@ -1,4 +1,6 @@
 import { NextPage } from "next";
+import { useRouter } from "next/router";
+import { useSetRecoilState } from "recoil";
 import Header from "../../components/Header";
 import { BACKEND_URL } from "../../helper/Config";
 import {
@@ -6,22 +8,24 @@ import {
   RefreshToken,
   fetchCurrentUser,
 } from "../../helper/UserHelper";
+import CurrentUserState from "../../states/CurrentUser";
 
 const Login: NextPage = () => {
+  const setCurrentUser = useSetRecoilState(CurrentUserState);
+  const router = useRouter();
+
   const loginStart = async (e: any) => {
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
     const ret = await SetJWTCookie(email, password);
     if (ret === 200) {
-      console.log("success");
+      const currentUser = await fetchCurrentUser();
+      setCurrentUser(currentUser);
+      router.push("/anime");
     } else {
       console.log("failed");
     }
-  };
-
-  const refreshStart = async (e: any) => {
-    const res = await RefreshToken();
   };
 
   const getClaims = async (e: any) => {
@@ -53,11 +57,6 @@ const Login: NextPage = () => {
             <div className="">
               <button type="submit" className="">
                 ログイン
-              </button>
-            </div>
-            <div className="">
-              <button type="button" onClick={refreshStart}>
-                リフレッシュテスト
               </button>
             </div>
             <div className="">
