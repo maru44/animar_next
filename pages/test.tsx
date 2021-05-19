@@ -20,6 +20,7 @@ const Test: NextPage = () => {
     const readed = await fileReader(fileTmp);
     setFileName(fileNameTmp);
     setFile(readed);
+    console.log(readed);
   };
 
   const startUpload = async () => {
@@ -32,14 +33,31 @@ const Test: NextPage = () => {
     console.log(ret);
   };
 
+  const startSub = async (e: any) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.set("file", e.target.testimage.files[0]);
+
+    const res = await fetch(`${BACKEND_URL}/test/upload/`, {
+      method: "POST",
+      mode: "cors",
+      body: formData,
+    });
+    const ret = await res.json();
+    console.log(ret);
+  };
+
   return (
     <div>
-      <input
-        onChange={consoleChange}
-        type="file"
-        accept="image/png, image/jpeg"
-        name="testimage"
-      />
+      <form onSubmit={startSub}>
+        <input
+          onChange={consoleChange}
+          type="file"
+          accept="image/png, image/jpeg"
+          name="testimage"
+        />
+        <button type="submit">form</button>
+      </form>
       <div>
         <button className="" onClick={startUpload}>
           画像アップロード
