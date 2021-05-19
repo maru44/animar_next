@@ -120,7 +120,7 @@ const AnimeDetail: NextPage<Props> = (props) => {
               watchStateList.map((st, index) => (
                 <div
                   className={
-                    userWatch && userWatch == index
+                    userWatch !== null && userWatch == index
                       ? "watchStateBtn flexCen selected"
                       : "watchStateBtn flexCen"
                   }

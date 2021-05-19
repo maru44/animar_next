@@ -30,7 +30,7 @@ const WatchStateGraphPie: NextPage<Props> = (props) => {
         type: "pie",
         pointWidth: 25,
         data: dataList,
-        colors: ["#1f1f1f", "#56ff08", "#ff7308", "#ff3508"],
+        colors: ["#fac5b9", "#f25430", "#e82a00", "#a81f00"],
       },
     ],
     yAxis: {
@@ -40,15 +40,20 @@ const WatchStateGraphPie: NextPage<Props> = (props) => {
       },
     },
     plotOptions: {
-      bar: {
+      pie: {
         dataLabels: {
           enabled: true,
+          style: {
+            textOutline: "none",
+            color: "#1f1f1f",
+          },
         },
       },
       series: {
         stacking: "normal",
       },
     },
+
     /*
     legend: {
       layout: "horizontal",

@@ -35,7 +35,7 @@ const UsersWatch: NextPage<Props> = (props) => {
               watchStateList.map((st, index) => (
                 <div
                   className={
-                    selectShow && selectShow == index
+                    selectShow !== null && selectShow == index
                       ? "watchStateBtn flexCen selected"
                       : "watchStateBtn flexCen"
                   }
