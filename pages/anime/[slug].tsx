@@ -6,7 +6,6 @@ import WatchStateGraphPie from "../../components/WatchStateGraphPie";
 import { BACKEND_URL, baseFetcher } from "../../helper/Config";
 import {
   fetchAnimeReviews,
-  fetchPostReview,
   fetchUpsertReviewContent,
   fetchUpsertReviewStar,
   fetchUserAnimeReview,
@@ -51,13 +50,14 @@ const AnimeDetail: NextPage<Props> = (props) => {
       const dataRU = await fetchUserAnimeReview(anime.ID);
       setReviews(dataR);
       setWatchCountsList(dataW);
-      setUserWatch(dataUW);
-      setUserReviewStar(dataRU["Star"]);
-      setUserReviewContent(dataRU["Content"]);
+      dataUW && setUserWatch(dataUW);
+      dataRU && setUserReviewStar(dataRU["Star"]);
+      dataRU && setUserReviewContent(dataRU["Content"]);
     };
     f();
   }, []);
 
+  // useSwr sample
   /*
   const { data: reviews, error } = useSWR(
     `${BACKEND_URL}/reviews/anime/?anime=${anime.ID}`,

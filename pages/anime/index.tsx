@@ -10,6 +10,7 @@ interface Props {
 
 const AnimeList: NextPage<Props> = (props) => {
   const animes = props.animes;
+  console.log(animes);
 
   return (
     <div>
