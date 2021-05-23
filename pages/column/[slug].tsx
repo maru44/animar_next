@@ -22,7 +22,11 @@ const BlogDetail: NextPage<Props> = (props) => {
       <Header></Header>
       <main>
         <div className="mla mra content">
-          <ReactMarkdown plugins={[remarkGfm]} unwrapDisallowed={false}>
+          <ReactMarkdown
+            plugins={[remarkGfm]}
+            className="preWrap"
+            unwrapDisallowed={false}
+          >
             {blog.Content}
           </ReactMarkdown>
         </div>

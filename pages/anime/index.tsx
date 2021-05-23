@@ -20,8 +20,22 @@ const AnimeList: NextPage<Props> = (props) => {
           <div className="animeList">
             {animes &&
               animes.map((anime, index) => (
-                <div className="hrefBox" key={index}>
-                  {anime.Title}
+                <div className="hrefBox oneAnime ovHide mb15" key={index}>
+                  <div className="flexNormal">
+                    <div className="w20 thumb frame">
+                      <img
+                        className="w100 contain"
+                        src={
+                          anime.ThumbUrl
+                            ? `${anime.ThumbUrl}`
+                            : "https://animar-bucket.s3-ap-northeast-1.amazonaws.com/slum.jpg"
+                        }
+                      />
+                    </div>
+                    <div className="flex1">
+                      <h2>{anime.Title}</h2>
+                    </div>
+                  </div>
                   <Link
                     href="/anime/[slug]"
                     as={`/anime/${anime.Slug}`}

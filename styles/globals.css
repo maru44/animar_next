@@ -42,6 +42,16 @@ a {
   background-size: cover !important;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+}
+
 /*//////////////////////
 Href
 //////////////////////*/
@@ -465,6 +475,7 @@ flex
 frame
 //////////////////////////*/
 
+/*
 .frame {
   background-size: cover;
   background-position: center;
@@ -483,6 +494,25 @@ frame
   width: 100%;
   background-position: center;
   background-size: cover;
+}
+*/
+
+.frame {
+  position: relative;
+}
+.frame img.contain {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.frame img.cover {
+  position: absolute;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
 }
 
 /*/////////////////
@@ -548,6 +578,26 @@ header {
   background-color: #ff9985;
 }
 
+.headerCon2 {
+  height: 30px;
+  font-size: 14px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+.headerCon2 > div {
+  background-color: #fff;
+  padding-left: 2px;
+  padding-right: 12px;
+  height: 100%;
+}
+.headerCon2 > div.now {
+  background-color: #fff2f0;
+}
+
+.headerTop {
+  font-size: 24px;
+}
+
 .headerUserArea .imgCircle {
   width: 40px;
   height: 40px;
@@ -563,11 +613,20 @@ main
   width: 100%;
   max-width: 800px;
   padding-bottom: 60px;
+  padding-top: 16px;
 }
 
 /*/////////////////
 anime
 /////////////////*/
+
+.oneAnime .frame {
+  width: 200px;
+  height: 266px;
+}
+.oneAnime .thumb {
+  background-color: #f1f1f1;
+}
 
 .watchStateBtn {
   width: 18%;
@@ -689,6 +748,7 @@ responsive
 @media screen and (max-width: 799px) {
   .headerCon,
   .footerCon,
+  .headerCon2,
   .content {
     padding: 0 6px;
   }

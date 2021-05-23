@@ -76,7 +76,7 @@ const BlogPost: NextPage = () => {
             <h1>{title}</h1>
             <p className="mt20">{abst}</p>
             <ReactMarkdown
-              className="mt20"
+              className="mt20 preWrap"
               plugins={[remarkGfm]}
               unwrapDisallowed={false}
             >

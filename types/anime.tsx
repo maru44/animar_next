@@ -2,7 +2,11 @@ export type TAnime = {
   ID: number;
   Slug: string;
   Title: string;
+  ThumbUrl: string;
+  Abbribation: string;
   Content: string;
+  SeriesId: number;
+  Season: string;
   OnAirState: number;
   CreatedAt: string;
   UpdatedAt: string;
