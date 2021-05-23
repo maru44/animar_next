@@ -12,6 +12,10 @@ a {
   text-decoration: none;
 }
 
+.off {
+  display: none;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -650,6 +654,32 @@ watch
 }
 .aWatch.watch_4:hover {
   box-shadow: 6px 10px 10px rgba(168, 31, 0, 0.6);
+}
+
+/*///////////////////
+blog
+///////////////////*/
+
+.markDown input[type="text"] {
+  max-width: 100%;
+  font-size: 24px;
+  border-radius: 6px;
+  padding: 10px 15px;
+  background-color: #f7f7f7;
+  border: none;
+  box-shadow: 0 0 10px rgba(31, 31, 31, 0.3);
+}
+.markDown textarea {
+  width: 100% !important;
+  max-width: 100%;
+  padding: 10px 15px;
+  border-radius: 6px;
+  background-color: #f7f7f7;
+  border: none;
+  box-shadow: 0 0 10px rgba(31, 31, 31, 0.3);
+}
+.markDown textarea.content {
+  min-height: 300px;
 }
 
 /*///////////////////

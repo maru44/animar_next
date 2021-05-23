@@ -45,4 +45,5 @@ export const getServerSideProps: GetServerSideProps<Props, Params> = async (
     },
   };
 };
+
 export default BlogDetail;

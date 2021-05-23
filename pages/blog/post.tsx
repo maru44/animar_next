@@ -1,15 +1,37 @@
 import { GetServerSideProps, NextPage } from "next";
 import { fetchPostBlog } from "../../helper/BlogHelper";
 import Header from "../../components/Header";
+import { useState } from "react";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 const BlogPost: NextPage = () => {
+  // inputed value
+  const [title, setTitle] = useState<string>(null);
+  const [abst, setAbst] = useState<string>(null);
+  const [prev, setPrev] = useState<string>(null);
+
+  const [isPrev, setIsPrev] = useState<boolean>(false);
+  const [textHeight, setTextHeight] = useState<number>(0);
+
   const startPostBlog = async (e: any) => {
     e.preventDefault();
-    const ret = await fetchPostBlog(
-      e.target.title.value,
-      e.target.abst.value,
-      e.target.content.value
-    );
+    title && prev && (await fetchPostBlog(title, abst, prev));
+  };
+
+  const changePrev = (e: any) => {
+    setPrev(e.target.value);
+    setTextHeight(e.target.scrollHeight); // height auto
+  };
+  const changeTitle = (e: any) => {
+    setTitle(e.target.value);
+  };
+  const changeAbst = (e: any) => {
+    setAbst(e.target.value);
+  };
+
+  const changeIsPrev = () => {
+    setIsPrev(!isPrev);
   };
 
   return (
@@ -17,25 +39,55 @@ const BlogPost: NextPage = () => {
       <Header></Header>
       <main>
         <div className="mla mra content">
-          <form onSubmit={startPostBlog}>
+          <div className="" onClick={changeIsPrev}>
+            プレビュー
+          </div>
+          <div className={isPrev ? "off mt40 markDown" : "mt40 markDown"}>
             <div className="field">
-              <label htmlFor="">タイトル</label>
-              <input type="text" name="title" />
+              <input
+                type="text"
+                placeholder="タイトル"
+                maxLength={64}
+                name="blogtitle"
+                onChange={changeTitle}
+              />
             </div>
-            <div className="mt20">
-              <label>概要</label>
-              <input type="text" name="abst" />
+            <div className="mt20 field">
+              <textarea
+                rows={3}
+                className="abstract"
+                maxLength={160}
+                name="abst"
+                onChange={changeAbst}
+                placeholder="概要: 160文字以内"
+              />
             </div>
-            <div className="mt20">
-              <label>内容</label>
-              <textarea name="content"></textarea>
+            <div className="mt20 field">
+              <textarea
+                name="content"
+                className="content"
+                onChange={changePrev}
+                placeholder="本文: マークダウン形式です"
+                style={{ height: `${textHeight}px` }}
+              ></textarea>
             </div>
-            <div className="mt40">
-              <button type="submit" className="">
-                送信する
-              </button>
-            </div>
-          </form>
+          </div>
+          <div className={isPrev ? "" : "off"}>
+            <h1>{title}</h1>
+            <p className="mt20">{abst}</p>
+            <ReactMarkdown
+              className="mt20"
+              plugins={[remarkGfm]}
+              unwrapDisallowed={false}
+            >
+              {prev}
+            </ReactMarkdown>
+          </div>
+          <div className="mt40">
+            <button type="button" onClick={startPostBlog} className="">
+              送信する
+            </button>
+          </div>
         </div>
       </main>
     </div>
