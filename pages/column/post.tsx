@@ -36,7 +36,6 @@ const BlogPost: NextPage = () => {
 
   return (
     <div>
-      <Header></Header>
       <main>
         <div className="mla mra content">
           <div className="" onClick={changeIsPrev}>

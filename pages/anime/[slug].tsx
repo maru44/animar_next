@@ -104,7 +104,6 @@ const AnimeDetail: NextPage<Props> = (props) => {
 
   return (
     <div>
-      <Header></Header>
       <main>
         <div className="content mla mra">
           <div className="">

@@ -54,20 +54,6 @@ const Header: NextPage<Props> = (props) => {
           )}
         </div>
       </div>
-      <div className="headerCon2 w100 alCen flexNormal">
-        <div className="hrefBox flexCen">
-          アニメ一覧
-          <Link href="/anime" passHref>
-            <a className="hrefBoxIn"></a>
-          </Link>
-        </div>
-        <div className="hrefBox flexCen">
-          コラム
-          <Link href="/column" passHref>
-            <a className="hrefBoxIn"></a>
-          </Link>
-        </div>
-      </div>
     </header>
   );
 };

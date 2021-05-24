@@ -4,6 +4,8 @@ import { RecoilRoot, useSetRecoilState } from "recoil";
 import { fetchCurrentUser } from "../helper/UserHelper";
 import { useRouter } from "next/router";
 import CurrentUserState from "../states/CurrentUser";
+import BaseLayouts from "../components/BaseLayouts";
+import ListHeader from "../components/ListHeader";
 import "../styles/globals.css";
 
 const AppInt = (): null => {
@@ -23,12 +25,27 @@ const AppInt = (): null => {
 };
 
 function MyApp({ Component, pageProps }: AppProps) {
-  return (
-    <RecoilRoot>
-      <Component {...pageProps} />
-      <AppInt />
-    </RecoilRoot>
-  );
+  switch (pageProps.list !== null || pageProps !== undefined) {
+    case pageProps.list < 3:
+      return (
+        <RecoilRoot>
+          <BaseLayouts>
+            <ListHeader list={pageProps.list}></ListHeader>
+            <Component {...pageProps}></Component>
+          </BaseLayouts>
+          <AppInt />
+        </RecoilRoot>
+      );
+    default:
+      return (
+        <RecoilRoot>
+          <BaseLayouts>
+            <Component {...pageProps} />
+          </BaseLayouts>
+          <AppInt />
+        </RecoilRoot>
+      );
+  }
 }
 
 export default MyApp;

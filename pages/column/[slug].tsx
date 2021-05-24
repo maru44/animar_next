@@ -19,7 +19,6 @@ const BlogDetail: NextPage<Props> = (props) => {
 
   return (
     <div>
-      <Header></Header>
       <main>
         <div className="mla mra content">
           <ReactMarkdown

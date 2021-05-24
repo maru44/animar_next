@@ -27,7 +27,6 @@ const UsersWatch: NextPage<Props> = (props) => {
 
   return (
     <div>
-      <Header></Header>
       <main>
         <div className="content mla mra">
           <div className="mt20 flexNormal watchStateZone spBw">

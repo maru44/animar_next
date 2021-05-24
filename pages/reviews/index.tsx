@@ -3,7 +3,6 @@
 
 import { NextPage } from "next";
 import { BACKEND_URL } from "../../helper/Config";
-import { fetchPostReview } from "../../helper/ReviewHelper";
 
 const YourReviews: NextPage = () => {
   const startFetch = async () => {

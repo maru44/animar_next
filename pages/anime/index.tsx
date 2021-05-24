@@ -6,15 +6,16 @@ import Header from "../../components/Header";
 
 interface Props {
   animes: TAnime[];
+  list: 1;
 }
 
 const AnimeList: NextPage<Props> = (props) => {
   const animes = props.animes;
   console.log(animes);
+  console.log(props.list);
 
   return (
     <div>
-      <Header></Header>
       <main>
         <div className="mla mra content">
           <div className="animeList">
@@ -60,6 +61,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (ctx) => {
   return {
     props: {
       animes: animes,
+      list: 1,
     },
   };
 };

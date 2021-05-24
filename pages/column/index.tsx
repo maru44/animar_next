@@ -6,6 +6,7 @@ import Header from "../../components/Header";
 
 interface Props {
   blogs: TBlog[];
+  list: number;
 }
 
 const BlogList: NextPage<Props> = (props) => {
@@ -14,7 +15,6 @@ const BlogList: NextPage<Props> = (props) => {
 
   return (
     <div>
-      <Header></Header>
       <main>
         <div className="mla mra content">
           <div>
@@ -51,6 +51,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (ctx) => {
   return {
     props: {
       blogs: blogs,
+      list: 2,
     },
   };
 };

@@ -42,7 +42,6 @@ const Login: NextPage = () => {
 
   return (
     <div>
-      <Header></Header>
       <main>
         <div className="content mla mra">
           <form onSubmit={loginStart}>

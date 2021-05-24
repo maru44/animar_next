@@ -17,7 +17,6 @@ const UserReviews: NextPage<Props> = (props) => {
 
   return (
     <div>
-      <Header></Header>
       <main>
         <div className="content mla mra">
           {reviews &&
