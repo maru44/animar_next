@@ -106,14 +106,46 @@ const AnimeDetail: NextPage<Props> = (props) => {
     <div>
       <main>
         <div className="content mla mra">
-          <div className="">
-            {anime.ID} {anime.Title}
+          <h1 className="brAll">{anime.Title}</h1>
+          <div className="mt20 reviewStars">
+            {reviewStarList &&
+              reviewStarList.map((star, index) => (
+                <span
+                  className={
+                    userReviewStar && userReviewStar - 1 >= index
+                      ? "mr5 star active"
+                      : "mr5 star"
+                  }
+                  key={index}
+                  data-id={index + 1}
+                >
+                  &#9733;
+                </span>
+              ))}
           </div>
-          <WatchStateGraphPie
-            title="みんなの視聴状況"
-            lst={watchCountsList}
-          ></WatchStateGraphPie>
-          <div className="mt20">興味: {watchCountsList[1]}人</div>
+          <div className="animeDetailTop flexNormal flexWrap alCen mt20">
+            <div className="thumbWrapper">
+              <div className="thumb frame">
+                <img
+                  className="w100 contain"
+                  src={
+                    anime.ThumbUrl
+                      ? `${anime.ThumbUrl}`
+                      : "https://animar-bucket.s3-ap-northeast-1.amazonaws.com/slum.jpg"
+                  }
+                />
+              </div>
+            </div>
+            <div className="flex1">
+              <WatchStateGraphPie
+                title="みんなの視聴状況"
+                lst={watchCountsList}
+              ></WatchStateGraphPie>
+            </div>
+          </div>
+          <div className="mt20">
+            <span className="curiousArea">興味: {watchCountsList[1]}人</span>
+          </div>
           <div className="mt20 flexNormal watchStateZone spBw">
             {watchStateList &&
               watchStateList.map((st, index) => (
@@ -131,41 +163,59 @@ const AnimeDetail: NextPage<Props> = (props) => {
                 </div>
               ))}
           </div>
-          <div className="reviewList mt40">
-            {reviews &&
-              reviews.map((review: TReview, index: number) => (
-                <div key={index}>
-                  {review.Content} {review.Star} {review.UserId}
+          {CurrentUser && (
+            <section className="mt40">
+              {userReviewContent && <div className="">{userReviewContent}</div>}
+              <div className="mt20">
+                <span className="titleSpan ">レビュー</span>
+              </div>
+              <div className="mt20 reviewStars">
+                {reviewStarList &&
+                  reviewStarList.map((star, index) => (
+                    <span
+                      className={
+                        userReviewStar && userReviewStar - 1 >= index
+                          ? "mr5 star active"
+                          : "mr5 star"
+                      }
+                      key={index}
+                      data-id={index + 1}
+                      onClick={startPostStar}
+                    >
+                      &#9733;
+                    </span>
+                  ))}
+              </div>
+              <form onSubmit={startPostContent} className="mt20">
+                <div className="field">
+                  <textarea
+                    name="content"
+                    className="reviewContent"
+                    rows={3}
+                    maxLength={160}
+                    placeholder="一言レビュー"
+                    defaultValue={userReviewContent ? userReviewContent : ""}
+                  />
                 </div>
-              ))}
-          </div>
-          {userReviewContent && <div className="mt20">{userReviewContent}</div>}
-          <div className="mt40 reviewStars">
-            {reviewStarList &&
-              reviewStarList.map((star, index) => (
-                <span
-                  className={
-                    userReviewStar && userReviewStar - 1 >= index
-                      ? "mr5 star active"
-                      : "mr5 star"
-                  }
-                  key={index}
-                  data-id={index + 1}
-                  onClick={startPostStar}
-                >
-                  &#9733;
-                </span>
-              ))}
-          </div>
-          <form onSubmit={startPostContent} className="mt40">
-            <div className="field">
-              <label>content</label>
-              <textarea name="content" rows={5} />
-            </div>
+                <div className="">
+                  <button type="submit">post</button>
+                </div>
+              </form>
+            </section>
+          )}
+          <div className="reviewList mt40">
             <div className="">
-              <button type="submit">post</button>
+              <span className="titleSpan ">みんなのレビュー</span>
             </div>
-          </form>
+            <div className="mt20">
+              {reviews &&
+                reviews.map((review: TReview, index: number) => (
+                  <div key={index} className="mb15">
+                    {review.Content} {review.Star} {review.UserId}
+                  </div>
+                ))}
+            </div>
+          </div>
         </div>
       </main>
     </div>

@@ -1,6 +1,6 @@
 import { GetServerSideProps, NextPage } from "next";
 import { fetchPostBlog } from "../../helper/BlogHelper";
-import Header from "../../components/Header";
+import "github-markdown-css/github-markdown.css";
 import { useState } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -71,11 +71,11 @@ const BlogPost: NextPage = () => {
               ></textarea>
             </div>
           </div>
-          <div className={isPrev ? "" : "off"}>
-            <h1>{title}</h1>
-            <p className="mt20">{abst}</p>
+          <div className={isPrev ? "columnArea mt40" : "columnArea mt40 off"}>
+            <h1 className="brAll">{title}</h1>
+            <p className="mt20 abstract preWrap brAll">{abst}</p>
             <ReactMarkdown
-              className="mt20 preWrap"
+              className="mt40 preWrap brAll"
               plugins={[remarkGfm]}
               unwrapDisallowed={false}
             >

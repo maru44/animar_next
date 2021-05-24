@@ -2,7 +2,7 @@ import { NextPage } from "next";
 import Link from "next/link";
 
 interface Props {
-  list: number;
+  list?: number;
 }
 
 interface AList {
@@ -22,8 +22,10 @@ const ListHeader: NextPage<Props> = (props) => {
         listList.map((lst: AList, index: number) => (
           <div
             className={
-              props.list === index + 1
-                ? "hrefBox flexCen now"
+              props.list
+                ? props.list === index + 1
+                  ? "hrefBox flexCen now"
+                  : "hrefBox flexCen"
                 : "hrefBox flexCen"
             }
           >

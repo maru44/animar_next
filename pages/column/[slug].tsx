@@ -2,7 +2,7 @@ import { GetServerSideProps, NextPage } from "next";
 import { ParsedUrlQuery } from "querystring";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import Header from "../../components/Header";
+import "github-markdown-css/github-markdown.css";
 import { BACKEND_URL } from "../../helper/Config";
 import { TBlog } from "../../types/blog";
 
@@ -21,13 +21,19 @@ const BlogDetail: NextPage<Props> = (props) => {
     <div>
       <main>
         <div className="mla mra content">
-          <ReactMarkdown
-            plugins={[remarkGfm]}
-            className="preWrap"
-            unwrapDisallowed={false}
-          >
-            {blog.Content}
-          </ReactMarkdown>
+          <div className="columnArea">
+            <h1 className="brAll">{blog.Title}</h1>
+            {blog.Abstract && (
+              <p className="mt20 abstract preWrap brAll">{blog.Abstract}</p>
+            )}
+            <ReactMarkdown
+              plugins={[remarkGfm]}
+              className="preWrap mt40 brAll"
+              unwrapDisallowed={false}
+            >
+              {blog.Content}
+            </ReactMarkdown>
+          </div>
         </div>
       </main>
     </div>

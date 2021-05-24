@@ -53,6 +53,14 @@ ul {
   margin: 0;
 }
 
+.titleSpan {
+  font-weight: 800;
+}
+
+.ovHide {
+  overflow: hidden;
+}
+
 /*//////////////////////
 Href
 //////////////////////*/
@@ -164,6 +172,15 @@ margin padding
 }
 .mb50 {
   margin-bottom: 50px;
+}
+.mb45 {
+  margin-bottom: 45px;
+}
+.mb40 {
+  margin-bottom: 40px;
+}
+.mb35 {
+  margin-bottom: 35px;
 }
 .mb30 {
   margin-bottom: 30px;
@@ -628,7 +645,7 @@ anime
   width: 200px;
   height: 266px;
 }
-.oneAnime .thumb {
+.thumb {
   background-color: #f1f1f1;
 }
 
@@ -672,6 +689,31 @@ anime
 }
 .reviewStars:hover {
   opacity: 0.7;
+}
+
+.animeDetailTop .thumbWrapper {
+  width: 30%;
+}
+.animeDetailTop .thumb {
+  padding-top: 133%;
+}
+.curiousArea {
+  padding: 5px 10px;
+  background-color: #ff937a;
+}
+
+.highcharts-container {
+  width: 100% !important;
+}
+
+textarea.reviewContent {
+  width: 100% !important;
+  max-width: 100%;
+  padding: 10px 15px;
+  border-radius: 6px;
+  background-color: #f7f7f7;
+  border: none;
+  box-shadow: 0 0 10px rgba(31, 31, 31, 0.3);
 }
 
 /*/////////////
@@ -745,6 +787,22 @@ blog
   min-height: 300px;
 }
 
+.columnArea .abstract {
+  padding: 1em 0.6em;
+  background-color: #f1f1f1;
+}
+
+.aBlog {
+  border-radius: 6px;
+  padding: 0.5em 0.2em;
+}
+.aBlog .abstractZone {
+  max-height: 72px;
+}
+.aBlog:hover {
+  box-shadow: 0 0 10px rgba(31, 31, 31, 0.3);
+}
+
 /*///////////////////
 responsive
 ///////////////////*/
@@ -767,5 +825,12 @@ responsive
   }
   .watchStateBtn {
     height: 56px;
+  }
+  .animeDetailTop .thumbWrapper {
+    width: 100%;
+  }
+  .animeDetailTop .thumbWrapper .thumb {
+    width: 80%;
+    margin: 0 auto;
   }
 }

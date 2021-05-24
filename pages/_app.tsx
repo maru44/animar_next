@@ -25,27 +25,15 @@ const AppInt = (): null => {
 };
 
 function MyApp({ Component, pageProps }: AppProps) {
-  switch (pageProps.list !== null || pageProps !== undefined) {
-    case pageProps.list < 3:
-      return (
-        <RecoilRoot>
-          <BaseLayouts>
-            <ListHeader list={pageProps.list}></ListHeader>
-            <Component {...pageProps}></Component>
-          </BaseLayouts>
-          <AppInt />
-        </RecoilRoot>
-      );
-    default:
-      return (
-        <RecoilRoot>
-          <BaseLayouts>
-            <Component {...pageProps} />
-          </BaseLayouts>
-          <AppInt />
-        </RecoilRoot>
-      );
-  }
+  return (
+    <RecoilRoot>
+      <BaseLayouts>
+        <ListHeader list={pageProps.list}></ListHeader>
+        <Component {...pageProps}></Component>
+      </BaseLayouts>
+      <AppInt />
+    </RecoilRoot>
+  );
 }
 
 export default MyApp;

@@ -20,11 +20,15 @@ const BlogList: NextPage<Props> = (props) => {
           <div>
             {blogs &&
               blogs.map((blog, index) => (
-                <div key={index} className="mb10 hrefBox">
-                  <h3>{blog.Title}</h3>
-                  <p>
+                <article key={index} className="aBlog mb35 hrefBox ovHide">
+                  <h3 className="ovHide">{blog.Title}</h3>
+                  <p className="mt5 brAll ovHide abstractZone">
+                    {blog.Abstract}
+                  </p>
+                  <p className="mt5">
                     <small>
-                      {blog.CreatedAt} {blog.UserId}
+                      {blog.CreatedAt}
+                      <span className="mla">{blog.UserId}</span>
                     </small>
                   </p>
                   <Link
@@ -34,7 +38,7 @@ const BlogList: NextPage<Props> = (props) => {
                   >
                     <a className="hrefBoxIn"></a>
                   </Link>
-                </div>
+                </article>
               ))}
           </div>
         </div>
