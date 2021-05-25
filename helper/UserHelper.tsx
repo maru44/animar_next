@@ -17,7 +17,11 @@ export const SetJWTCookie = async (email: string, password: string) => {
   return status;
 };
 
-export const fetchRegister = async (email: string, password: string) => {
+export const fetchRegister = async (
+  email: string,
+  password: string,
+  name: string
+) => {
   const res = await fetch(`${BACKEND_URL}/auth/register/`, {
     method: "POST",
     mode: "cors",
@@ -25,7 +29,11 @@ export const fetchRegister = async (email: string, password: string) => {
     headers: {
       "Content-Type": "application/json; charset=utf-8",
     },
-    body: JSON.stringify({ Email: email, Password: password }),
+    body: JSON.stringify({
+      Email: email,
+      Password: password,
+      DisplayName: name,
+    }),
   });
   const ret = await res.json();
 

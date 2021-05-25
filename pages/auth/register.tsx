@@ -8,7 +8,8 @@ const Register: NextPage = () => {
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
-    const ret = await fetchRegister(email, password);
+    const name = e.target.dname.value;
+    const ret = await fetchRegister(email, password, name);
     console.log(ret);
   };
 
@@ -22,12 +23,16 @@ const Register: NextPage = () => {
               <input type="email" id="email" name="email" required />
             </div>
             <div className="field mt10">
+              <label htmlFor="dname">表示名</label>
+              <input type="text" id="dname" name="dname" placeholder="任意" />
+            </div>
+            <div className="field mt10">
               <label htmlFor="password">パスワード</label>
               <input type="password" id="password" name="password" required />
             </div>
             <div className="field mt10">
               <button type="submit" className="">
-                ログイン
+                登録する
               </button>
             </div>
           </form>
