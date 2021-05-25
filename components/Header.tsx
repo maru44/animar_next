@@ -35,8 +35,8 @@ const Header: NextPage<Props> = (props) => {
             <div
               className="imgCircle mla hrefBox"
               style={
-                CurrentUser.photoURL
-                  ? { backgroundImage: `url(${CurrentUser.photoURL})` }
+                CurrentUser.photoUrl
+                  ? { backgroundImage: `url(${CurrentUser.photoUrl})` }
                   : { backgroundImage: `url(/anonymous.png)` }
               }
             >
