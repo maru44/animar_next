@@ -1,6 +1,4 @@
 import { NextPage } from "next";
-import Header from "../../components/Header";
-import { BACKEND_URL } from "../../helper/Config";
 import { fetchRegister } from "../../helper/UserHelper";
 
 const Register: NextPage = () => {

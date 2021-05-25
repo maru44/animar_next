@@ -80,3 +80,20 @@ export const fetchCurrentUser = async () => {
     console.log(e);
   }
 };
+
+export const fetchUpdateProfile = async (e: any) => {
+  let formData = new FormData();
+  formData.set("dname", e.target.dname.value);
+  if (e.target.image.files.length !== 0) {
+    formData.set("image", e.target.image.files[0]);
+  }
+
+  const res = await fetch(`${BACKEND_URL}/auth/profile/update/`, {
+    method: "POST",
+    mode: "cors",
+    credentials: "include",
+    body: formData,
+  });
+  const ret = await res.json();
+  return ret;
+};
