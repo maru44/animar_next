@@ -28,7 +28,11 @@ const BlogList: NextPage<Props> = (props) => {
                   <p className="mt5">
                     <small>
                       {blog.CreatedAt}
-                      <span className="mla">{blog.UserId}</span>
+                      <span className="mla">
+                        {blog.User && blog.User.displayName
+                          ? blog.User.displayName
+                          : "-----"}
+                      </span>
                     </small>
                   </p>
                   <Link

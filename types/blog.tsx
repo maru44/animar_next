@@ -1,3 +1,5 @@
+import { TUser } from "./auth";
+
 export type TBlog = {
   ID: number;
   Slug: string;
@@ -8,6 +10,7 @@ export type TBlog = {
   CreatedAt: string;
   UpdatedAt: string;
   Animes: TMinAnime[];
+  User: TUser;
 };
 
 export type TMinAnime = {
