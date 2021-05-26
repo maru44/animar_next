@@ -5,4 +5,5 @@ export type TUser = {
   photoUrl: string;
   providerId: string;
   rawId: string;
+  isVerify: boolean;
 };

@@ -1,3 +1,4 @@
+import { TUser } from "../types/auth";
 import { BACKEND_URL } from "./Config";
 
 // set cookie by inputed email and password
@@ -57,6 +58,7 @@ export const getUserModelFromCookie = async () => {
     credentials: "include",
   });
   const ret = await res.json();
+  console.log(ret);
 
   return ret;
 };
@@ -70,9 +72,13 @@ export const fetchCurrentUser = async () => {
       if (ret["Status"] === 4002) {
         return null;
       }
-      return ret["User"];
+      const user: TUser = ret["User"];
+      user.isVerify = ret["IsVerify"];
+      return user;
     } else if (ret["Status"] === 200) {
-      return ret["User"];
+      const user: TUser = ret["User"];
+      user.isVerify = ret["IsVerify"];
+      return user;
     } else if (ret["Status"] === 4002) {
       return null;
     }

@@ -1,14 +1,22 @@
 import { NextPage } from "next";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useCurrentUser } from "../hooks/useCurrentUser";
 import Link from "next/link";
+import MessageComponent, { IMessage } from "./Message";
+import ListHeader from "./ListHeader";
 
 interface Props {
   what?: number;
+  list?: number;
 }
 
 const Header: NextPage<Props> = (props) => {
   const { isAuthChecking, CurrentUser } = useCurrentUser();
+  const initialMess: IMessage = {
+    title: "ini",
+    content: "メールを確認して認証を完了してください。",
+  };
+  const [messages, setMessages] = useState<IMessage[]>(null);
   console.log(CurrentUser);
 
   const tabList = useRef(null);
@@ -20,6 +28,16 @@ const Header: NextPage<Props> = (props) => {
         }
     }
     */
+
+  useEffect(() => {
+    if (CurrentUser && !CurrentUser.isVerify) {
+      const messages: IMessage = {
+        title: "メール認証が終了していません",
+        content: "メールを確認して認証を完了してください。",
+      };
+      setMessages([messages]);
+    }
+  }, [CurrentUser]);
 
   return (
     <header>
@@ -54,6 +72,8 @@ const Header: NextPage<Props> = (props) => {
           )}
         </div>
       </div>
+      <ListHeader list={props.list}></ListHeader>
+      <MessageComponent messages={messages}></MessageComponent>
     </header>
   );
 };

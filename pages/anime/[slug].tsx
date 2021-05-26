@@ -193,12 +193,14 @@ const AnimeDetail: NextPage<Props> = (props) => {
                     className="reviewContent"
                     rows={3}
                     maxLength={160}
-                    placeholder="一言レビュー"
+                    placeholder="一言レビュー: 160文字"
                     defaultValue={userReviewContent ? userReviewContent : ""}
                   />
                 </div>
                 <div className="">
-                  <button type="submit">post</button>
+                  <button type="submit">
+                    {userReviewContent ? "編集する" : "投稿する"}
+                  </button>
                 </div>
               </form>
             </section>

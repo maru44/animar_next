@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import CurrentUserState from "../states/CurrentUser";
 import BaseLayouts from "../components/BaseLayouts";
 import ListHeader from "../components/ListHeader";
+import MessageComponent from "../components/Message";
 import "../styles/globals.css";
 
 const AppInt = (): null => {
@@ -27,8 +28,7 @@ const AppInt = (): null => {
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <RecoilRoot>
-      <BaseLayouts>
-        <ListHeader list={pageProps.list}></ListHeader>
+      <BaseLayouts list={pageProps.list}>
         <Component {...pageProps}></Component>
       </BaseLayouts>
       <AppInt />

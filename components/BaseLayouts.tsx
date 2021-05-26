@@ -4,12 +4,13 @@ import Header from "./Header";
 
 interface Props {
   children: ReactNode;
+  list?: number;
 }
 
 const BaseLayouts: NextPage<Props> = (props) => {
   return (
     <div>
-      <Header></Header>
+      <Header list={props.list}></Header>
       {props.children}
     </div>
   );
