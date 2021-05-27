@@ -17,7 +17,7 @@ const Register: NextPage = () => {
   const startRegister = async (e: any) => {
     e.preventDefault();
 
-    const mess: IMessage = { title: "ロード中" };
+    const mess: IMessage = { title: "Now loading ..." };
     messages ? setMessages(addMessage(mess, messages)) : setMessages([mess]);
 
     const email = e.target.email.value;

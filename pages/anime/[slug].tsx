@@ -44,10 +44,10 @@ const AnimeDetail: NextPage<Props> = (props) => {
     const f = async () => {
       const dataR = await baseFetcher(
         `${BACKEND_URL}/reviews/anime/?anime=${anime.ID}`
-      );
-      const dataW = await getWatchCountsList(anime.ID);
-      const dataUW = await fetchWatchStateDetail(anime.ID);
-      const dataRU = await fetchUserAnimeReview(anime.ID);
+      ); // reviews exclude login user
+      const dataW = await getWatchCountsList(anime.ID); // watch state
+      const dataUW = await fetchWatchStateDetail(anime.ID); // user's watch state
+      const dataRU = await fetchUserAnimeReview(anime.ID); //reviews of login user
       setReviews(dataR);
       setWatchCountsList(dataW);
       dataUW && setUserWatch(dataUW);
