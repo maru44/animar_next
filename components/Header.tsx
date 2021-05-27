@@ -4,11 +4,13 @@ import { useCurrentUser } from "../hooks/useCurrentUser";
 import Link from "next/link";
 import MessageComponent, { IMessage } from "./Message";
 import ListHeader from "./ListHeader";
+import UserHeader from "./UserHeader";
 import { DEFAULT_USER_IMAGE } from "../helper/Config";
 
 interface Props {
-  what?: number;
+  kind?: string;
   list?: number;
+  uid?: string;
 }
 
 const Header: NextPage<Props> = (props) => {
@@ -21,14 +23,6 @@ const Header: NextPage<Props> = (props) => {
   console.log(CurrentUser);
 
   const tabList = useRef(null);
-
-  /*
-    if (props.what) {
-        if (tabList.current !== null) {
-            tabList.current.children[props.what - 1].classList.add("now");
-        }
-    }
-    */
 
   useEffect(() => {
     if (CurrentUser && !CurrentUser.isVerify) {
@@ -73,7 +67,10 @@ const Header: NextPage<Props> = (props) => {
           )}
         </div>
       </div>
-      <ListHeader list={props.list}></ListHeader>
+      {props.kind && props.kind === "user" && (
+        <UserHeader uid={props.uid} list={props.list}></UserHeader>
+      )}
+      {!props.kind && <ListHeader list={props.list}></ListHeader>}
       <MessageComponent messages={messages}></MessageComponent>
     </header>
   );

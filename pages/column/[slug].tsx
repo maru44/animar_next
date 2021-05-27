@@ -40,8 +40,8 @@ const BlogDetail: NextPage<Props> = (props) => {
                 <div className="hrefBox">
                   {blog.User.displayName}
                   <Link
-                    href="/watch/[uid]"
-                    as={`/watch/${blog.UserId}`}
+                    href="/column/u/[uid]"
+                    as={`/column/u/${blog.UserId}`}
                     passHref
                   >
                     <a className="hrefBoxIn"></a>

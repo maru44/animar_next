@@ -28,7 +28,11 @@ const AppInt = (): null => {
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <RecoilRoot>
-      <BaseLayouts list={pageProps.list}>
+      <BaseLayouts
+        list={pageProps.list}
+        uid={pageProps.uid}
+        kind={pageProps.kind}
+      >
         <Component {...pageProps}></Component>
       </BaseLayouts>
       <AppInt />

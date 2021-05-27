@@ -3,14 +3,15 @@ import { ParsedUrlQuery } from "querystring";
 import { useState } from "react";
 import { BACKEND_URL } from "../../helper/Config";
 import { TWatchJoinAnime } from "../../types/anime";
-
-import Header from "../../components/Header";
 import Link from "next/link";
 
 import { watchStateList } from "../../helper/WatchHelper";
 
 interface Props {
   watches: TWatchJoinAnime[];
+  kind: string;
+  list: number;
+  uid: string;
 }
 interface Params extends ParsedUrlQuery {
   uid: string;
@@ -84,6 +85,9 @@ export const getServerSideProps: GetServerSideProps<Props, Params> = async (
   return {
     props: {
       watches: data,
+      kind: "user",
+      list: 3,
+      uid: uid,
     },
   };
 };

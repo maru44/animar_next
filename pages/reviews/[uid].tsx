@@ -6,6 +6,9 @@ import { TReviewJoinAnime } from "../../types/anime";
 
 interface Props {
   reviews: TReviewJoinAnime[];
+  kind: string;
+  list: number;
+  uid: string;
 }
 
 interface Params extends ParsedUrlQuery {
@@ -42,6 +45,9 @@ export const getServerSideProps: GetServerSideProps<Props, Params> = async (
   return {
     props: {
       reviews: reviews,
+      kind: "user",
+      list: 2,
+      uid: uid,
     },
   };
 };
