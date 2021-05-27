@@ -4,6 +4,8 @@ import "github-markdown-css/github-markdown.css";
 import { useState } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import { TAnimeMinimum } from "../../types/anime";
+import { fetchSearchAnime } from "../../helper/AnimeHelper";
 
 const BlogPost: NextPage = () => {
   // inputed value
@@ -29,17 +31,45 @@ const BlogPost: NextPage = () => {
   const changeAbst = (e: any) => {
     setAbst(e.target.value);
   };
-
   const changeIsPrev = () => {
     setIsPrev(!isPrev);
+  };
+
+  // relation anime
+  const [relAnime, setRelAnime] = useState<TAnimeMinimum[]>(null);
+  const [searchedAnime, setSearchedAnim] = useState<TAnimeMinimum[]>(null);
+
+  const searchAnime = async (e: any) => {
+    if (e.target.value) {
+      const ret = await fetchSearchAnime(e.target.value);
+      ret["Status"] === 200 && setSearchedAnim(ret["Data"]);
+    }
   };
 
   return (
     <div>
       <main>
         <div className="mla mra content">
-          <div className="" onClick={changeIsPrev}>
-            プレビュー
+          <div className="mt20">
+            <input
+              type="text"
+              name="keyword"
+              placeholder="関連アニメ"
+              onChange={searchAnime}
+              autoComplete="off"
+            />
+            <ul className="selectRelAnime">
+              {searchedAnime &&
+                searchedAnime.map((ani, index) => (
+                  <li key={index} data-id={ani.ID}>
+                    {ani.Title}
+                    <span className="addButton">+</span>
+                  </li>
+                ))}
+            </ul>
+          </div>
+          <div className="mt20" onClick={changeIsPrev}>
+            {isPrev ? "編集に戻る" : "プレビュー"}
           </div>
           <div className={isPrev ? "off mt40 markDown" : "mt40 markDown"}>
             <div className="field">

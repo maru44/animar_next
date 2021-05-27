@@ -52,3 +52,9 @@ export type TReviewJoinAnime = {
   AnimeContent: string;
   OnAirState: string;
 };
+
+export type TAnimeMinimum = {
+  ID: number;
+  Slug: string;
+  Title: string;
+};

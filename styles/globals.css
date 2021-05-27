@@ -813,6 +813,31 @@ blog
   box-shadow: 0 0 10px rgba(31, 31, 31, 0.3);
 }
 
+.selectRelAnime {
+  list-style: none;
+  padding: 0;
+}
+.selectRelAnime li {
+  display: inline-block;
+  margin-right: 24px;
+  padding: 5px 0;
+}
+.selectRelAnime .addButton {
+  display: inline-block;
+  margin-left: 15px;
+  cursor: pointer;
+  color: #fff;
+  background-color: #1f1f1f;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 21px;
+}
+.selectRelAnime .addButton:hover {
+  opacity: 0.6;
+}
+
 /*///////////////////
 responsive
 ///////////////////*/
