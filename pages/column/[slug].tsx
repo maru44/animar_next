@@ -5,6 +5,7 @@ import remarkGfm from "remark-gfm";
 import "github-markdown-css/github-markdown.css";
 import { BACKEND_URL } from "../../helper/Config";
 import { TBlog } from "../../types/blog";
+import Link from "next/link";
 
 interface Props {
   blog: TBlog;
@@ -33,6 +34,23 @@ const BlogDetail: NextPage<Props> = (props) => {
             >
               {blog.Content}
             </ReactMarkdown>
+            <div className="mt40">
+              Author:{" "}
+              {blog.User && blog.User.displayName ? (
+                <div className="hrefBox">
+                  {blog.User.displayName}
+                  <Link
+                    href="/watch/[uid]"
+                    as={`/watch/${blog.UserId}`}
+                    passHref
+                  >
+                    <a className="hrefBoxIn"></a>
+                  </Link>
+                </div>
+              ) : (
+                "----"
+              )}
+            </div>
           </div>
         </div>
       </main>

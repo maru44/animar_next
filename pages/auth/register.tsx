@@ -1,19 +1,48 @@
 import { NextPage } from "next";
-import { fetchRegister } from "../../helper/UserHelper";
+import { useRouter } from "next/router";
+import { useState } from "react";
+import { useSetRecoilState } from "recoil";
+import MessageComponent, {
+  addMessage,
+  IMessage,
+} from "../../components/Message";
+import { fetchCurrentUser, fetchRegister } from "../../helper/UserHelper";
+import CurrentUserState from "../../states/CurrentUser";
 
 const Register: NextPage = () => {
+  const [messages, setMessages] = useState<IMessage[]>(null);
+  const setCurrentUser = useSetRecoilState(CurrentUserState);
+  const router = useRouter();
+
   const startRegister = async (e: any) => {
     e.preventDefault();
+
+    const mess: IMessage = { title: "ロード中" };
+    messages ? setMessages(addMessage(mess, messages)) : setMessages([mess]);
+
     const email = e.target.email.value;
     const password = e.target.password.value;
     const name = e.target.dname.value;
     const ret = await fetchRegister(email, password, name);
-    console.log(ret);
+    if (ret["Status"] === 200) {
+      const CurrentUser = await fetchCurrentUser();
+      setCurrentUser(CurrentUser);
+      setMessages(null);
+      router.push("/anime");
+    } else {
+      setMessages(null);
+      const mess: IMessage = {
+        title: "ユーザーの作成に失敗しました",
+        content: "お手数をおかけしますがもう一度お願いいたします。",
+      };
+      messages ? setMessages(addMessage(mess, messages)) : setMessages([mess]);
+    }
   };
 
   return (
     <div>
       <main>
+        <MessageComponent messages={messages}></MessageComponent>
         <div className="content mla mra">
           <form onSubmit={startRegister}>
             <div className="field">

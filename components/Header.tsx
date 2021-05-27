@@ -4,6 +4,7 @@ import { useCurrentUser } from "../hooks/useCurrentUser";
 import Link from "next/link";
 import MessageComponent, { IMessage } from "./Message";
 import ListHeader from "./ListHeader";
+import { DEFAULT_USER_IMAGE } from "../helper/Config";
 
 interface Props {
   what?: number;
@@ -55,7 +56,7 @@ const Header: NextPage<Props> = (props) => {
               style={
                 CurrentUser.photoUrl
                   ? { backgroundImage: `url(${CurrentUser.photoUrl})` }
-                  : { backgroundImage: `url(/anonymous.png)` }
+                  : { backgroundImage: `url(${DEFAULT_USER_IMAGE})` }
               }
             >
               <Link href="/watch/[uid]" as={`/watch/${CurrentUser.rawId}`}>

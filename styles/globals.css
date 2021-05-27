@@ -625,6 +625,16 @@ header {
   border: 1px solid #edf2f7;
 }
 
+.messageZone {
+  background-color: #1f1f1f;
+  color: #fff;
+  padding: 0.4em 1em;
+  width: 100%;
+  max-width: 800px;
+  word-break: break-all;
+  margin: 0 auto;
+}
+
 /*///////////////
 main
 ///////////////*/

@@ -45,11 +45,11 @@ const Login: NextPage = () => {
       <main>
         <div className="content mla mra">
           <form onSubmit={loginStart}>
-            <div className="">
+            <div className="field">
               <label htmlFor="email">メールアドレス</label>
               <input type="email" id="email" name="email" required />
             </div>
-            <div className="">
+            <div className="field mt20">
               <label htmlFor="password">パスワード</label>
               <input type="password" id="password" name="password" required />
             </div>
