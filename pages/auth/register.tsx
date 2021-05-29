@@ -57,8 +57,8 @@ const Register: NextPage = () => {
               <label htmlFor="password">パスワード</label>
               <input type="password" id="password" name="password" required />
             </div>
-            <div className="field mt10">
-              <button type="submit" className="">
+            <div className="field mt10 wM500px">
+              <button type="submit" className="floatR">
                 登録する
               </button>
             </div>

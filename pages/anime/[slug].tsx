@@ -3,13 +3,18 @@ import { ParsedUrlQuery } from "querystring";
 import { useEffect, useState } from "react";
 import useSWR from "swr";
 import WatchStateGraphPie from "../../components/WatchStateGraphPie";
-import { BACKEND_URL, baseFetcher } from "../../helper/Config";
+import {
+  BACKEND_URL,
+  baseFetcher,
+  DEFAULT_USER_IMAGE,
+} from "../../helper/Config";
 import {
   fetchAnimeReviews,
   fetchUpsertReviewContent,
   fetchUpsertReviewStar,
   fetchUserAnimeReview,
   reviewStarList,
+  fetchAnimeStars,
 } from "../../helper/ReviewHelper";
 import {
   fetchPostWatchStates,
@@ -18,12 +23,11 @@ import {
   watchStateList,
 } from "../../helper/WatchHelper";
 import { TAnime, TReview } from "../../types/anime";
-import Header from "../../components/Header";
 import { useCurrentUser } from "../../hooks/useCurrentUser";
+import Link from "next/link";
 
 interface Props {
   anime: TAnime;
-  watchCounts: number[];
 }
 
 interface Params extends ParsedUrlQuery {
@@ -35,7 +39,8 @@ const AnimeDetail: NextPage<Props> = (props) => {
   const { isAuthChecking, CurrentUser } = useCurrentUser();
 
   const [reviews, setReviews] = useState<TReview[]>(null);
-  const [watchCountsList, setWatchCountsList] = useState(props.watchCounts);
+  const [watchCountsList, setWatchCountsList] = useState(null);
+  const [starAvg, setStarAvg] = useState(null);
   const [userWatch, setUserWatch] = useState<number>(null);
   const [userReviewStar, setUserReviewStar] = useState<number>(null);
   const [userReviewContent, setUserReviewContent] = useState<string>(null);
@@ -46,8 +51,10 @@ const AnimeDetail: NextPage<Props> = (props) => {
         `${BACKEND_URL}/reviews/anime/?anime=${anime.ID}`
       ); // reviews exclude login user
       const dataW = await getWatchCountsList(anime.ID); // watch state
+      const dataS = await fetchAnimeStars(anime.ID);
       const dataUW = await fetchWatchStateDetail(anime.ID); // user's watch state
       const dataRU = await fetchUserAnimeReview(anime.ID); //reviews of login user
+      setStarAvg(dataS);
       setReviews(dataR);
       setWatchCountsList(dataW);
       dataUW && setUserWatch(dataUW);
@@ -87,12 +94,13 @@ const AnimeDetail: NextPage<Props> = (props) => {
     const star = e.target.dataset.id;
     const ret = await fetchUpsertReviewStar(anime.ID, star);
     setUserReviewStar(ret["ID"]);
+    const newAvg = await fetchAnimeStars(anime.ID);
+    setStarAvg(newAvg);
   };
 
   // watch post start
   const startWatchPost = async (e: any) => {
     e.preventDefault();
-    // const watch = e.target.watch.value;
     const watch = e.target.dataset.id;
     const ret = await fetchPostWatchStates(anime.ID, watch);
     console.log(ret);
@@ -107,24 +115,11 @@ const AnimeDetail: NextPage<Props> = (props) => {
       <main>
         <div className="content mla mra">
           <h1 className="brAll">{anime.Title}</h1>
-          <div className="mt20 reviewStars">
-            {reviewStarList &&
-              reviewStarList.map((star, index) => (
-                <span
-                  className={
-                    userReviewStar && userReviewStar - 1 >= index
-                      ? "mr5 star active"
-                      : "mr5 star"
-                  }
-                  key={index}
-                  data-id={index + 1}
-                >
-                  &#9733;
-                </span>
-              ))}
-          </div>
           <div className="animeDetailTop flexNormal flexWrap alCen mt20">
             <div className="thumbWrapper">
+              <div className="avgStar">
+                <strong>&#9733; {starAvg}</strong>
+              </div>
               <div className="thumb frame">
                 <img
                   className="w100 contain"
@@ -137,14 +132,18 @@ const AnimeDetail: NextPage<Props> = (props) => {
               </div>
             </div>
             <div className="flex1">
-              <WatchStateGraphPie
-                title="みんなの視聴状況"
-                lst={watchCountsList}
-              ></WatchStateGraphPie>
+              {watchCountsList && (
+                <WatchStateGraphPie
+                  title="みんなの視聴状況"
+                  lst={watchCountsList}
+                ></WatchStateGraphPie>
+              )}
             </div>
           </div>
           <div className="mt20">
-            <span className="curiousArea">興味: {watchCountsList[1]}人</span>
+            <span className="curiousArea">
+              興味: {watchCountsList && watchCountsList[1]}人
+            </span>
           </div>
           <div className="mt20 flexNormal watchStateZone spBw">
             {watchStateList &&
@@ -197,8 +196,8 @@ const AnimeDetail: NextPage<Props> = (props) => {
                     defaultValue={userReviewContent ? userReviewContent : ""}
                   />
                 </div>
-                <div className="">
-                  <button type="submit">
+                <div className="mt5">
+                  <button type="submit" className="floatR">
                     {userReviewContent ? "編集する" : "投稿する"}
                   </button>
                 </div>
@@ -206,15 +205,40 @@ const AnimeDetail: NextPage<Props> = (props) => {
             </section>
           )}
           <div className="reviewList mt40">
-            <div className="">
-              <span className="titleSpan ">みんなのレビュー</span>
-            </div>
+            <span className="titleSpan ">みんなのレビュー</span>
+            <br />
             <div className="mt20">
               {reviews &&
                 reviews.map((review: TReview, index: number) => (
-                  <div key={index} className="mb15">
-                    {review.Content} {review.Star} {review.UserId}
-                  </div>
+                  <article key={index} className="mb20">
+                    <p>{review.Content}</p>
+                    <div className="mt5 flexNormal hrefBox">
+                      <div
+                        className="imgCircle mla mr20"
+                        style={
+                          review.User && review.User.photoUrl
+                            ? {
+                                backgroundImage: `url(${review.User.photoUrl})`,
+                              }
+                            : { backgroundImage: `url(${DEFAULT_USER_IMAGE})` }
+                        }
+                      ></div>
+                      <p>
+                        {review.User && review.User.displayName
+                          ? review.User.displayName
+                          : "----"}
+                      </p>
+                      {review.User && (
+                        <Link
+                          href="/watch/[uid]"
+                          as={`/watch/${review.UserId}`}
+                          passHref
+                        >
+                          <a className="hrefBoxIn"></a>
+                        </Link>
+                      )}
+                    </div>
+                  </article>
                 ))}
             </div>
           </div>
@@ -232,13 +256,9 @@ export const getServerSideProps: GetServerSideProps<Props, Params> = async (
   const ret = await res.json();
   const anime: TAnime = ret["Data"][0];
 
-  const animeId = anime.ID;
-  const watchCountsList = await getWatchCountsList(animeId);
-
   return {
     props: {
       anime: anime,
-      watchCounts: watchCountsList,
     },
   };
 };

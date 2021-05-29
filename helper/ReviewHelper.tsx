@@ -62,3 +62,12 @@ export const reviewStarList = [
   "大大満足",
   "神",
 ];
+
+export const fetchAnimeStars = async (animeId: number) => {
+  const res = await fetch(`${BACKEND_URL}/reviews/star/?anime=${animeId}`, {
+    mode: "cors",
+    credentials: "include",
+  });
+  const ret = await res.json();
+  return ret["String"];
+};

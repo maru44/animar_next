@@ -28,18 +28,6 @@ const Login: NextPage = () => {
     }
   };
 
-  const getClaims = async (e: any) => {
-    const res = await fetch(`${BACKEND_URL}/auth/cookie/`, {
-      method: "GET",
-      mode: "cors",
-      credentials: "include",
-    });
-  };
-
-  const getUserModel = async (e: any) => {
-    await fetchCurrentUser();
-  };
-
   return (
     <div>
       <main>
@@ -53,19 +41,9 @@ const Login: NextPage = () => {
               <label htmlFor="password">パスワード</label>
               <input type="password" id="password" name="password" required />
             </div>
-            <div className="">
-              <button type="submit" className="">
+            <div className="mt10 wM500px">
+              <button type="submit" className="floatR">
                 ログイン
-              </button>
-            </div>
-            <div className="">
-              <button type="button" onClick={getClaims}>
-                claim
-              </button>
-            </div>
-            <div className="">
-              <button type="button" onClick={getUserModel}>
-                model
               </button>
             </div>
           </form>

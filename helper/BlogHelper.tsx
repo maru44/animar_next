@@ -10,7 +10,8 @@ interface TBlogInput {
 export const fetchPostBlog = async (
   title: string,
   abst: string,
-  content: string
+  content: string,
+  animeIds: number[]
 ) => {
   const res = await fetch(`${BACKEND_URL}/blog/post/`, {
     method: "POST",
@@ -23,6 +24,7 @@ export const fetchPostBlog = async (
       Title: title,
       Abstract: abst,
       Content: content,
+      anime_ids: animeIds,
     }),
   });
   const ret = await res.json();

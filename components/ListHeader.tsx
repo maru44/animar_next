@@ -21,6 +21,7 @@ const ListHeader: NextPage<Props> = (props) => {
       {listList &&
         listList.map((lst: AList, index: number) => (
           <div
+            key={index}
             className={
               props.list
                 ? props.list === index + 1

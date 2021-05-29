@@ -61,6 +61,20 @@ ul {
   overflow: hidden;
 }
 
+.floatR {
+  float: right;
+}
+
+span.circleButton {
+  display: inline-block;
+  cursor: pointer;
+  border-radius: 50%;
+  text-align: center;
+}
+.span.circleButton:hover {
+  opacity: 0.6;
+}
+
 /*//////////////////////
 Href
 //////////////////////*/
@@ -565,6 +579,18 @@ select {
   font-size: 16px;
 }
 
+button[type="submit"] {
+  padding: 0.6em 1em;
+  background-color: #1f1f1f;
+  color: #fff;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
+button[type="submit"]:hover {
+  opacity: 0.6;
+}
+
 /*////////////////
 header
 ////////////////*/
@@ -618,11 +644,22 @@ header {
 .headerTop {
   font-size: 24px;
 }
-
 .headerUserArea .imgCircle {
   width: 40px;
   height: 40px;
   border: 1px solid #edf2f7;
+}
+
+.headerCon .toPostPage {
+  display: block;
+  padding: 0.3em 0.6em;
+  background-color: #1f1f1f;
+  color: #fff;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.headerCon .toPostPage:hover {
+  opacity: 0.6;
 }
 
 .messageZone {
@@ -687,6 +724,12 @@ anime
   background-color: #a81f00;
 }
 
+.avgStar {
+  text-align: center;
+  margin-bottom: 6px;
+  font-size: 40px;
+}
+
 .reviewStars {
   color: #fff;
   text-shadow: 0 0 3px #1f1f1f;
@@ -724,6 +767,13 @@ textarea.reviewContent {
   background-color: #f7f7f7;
   border: none;
   box-shadow: 0 0 10px rgba(31, 31, 31, 0.3);
+  resize: none;
+}
+
+.reviewList .imgCircle {
+  width: 20px;
+  height: 20px;
+  border: 1px solid #edf2f7;
 }
 
 /*/////////////
@@ -792,6 +842,7 @@ blog
   background-color: #f7f7f7;
   border: none;
   box-shadow: 0 0 10px rgba(31, 31, 31, 0.3);
+  resize: none;
 }
 .markDown textarea.content {
   min-height: 300px;
@@ -813,11 +864,13 @@ blog
   box-shadow: 0 0 10px rgba(31, 31, 31, 0.3);
 }
 
-.selectRelAnime {
+.selectRelAnime,
+.selectedRelAnime {
   list-style: none;
   padding: 0;
 }
-.selectRelAnime li {
+.selectRelAnime li,
+.selectedRelAnime li {
   display: inline-block;
   margin-right: 24px;
   padding: 5px 0;
@@ -836,6 +889,35 @@ blog
 }
 .selectRelAnime .addButton:hover {
   opacity: 0.6;
+}
+
+.selectedRelAnime span.circleButton {
+  display: inline-block;
+  margin-left: 15px;
+  cursor: pointer;
+  color: #fff;
+  background-color: #a81f00;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 21px;
+}
+
+.authorZone > div {
+  padding: 0.6em 0.6em;
+  border-radius: 6px;
+  box-shadow: 0 0 10px rgba(31, 31, 31, 0.3);
+}
+.authorZone .imgCircle {
+  height: 60px;
+  width: 60px;
+  border: 1px solid #edf2f7;
+  margin-right: 12px;
+}
+.authorZone p {
+  flex: 1;
+  overflow: hidden;
 }
 
 /*///////////////////

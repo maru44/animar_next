@@ -35,8 +35,8 @@ const EditProfile: NextPage = (props) => {
                 name="image"
               />
             </div>
-            <div className="field mt10">
-              <button type="submit" className="">
+            <div className="field mt40 wM500px">
+              <button type="submit" className="floatR">
                 編集する
               </button>
             </div>

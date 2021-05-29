@@ -35,44 +35,54 @@ const Header: NextPage<Props> = (props) => {
   }, [CurrentUser]);
 
   return (
-    <header>
-      <div className="headerCon w100 alCen flexNormal">
-        <div className="headerTop hrefBox">
-          LoveAni.me
-          <Link href="/anime" passHref>
-            <a className="hrefBoxIn"></a>
-          </Link>
-        </div>
-        <div className="headerUserArea mla">
-          {CurrentUser ? (
-            <div
-              className="imgCircle mla hrefBox"
-              style={
-                CurrentUser.photoUrl
-                  ? { backgroundImage: `url(${CurrentUser.photoUrl})` }
-                  : { backgroundImage: `url(${DEFAULT_USER_IMAGE})` }
-              }
-            >
-              <Link href="/watch/[uid]" as={`/watch/${CurrentUser.rawId}`}>
+    <>
+      <header>
+        <div className="headerCon w100 alCen flexNormal">
+          <div className="headerTop hrefBox">
+            LoveAni.me
+            <Link href="/anime" passHref>
+              <a className="hrefBoxIn"></a>
+            </Link>
+          </div>
+          <div className="headerUserArea mla">
+            {CurrentUser ? (
+              <div
+                className="imgCircle mla hrefBox"
+                style={
+                  CurrentUser.photoUrl
+                    ? { backgroundImage: `url(${CurrentUser.photoUrl})` }
+                    : { backgroundImage: `url(${DEFAULT_USER_IMAGE})` }
+                }
+              >
+                <Link href="/watch/[uid]" as={`/watch/${CurrentUser.rawId}`}>
+                  <a className="hrefBoxIn"></a>
+                </Link>
+              </div>
+            ) : (
+              <div className="hrefBox">
+                ログイン
+                <Link href="/auth/login" passHref>
+                  <a className="hrefBoxIn"></a>
+                </Link>
+              </div>
+            )}
+          </div>
+          <div className="ml20">
+            <span className="toPostPage hrefBox">
+              Column +
+              <Link href="/column/post" passHref>
                 <a className="hrefBoxIn"></a>
               </Link>
-            </div>
-          ) : (
-            <div className="hrefBox">
-              ログイン
-              <Link href="/auth/login" passHref>
-                <a className="hrefBoxIn"></a>
-              </Link>
-            </div>
-          )}
+            </span>
+          </div>
         </div>
-      </div>
-      {props.kind && props.kind === "user" && (
-        <UserHeader uid={props.uid} list={props.list}></UserHeader>
-      )}
-      {!props.kind && <ListHeader list={props.list}></ListHeader>}
-      <MessageComponent messages={messages}></MessageComponent>
-    </header>
+        {props.kind && props.kind === "user" && (
+          <UserHeader uid={props.uid} list={props.list}></UserHeader>
+        )}
+        {!props.kind && <ListHeader list={props.list}></ListHeader>}
+        <MessageComponent messages={messages}></MessageComponent>
+      </header>
+    </>
   );
 };
 

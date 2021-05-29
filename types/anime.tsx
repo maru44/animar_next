@@ -1,3 +1,5 @@
+import { TUser } from "./auth";
+
 export type TAnime = {
   ID: number;
   Slug: string;
@@ -20,6 +22,7 @@ export type TReview = {
   CreatedAt: string;
   UpdatedAt: string;
   UserId: string;
+  User: TUser;
 };
 
 export type TWatchCount = {
@@ -55,6 +58,6 @@ export type TReviewJoinAnime = {
 
 export type TAnimeMinimum = {
   ID: number;
-  Slug: string;
   Title: string;
+  Slug?: string;
 };

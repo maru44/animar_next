@@ -17,14 +17,14 @@ const ColumnElement: NextPage<Props> = (props) => {
         <h3 className="ovHide">{blog.Title}</h3>
         <p className="mt5 brAll ovHide abstractZone">{blog.Abstract}</p>
         <p className="mt5">
-          <small>
-            {blog.CreatedAt}
-            <span className="mla">
+          <small>{blog.CreatedAt}</small>
+          <span className="floatR">
+            <small>
               {blog.User && blog.User.displayName
                 ? blog.User.displayName
                 : "-----"}
-            </span>
-          </small>
+            </small>
+          </span>
         </p>
         <Link href="/column/[slug]" as={`/column/${blog.Slug}`} passHref>
           <a className="hrefBoxIn"></a>
