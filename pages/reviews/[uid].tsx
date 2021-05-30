@@ -1,7 +1,9 @@
 import { GetServerSideProps, NextPage } from "next";
+import Link from "next/link";
 import { ParsedUrlQuery } from "querystring";
 import Header from "../../components/Header";
 import { BACKEND_URL } from "../../helper/Config";
+import { reviewStarList } from "../../helper/ReviewHelper";
 import { TReviewJoinAnime } from "../../types/anime";
 
 interface Props {
@@ -24,9 +26,36 @@ const UserReviews: NextPage<Props> = (props) => {
         <div className="content mla mra">
           {reviews &&
             reviews.map((review, index) => (
-              <div className="usersReview" key={index}>
-                {review.Title}
-              </div>
+              <article className="usersReview mb20 hrefBox" key={index}>
+                <h3 className="flexNormal alCen">{review.Title}</h3>
+                <div className="mt10 reviewStars">
+                  {review.Star &&
+                    reviewStarList &&
+                    reviewStarList.map((star, index) => (
+                      <span
+                        className={
+                          review.Star && review.Star - 1 >= index
+                            ? "mr5 star active"
+                            : "mr5 star"
+                        }
+                        key={index}
+                        data-id={index + 1}
+                      >
+                        &#9733;
+                      </span>
+                    ))}
+                </div>
+                {review.Content && (
+                  <p className="brAll mt10">{review.Content}</p>
+                )}
+                <Link
+                  href="/anime/[slug]"
+                  as={`/anime/${review.Slug}`}
+                  passHref
+                >
+                  <a className="hrefBoxIn"></a>
+                </Link>
+              </article>
             ))}
         </div>
       </main>

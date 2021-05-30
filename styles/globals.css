@@ -670,6 +670,7 @@ header {
   max-width: 800px;
   word-break: break-all;
   margin: 0 auto;
+  border-radius: 6px;
 }
 
 /*///////////////
@@ -819,6 +820,30 @@ watch
 }
 .aWatch.watch_4:hover {
   box-shadow: 6px 10px 10px rgba(168, 31, 0, 0.6);
+}
+
+/*///////////////////
+review
+///////////////////*/
+
+.usersReview {
+  padding: 0.75em 0.5em;
+  border-radius: 6px;
+}
+.usersReview:hover {
+  box-shadow: 0 0 10px rgba(31, 31, 31, 0.3);
+}
+.usersReview h3::before,
+.usersReview h3::after {
+  border-top: 1px solid #1f1f1f;
+  content: "";
+  width: 1.5em;
+}
+.usersReview h3::before {
+  margin-right: 0.75em;
+}
+.usersReview h3::after {
+  margin-left: 0.75em;
 }
 
 /*///////////////////

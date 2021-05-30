@@ -28,9 +28,8 @@ export const fetchPostBlog = async (
     }),
   });
   const ret = await res.json();
-  console.log(ret);
 
-  return ret["ID"];
+  return ret;
 };
 
 export const fetchDeleteBlog = async (id: string) => {
@@ -66,5 +65,5 @@ export const fetchUpdateBlog = async (
   });
   const ret = await res.json();
 
-  return ret["ID"];
+  return ret;
 };

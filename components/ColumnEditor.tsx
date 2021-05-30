@@ -8,6 +8,8 @@ import { fetchSearchAnime } from "../helper/AnimeHelper";
 import { TBlog } from "../types/blog";
 import { extractValueList } from "../helper/BaseHelper";
 import ColumnSelectAnime from "./ColumnSelectAnime";
+import { useRouter } from "next/router";
+import MessageComponent, { IMessage } from "./Message";
 
 interface Props {
   blog?: TBlog;
@@ -15,6 +17,7 @@ interface Props {
 
 const ColumnEditor: NextPage<Props> = (props) => {
   // inputed value
+  const router = useRouter();
   const [title, setTitle] = useState<string>(
     props.blog ? props.blog.Title : null
   );
@@ -24,6 +27,8 @@ const ColumnEditor: NextPage<Props> = (props) => {
   const [prev, setPrev] = useState<string>(
     props.blog ? props.blog.Content : null
   );
+
+  const [mess, setMess] = useState<IMessage[]>(null);
 
   const initialRelAnimeIds: number[] = props.blog
     ? extractValueList(props.blog.Animes, "AnimeId")
@@ -36,7 +41,7 @@ const ColumnEditor: NextPage<Props> = (props) => {
   const [textHeight, setTextHeight] = useState<number>(0);
 
   // relation anime
-  const [changed, setChanged] = useState<number>(1);
+  const [changed, setChanged] = useState<number>(initialRelAnimeIds.length);
   const [relAnimeIds, setRelAnimeIds] = useState<number[]>(initialRelAnimeIds);
   const [relAnimeTitles, setRelAnimeTitles] = useState<string[]>(
     initialRelAnimeTitles
@@ -45,13 +50,27 @@ const ColumnEditor: NextPage<Props> = (props) => {
 
   const startPostBlog = async (e: any) => {
     e.preventDefault();
-    title && prev && (await fetchPostBlog(title, abst, prev, relAnimeIds));
+    if (title && prev) {
+      const mess: IMessage = { title: "送信中" };
+      setMess([mess]);
+      const ret = await fetchPostBlog(title, abst, prev, relAnimeIds);
+      ret["Status"] === 200 && router.push("/column");
+    }
   };
   const startEditBlog = async (e: any) => {
     e.preventDefault();
-    title &&
-      prev &&
-      (await fetchUpdateBlog(props.blog.ID, title, abst, prev, relAnimeIds));
+    const mess: IMessage = { title: "送信中" };
+    setMess([mess]);
+    if (title && prev) {
+      const ret = await fetchUpdateBlog(
+        props.blog.ID,
+        title,
+        abst,
+        prev,
+        relAnimeIds
+      );
+      ret["Status"] === 200 && router.back();
+    }
   };
 
   const changePrev = (e: any) => {
@@ -178,6 +197,7 @@ const ColumnEditor: NextPage<Props> = (props) => {
                 {prev}
               </ReactMarkdown>
             </div>
+            <MessageComponent messages={mess}></MessageComponent>
             <div className="mt20">
               <button type="submit" className="floatR">
                 {props.blog ? "編集する" : "作成する"}
