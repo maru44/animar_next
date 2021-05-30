@@ -785,27 +785,39 @@ watch
   width: 48%;
   border-radius: 6px;
   border: 1px solid rgba(31, 31, 31, 0.3);
-  height: 50px;
+  padding: 0.4em;
   overflow: hidden;
   white-space: nowrap;
 }
 .aWatch:hover {
   opacity: 1;
 }
-/*
-.aWatch.watch_1 {
-  border-color: #ffc908;
+.aWatch p {
+  white-space: normal;
+  display: inherit;
 }
-.aWatch.watch_2 {
-  border-color: #56ff08;
+.aWatch span {
+  display: inline-block;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
 }
-.aWatch.watch_3 {
-  border-color: #ff7308;
+
+.aWatch.watch_0 span {
+  background-color: #fac5b9;
 }
-.aWatch.watch_4 {
-  border-color: #ff3508;
+.aWatch.watch_1 span {
+  background-color: #ff937a;
 }
-*/
+.aWatch.watch_2 span {
+  background-color: #f25430;
+}
+.aWatch.watch_3 span {
+  background-color: #e82a00;
+}
+.aWatch.watch_4 span {
+  background-color: #a81f00;
+}
 .aWatch.watch_0:hover {
   box-shadow: 6px 10px 10px rgba(250, 197, 185, 0.6);
 }
