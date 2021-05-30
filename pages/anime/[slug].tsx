@@ -28,6 +28,7 @@ import Link from "next/link";
 
 interface Props {
   anime: TAnime;
+  stars: string;
 }
 
 interface Params extends ParsedUrlQuery {
@@ -39,8 +40,8 @@ const AnimeDetail: NextPage<Props> = (props) => {
   const { isAuthChecking, CurrentUser } = useCurrentUser();
 
   const [reviews, setReviews] = useState<TReview[]>(null);
-  const [watchCountsList, setWatchCountsList] = useState(null);
-  const [starAvg, setStarAvg] = useState(null);
+  const [watchCountsList, setWatchCountsList] = useState<number[]>(null);
+  const [starAvg, setStarAvg] = useState<string>(props.stars);
   const [userWatch, setUserWatch] = useState<number>(null);
   const [userReviewStar, setUserReviewStar] = useState<number>(null);
   const [userReviewContent, setUserReviewContent] = useState<string>(null);
@@ -51,10 +52,8 @@ const AnimeDetail: NextPage<Props> = (props) => {
         `${BACKEND_URL}/reviews/anime/?anime=${anime.ID}`
       ); // reviews exclude login user
       const dataW = await getWatchCountsList(anime.ID); // watch state
-      const dataS = await fetchAnimeStars(anime.ID);
       const dataUW = await fetchWatchStateDetail(anime.ID); // user's watch state
       const dataRU = await fetchUserAnimeReview(anime.ID); //reviews of login user
-      setStarAvg(dataS);
       setReviews(dataR);
       setWatchCountsList(dataW);
       dataUW && setUserWatch(dataUW);
@@ -256,9 +255,12 @@ export const getServerSideProps: GetServerSideProps<Props, Params> = async (
   const ret = await res.json();
   const anime: TAnime = ret["Data"][0];
 
+  const dataS = await fetchAnimeStars(anime.ID);
+
   return {
     props: {
       anime: anime,
+      stars: dataS,
     },
   };
 };

@@ -904,6 +904,14 @@ blog
   line-height: 21px;
 }
 
+.ownerOnly button {
+  background-color: #1f1f1f;
+  color: #fff;
+  height: 44px;
+  border: none;
+  border-radius: 6px;
+}
+
 .authorZone > div {
   padding: 0.6em 0.6em;
   border-radius: 6px;

@@ -2,10 +2,11 @@ import { GetServerSideProps, NextPage } from "next";
 import { ParsedUrlQuery } from "querystring";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import "github-markdown-css/github-markdown.css";
 import { BACKEND_URL, DEFAULT_USER_IMAGE } from "../../helper/Config";
 import { TBlog } from "../../types/blog";
 import Link from "next/link";
+import { useCurrentUser } from "../../hooks/useCurrentUser";
+import Head from "next/head";
 
 interface Props {
   blog: TBlog;
@@ -16,11 +17,14 @@ interface Params extends ParsedUrlQuery {
 }
 
 const BlogDetail: NextPage<Props> = (props) => {
-  console.log(props);
+  const { isAuthChecking, CurrentUser } = useCurrentUser();
   const blog = props.blog;
 
   return (
     <div>
+      <Head>
+        <meta name="robots" content="nofollow" />
+      </Head>
       <main>
         <div className="mla mra content">
           <div className="columnArea">
@@ -32,9 +36,25 @@ const BlogDetail: NextPage<Props> = (props) => {
               plugins={[remarkGfm]}
               className="preWrap mt40 brAll"
               unwrapDisallowed={false}
+              linkTarget="_new"
             >
               {blog.Content}
             </ReactMarkdown>
+            {CurrentUser && CurrentUser.rawId === blog.UserId && (
+              <div className="mt40 flexNormal spBw ownerOnly">
+                <button className="button hrefBox w48 flexCen">
+                  編集する
+                  <Link
+                    href="/column/update/[id]"
+                    as={`/column/update/${blog.ID}`}
+                    passHref
+                  >
+                    <a className="hrefBoxIn"></a>
+                  </Link>
+                </button>
+                <button className="button hrefBox w48 flexCen">削除する</button>
+              </div>
+            )}
             <div className="mt40 authorZone">
               Author
               {blog.User && blog.User.displayName && (
