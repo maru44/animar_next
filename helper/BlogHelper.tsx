@@ -32,3 +32,39 @@ export const fetchPostBlog = async (
 
   return ret["ID"];
 };
+
+export const fetchDeleteBlog = async (id: string) => {
+  const res = await fetch(`${BACKEND_URL}/blog/delete/?id=${id}`, {
+    method: "DELETE",
+    mode: "cors",
+    credentials: "include",
+  });
+  const ret = await res.json();
+  return ret;
+};
+
+export const fetchUpdateBlog = async (
+  id: number,
+  title: string,
+  abst: string,
+  content: string,
+  animeIds: number[]
+) => {
+  const res = await fetch(`${BACKEND_URL}/blog/update/?id=${id}`, {
+    method: "PUT",
+    mode: "cors",
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json; charset=utf-8",
+    },
+    body: JSON.stringify({
+      Title: title,
+      Abstract: abst,
+      Content: content,
+      anime_ids: animeIds,
+    }),
+  });
+  const ret = await res.json();
+
+  return ret["ID"];
+};

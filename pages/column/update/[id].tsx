@@ -3,6 +3,7 @@ import { ParsedUrlQuery } from "querystring";
 import { TBlog } from "../../../types/blog";
 import { BACKEND_URL } from "../../../helper/Config";
 import ColumnEditor from "../../../components/ColumnEditor";
+import Head from "next/head";
 
 interface Props {
   blog: TBlog;
@@ -13,7 +14,14 @@ interface Params extends ParsedUrlQuery {
 }
 
 const BlogUpdate: NextPage<Props, Params> = (props) => {
-  return <ColumnEditor blog={props.blog}></ColumnEditor>;
+  return (
+    <div>
+      <Head>
+        <meta name="robots" content="nofollow" />
+      </Head>
+      <ColumnEditor blog={props.blog}></ColumnEditor>
+    </div>
+  );
 };
 
 export const getServerSideProps: GetServerSideProps<Props, Params> = async (

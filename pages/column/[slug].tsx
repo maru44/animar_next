@@ -3,10 +3,12 @@ import { ParsedUrlQuery } from "querystring";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { BACKEND_URL, DEFAULT_USER_IMAGE } from "../../helper/Config";
-import { TBlog } from "../../types/blog";
+import { TBlog, TMinAnime } from "../../types/blog";
 import Link from "next/link";
 import { useCurrentUser } from "../../hooks/useCurrentUser";
 import Head from "next/head";
+import { fetchDeleteBlog } from "../../helper/BlogHelper";
+import { useRouter } from "next/router";
 
 interface Props {
   blog: TBlog;
@@ -18,7 +20,14 @@ interface Params extends ParsedUrlQuery {
 
 const BlogDetail: NextPage<Props> = (props) => {
   const { isAuthChecking, CurrentUser } = useCurrentUser();
+  const router = useRouter();
   const blog = props.blog;
+
+  const exeDeleteColumn = async (e: any) => {
+    const id = e.target.dataset.id;
+    const ret = await fetchDeleteBlog(id);
+    ret["Status"] === 200 ? router.back() : console.log(ret);
+  };
 
   return (
     <div>
@@ -29,6 +38,21 @@ const BlogDetail: NextPage<Props> = (props) => {
         <div className="mla mra content">
           <div className="columnArea">
             <h1 className="brAll">{blog.Title}</h1>
+            <div className="mt20 relAnimeList">
+              {blog.Animes &&
+                blog.Animes.map((anime: TMinAnime, idx: number) => (
+                  <span className="hrefBox mr20" key={idx}>
+                    {anime.Title}
+                    <Link
+                      href="/anime/[slug]"
+                      as={`/anime/${blog.Slug}`}
+                      passHref
+                    >
+                      <a className="hrefBoxIn"></a>
+                    </Link>
+                  </span>
+                ))}
+            </div>
             {blog.Abstract && (
               <p className="mt20 abstract preWrap brAll">{blog.Abstract}</p>
             )}
@@ -52,7 +76,13 @@ const BlogDetail: NextPage<Props> = (props) => {
                     <a className="hrefBoxIn"></a>
                   </Link>
                 </button>
-                <button className="button hrefBox w48 flexCen">削除する</button>
+                <button
+                  className="button hrefBox w48 flexCen"
+                  onClick={exeDeleteColumn}
+                  data-id={blog.ID}
+                >
+                  削除する
+                </button>
               </div>
             )}
             <div className="mt40 authorZone">

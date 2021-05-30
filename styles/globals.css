@@ -891,6 +891,16 @@ blog
   opacity: 0.6;
 }
 
+.relAnimeList span {
+  display: inline-block;
+  padding: 0.4em;
+  background-color: #555555;
+  color: #fff;
+  border-radius: 4px;
+  font-size: 0.8em;
+  margin-bottom: 2px;
+}
+
 .selectedRelAnime span.circleButton {
   display: inline-block;
   margin-left: 15px;

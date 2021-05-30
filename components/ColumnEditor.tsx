@@ -3,10 +3,11 @@ import { useState } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { TAnimeMinimum } from "../types/anime";
-import Head from "next/head";
-import { fetchPostBlog } from "../helper/BlogHelper";
+import { fetchPostBlog, fetchUpdateBlog } from "../helper/BlogHelper";
 import { fetchSearchAnime } from "../helper/AnimeHelper";
 import { TBlog } from "../types/blog";
+import { extractValueList } from "../helper/BaseHelper";
+import ColumnSelectAnime from "./ColumnSelectAnime";
 
 interface Props {
   blog?: TBlog;
@@ -14,7 +15,6 @@ interface Props {
 
 const ColumnEditor: NextPage<Props> = (props) => {
   // inputed value
-  console.log(props.blog);
   const [title, setTitle] = useState<string>(
     props.blog ? props.blog.Title : null
   );
@@ -25,22 +25,33 @@ const ColumnEditor: NextPage<Props> = (props) => {
     props.blog ? props.blog.Content : null
   );
 
+  const initialRelAnimeIds: number[] = props.blog
+    ? extractValueList(props.blog.Animes, "AnimeId")
+    : [];
+  const initialRelAnimeTitles: string[] = props.blog
+    ? extractValueList(props.blog.Animes, "Title")
+    : [];
+
   const [isPrev, setIsPrev] = useState<boolean>(false);
   const [textHeight, setTextHeight] = useState<number>(0);
 
   // relation anime
-  const [relAnimeIds, setRelAnimeIds] = useState<number[]>([]);
-  const [relAnimeTitles, setRelAnimeTitles] = useState<string[]>([]);
-  const [searchedAnime, setSearchedAnim] = useState<TAnimeMinimum[]>(null);
+  const [changed, setChanged] = useState<number>(1);
+  const [relAnimeIds, setRelAnimeIds] = useState<number[]>(initialRelAnimeIds);
+  const [relAnimeTitles, setRelAnimeTitles] = useState<string[]>(
+    initialRelAnimeTitles
+  );
+  const [searchedAnime, setSearchedAnime] = useState<TAnimeMinimum[]>(null);
 
   const startPostBlog = async (e: any) => {
     e.preventDefault();
     title && prev && (await fetchPostBlog(title, abst, prev, relAnimeIds));
   };
-
   const startEditBlog = async (e: any) => {
     e.preventDefault();
-    console.log(e);
+    title &&
+      prev &&
+      (await fetchUpdateBlog(props.blog.ID, title, abst, prev, relAnimeIds));
   };
 
   const changePrev = (e: any) => {
@@ -61,71 +72,64 @@ const ColumnEditor: NextPage<Props> = (props) => {
   const searchAnime = async (e: any) => {
     if (e.target.value) {
       const ret = await fetchSearchAnime(e.target.value);
-      ret["Status"] === 200 && setSearchedAnim(ret["Data"]);
+      ret["Status"] === 200 && setSearchedAnime(ret["Data"]);
     }
   };
 
-  const addSelected = (e: any) => {
+  const addSelected = (e: any): null => {
     const id = parseInt(e.target.dataset.id);
     const title = e.target.dataset.title;
     if (!relAnimeIds.includes(id) && relAnimeIds.length < 5) {
+      const newC = changed + 1;
+      setChanged(newC);
       const newIds = relAnimeIds;
       const newTitles = relAnimeTitles;
-      console.log(newIds);
       newIds.push(id);
       newTitles.push(title);
       setRelAnimeIds(newIds);
       setRelAnimeTitles(newTitles);
     }
+    return null;
+  };
+
+  const deleteSelected = (e: any): null => {
+    const newC = changed - 1;
+    setChanged(newC);
+    const idx = parseInt(e.target.dataset.idx);
+    const newIds = relAnimeIds.filter((v, i) => i !== idx);
+    const newTitles = relAnimeTitles.filter((v, i) => i !== idx);
+    setRelAnimeIds(newIds);
+    setRelAnimeTitles(newTitles);
+    console.log(newIds);
+    return null;
   };
 
   return (
     <div>
-      <Head>
-        <meta name="robots" content="nofollow" />
-      </Head>
       <main>
         <div className="mla mra content">
-          <div className={isPrev ? "off mt40" : "mt40"}>
-            <input
-              type="text"
-              name="keyword"
-              placeholder="関連アニメ"
-              onChange={searchAnime}
-              autoComplete="off"
-            />
-            <ul className="selectRelAnime">
-              {searchedAnime &&
-                searchedAnime.map((ani, index) => (
-                  <li key={index}>
-                    {ani.Title}
-                    <span
-                      className="addButton"
-                      data-id={ani.ID}
-                      data-title={ani.Title}
-                      onClick={addSelected}
-                    >
-                      +
-                    </span>
-                  </li>
-                ))}
-            </ul>
-            <ul className="mt20 field selectedRelAnime">
-              {relAnimeTitles.length !== 0 &&
-                relAnimeTitles.map((title, index) => (
-                  <li key={index}>
-                    {title}
-                    <span className="circleButton" data-idx={index}>
-                      -
-                    </span>
-                  </li>
-                ))}
-            </ul>
-          </div>
+          {!isPrev && (
+            <div className="mt40">
+              <input
+                type="text"
+                name="keyword"
+                placeholder="関連アニメ"
+                onChange={searchAnime}
+                autoComplete="off"
+              />
+              <ColumnSelectAnime
+                changed={changed}
+                searchedAnime={searchedAnime}
+                addSelected={addSelected}
+                relAnimeTitles={relAnimeTitles}
+                deleteSelected={deleteSelected}
+              ></ColumnSelectAnime>
+            </div>
+          )}
           <div className="mt20" onClick={changeIsPrev}>
             {isPrev ? "編集に戻る" : "プレビュー"}
           </div>
-          <form onSubmit={props.blog ? startPostBlog : startEditBlog}>
+          <form onSubmit={props.blog ? startEditBlog : startPostBlog}>
             <div className={isPrev ? "off mt40 markDown" : "mt40 markDown"}>
               <div className="field">
                 <input

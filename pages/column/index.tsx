@@ -1,7 +1,7 @@
 import { GetServerSideProps, NextPage } from "next";
 import { TBlog } from "../../types/blog";
 import { BACKEND_URL } from "../../helper/Config";
-import ColumnElement from "../../components/ColuumnElement";
+import ColumnElement from "../../components/ColumnElement";
 
 interface Props {
   blogs: TBlog[];

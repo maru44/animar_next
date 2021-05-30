@@ -1,7 +1,7 @@
 import { GetServerSideProps, NextPage } from "next";
 import { ParsedUrlQuery } from "querystring";
 import { TBlog } from "../../../types/blog";
-import ColumnElement from "../../../components/ColuumnElement";
+import ColumnElement from "../../../components/ColumnElement";
 import { BACKEND_URL } from "../../../helper/Config";
 
 interface Props {
