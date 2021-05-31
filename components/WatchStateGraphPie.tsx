@@ -53,6 +53,18 @@ const WatchStateGraphPie: NextPage<Props> = (props) => {
         stacking: "normal",
       },
     },
+    chart: {
+      height: "72%",
+    },
+    responsive: {
+      rules: [
+        {
+          condition: {
+            minWidth: 0,
+          },
+        },
+      ],
+    },
 
     /*
     legend: {
@@ -65,7 +77,11 @@ const WatchStateGraphPie: NextPage<Props> = (props) => {
 
   return (
     <div>
-      <HighChartsReact highcharts={HighCharts} options={options} />
+      <HighChartsReact
+        //containerProps={{ style: { width: "100%", height: `100%` } }}
+        highcharts={HighCharts}
+        options={options}
+      />
     </div>
   );
 };

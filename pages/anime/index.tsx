@@ -31,7 +31,7 @@ const AnimeList: NextPage<Props> = (props) => {
                       />
                     </div>
                     <div className="flex1">
-                      <h2>{anime.Title}</h2>
+                      <h3>{anime.Title}</h3>
                     </div>
                   </div>
                   <Link

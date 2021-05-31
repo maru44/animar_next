@@ -1,5 +1,5 @@
 import { NextPage } from "next";
-import { TBlog } from "../types/blog";
+import { TBlog, TMinAnime } from "../types/blog";
 import Link from "next/link";
 
 interface Props {
@@ -15,6 +15,15 @@ const ColumnElement: NextPage<Props> = (props) => {
     <>
       <article key={index} className="aBlog mb35 hrefBox ovHide">
         <h3 className="ovHide">{blog.Title}</h3>
+        {blog.Animes && (
+          <div className="mt5 relAnimeList">
+            {blog.Animes.map((anime: TMinAnime, idx: number) => (
+              <span className="hrefBox mr10" key={idx}>
+                {anime.Title}
+              </span>
+            ))}
+          </div>
+        )}
         <p className="mt5 brAll ovHide abstractZone">{blog.Abstract}</p>
         <p className="mt5">
           <small>{blog.CreatedAt}</small>

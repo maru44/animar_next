@@ -689,9 +689,15 @@ main
 anime
 /////////////////*/
 
+.oneAnime {
+  height: 100px;
+}
 .oneAnime .frame {
-  width: 200px;
-  height: 266px;
+  width: 76px;
+  height: 100px;
+}
+.oneAnime .flex1 {
+  padding: 3px 20px 6px 20px;
 }
 .thumb {
   background-color: #f1f1f1;
@@ -756,9 +762,9 @@ anime
   background-color: #ff937a;
 }
 
-.highcharts-container {
+/* .highcharts-container {
   width: 100% !important;
-}
+} */
 
 textarea.reviewContent {
   width: 100% !important;
@@ -937,6 +943,9 @@ blog
   font-size: 0.8em;
   margin-bottom: 2px;
 }
+.aBlog .relAnimeList span {
+  font-size: 0.6em;
+}
 
 .selectedRelAnime span.circleButton {
   display: inline-block;
@@ -1003,6 +1012,12 @@ responsive
   }
 }
 
+@media screen and (max-width: 599px) {
+  /* .highcharts-container {
+    width: 100% !important;
+  } */
+}
+
 @media screen and (max-width: 559px) {
   .aWatch {
     width: 100%;
@@ -1016,5 +1031,8 @@ responsive
   .animeDetailTop .thumbWrapper .thumb {
     width: 80%;
     margin: 0 auto;
+  }
+  .oneAnime {
+    font-size: 13px;
   }
 }

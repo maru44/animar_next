@@ -130,7 +130,7 @@ const AnimeDetail: NextPage<Props> = (props) => {
                 />
               </div>
             </div>
-            <div className="flex1">
+            <div className="flex1" style={{ maxWidth: "100%" }}>
               {watchCountsList && (
                 <WatchStateGraphPie
                   title="みんなの視聴状況"
