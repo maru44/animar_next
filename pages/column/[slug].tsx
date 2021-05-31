@@ -38,9 +38,9 @@ const BlogDetail: NextPage<Props> = (props) => {
         <div className="mla mra content">
           <div className="columnArea">
             <h1 className="brAll">{blog.Title}</h1>
-            <div className="mt20 relAnimeList">
-              {blog.Animes &&
-                blog.Animes.map((anime: TMinAnime, idx: number) => (
+            {blog.Animes && (
+              <div className="mt20 relAnimeList">
+                {blog.Animes.map((anime: TMinAnime, idx: number) => (
                   <span className="hrefBox mr20" key={idx}>
                     {anime.Title}
                     <Link
@@ -52,7 +52,8 @@ const BlogDetail: NextPage<Props> = (props) => {
                     </Link>
                   </span>
                 ))}
-            </div>
+              </div>
+            )}
             {blog.Abstract && (
               <p className="mt20 abstract preWrap brAll">{blog.Abstract}</p>
             )}

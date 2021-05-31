@@ -127,8 +127,13 @@ const ColumnEditor: NextPage<Props> = (props) => {
     <div>
       <main>
         <div className="mla mra content">
+          <div className="mt40" onClick={changeIsPrev}>
+            <span className="prevBtn">
+              {isPrev ? "編集に戻る" : "プレビュー"}
+            </span>
+          </div>
           {!isPrev && (
-            <div className="mt40">
+            <div className="mt20">
               <input
                 type="text"
                 name="keyword"
@@ -145,11 +150,11 @@ const ColumnEditor: NextPage<Props> = (props) => {
               ></ColumnSelectAnime>
             </div>
           )}
-          <div className="mt20" onClick={changeIsPrev}>
-            {isPrev ? "編集に戻る" : "プレビュー"}
-          </div>
-          <form onSubmit={props.blog ? startEditBlog : startPostBlog}>
-            <div className={isPrev ? "off mt40 markDown" : "mt40 markDown"}>
+          <form
+            onSubmit={props.blog ? startEditBlog : startPostBlog}
+            className="mt40"
+          >
+            <div className={isPrev ? "off markDown" : "mt40 markDown"}>
               <div className="field">
                 <input
                   type="text"
@@ -186,8 +191,17 @@ const ColumnEditor: NextPage<Props> = (props) => {
                 ></textarea>
               </div>
             </div>
-            <div className={isPrev ? "columnArea mt40" : "columnArea mt40 off"}>
+            <div className={isPrev ? "columnArea" : "columnArea off"}>
               <h1 className="brAll">{title}</h1>
+              {relAnimeTitles && (
+                <div className="mt20 relAnimeList">
+                  {relAnimeTitles.map((title: string, idx: number) => (
+                    <span className="hrefBox mr20" key={idx}>
+                      {title}
+                    </span>
+                  ))}{" "}
+                </div>
+              )}
               {abst && <p className="mt20 abstract preWrap brAll">{abst}</p>}
               <ReactMarkdown
                 className="mt40 preWrap brAll"

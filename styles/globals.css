@@ -794,13 +794,13 @@ watch
 }
 .aWatch p {
   white-space: normal;
-  display: inherit;
+  display: inline-block;
 }
 .aWatch span {
-  display: inline-block;
+  position: absolute;
   border-radius: 50%;
-  width: 20px;
-  height: 20px;
+  width: 12px;
+  height: 12px;
 }
 
 .aWatch.watch_0 span {
@@ -975,6 +975,17 @@ blog
   overflow: hidden;
 }
 
+.prevBtn {
+  padding: 0.4em;
+  background-color: #555555;
+  color: #fff;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.prevBtn:hover {
+  opacity: 0.6;
+}
+
 /*///////////////////
 responsive
 ///////////////////*/
@@ -984,7 +995,8 @@ responsive
   .footerCon,
   .headerCon2,
   .content {
-    padding: 0 6px;
+    padding-left: 6px;
+    padding-right: 6px;
   }
   .watchStateBtn {
     height: 72px;

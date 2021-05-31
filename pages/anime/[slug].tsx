@@ -209,7 +209,7 @@ const AnimeDetail: NextPage<Props> = (props) => {
             <div className="mt20">
               {reviews &&
                 reviews.map((review: TReview, index: number) => (
-                  <article key={index} className="mb20">
+                  <article key={index} className="mb10">
                     <p>{review.Content}</p>
                     <div className="mt5 flexNormal hrefBox">
                       <div

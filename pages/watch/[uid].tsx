@@ -81,13 +81,11 @@ const UsersWatch: NextPage<Props> = (props) => {
                 (watch, index) =>
                   (selectShow === null || selectShow === watch.Watch) && (
                     <div
-                      className={`aWatch hrefBox mt15 watch_${watch.Watch}`}
+                      className={`aWatch hrefBox mb10 watch_${watch.Watch}`}
                       key={index}
                     >
-                      <p className="brAll">
-                        {watch.Title}
-                        <span></span>
-                      </p>
+                      <span></span>
+                      <p className="brAll flex1 ml20">{watch.Title}</p>
                       <Link
                         href="/anime/[slug]"
                         as={`/anime/${watch.Slug}`}
