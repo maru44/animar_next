@@ -10,6 +10,8 @@ import { extractValueList } from "../helper/BaseHelper";
 import ColumnSelectAnime from "./ColumnSelectAnime";
 import { useRouter } from "next/router";
 import MessageComponent, { IMessage } from "./Message";
+import { useRequireLogin } from "../hooks/useRequireLogin";
+import { useCurrentUser } from "../hooks/useCurrentUser";
 
 interface Props {
   blog?: TBlog;
@@ -17,6 +19,9 @@ interface Props {
 
 const ColumnEditor: NextPage<Props> = (props) => {
   // inputed value
+  useRequireLogin();
+  const { isAuthChecking, CurrentUser } = useCurrentUser();
+
   const router = useRouter();
   const [title, setTitle] = useState<string>(
     props.blog ? props.blog.Title : null
@@ -212,11 +217,15 @@ const ColumnEditor: NextPage<Props> = (props) => {
               </ReactMarkdown>
             </div>
             <MessageComponent messages={mess}></MessageComponent>
-            <div className="mt20">
-              <button type="submit" className="floatR">
-                {props.blog ? "編集する" : "作成する"}
-              </button>
-            </div>
+            {CurrentUser &&
+              CurrentUser.isVerify &&
+              CurrentUser.rawId === props.blog.UserId && (
+                <div className="mt20">
+                  <button type="submit" className="floatR">
+                    {props.blog ? "編集する" : "作成する"}
+                  </button>
+                </div>
+              )}
           </form>
         </div>
       </main>

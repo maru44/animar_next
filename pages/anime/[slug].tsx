@@ -147,7 +147,7 @@ const AnimeDetail: NextPage<Props> = (props) => {
               興味: {watchCountsList && watchCountsList[1]}人
             </span>
           </div>
-          {CurrentUser && watchStateList && (
+          {CurrentUser && CurrentUser.isVerify && watchStateList && (
             <div className="mt20 flexNormal watchStateZone spBw">
               {watchStateList.map((st, index) => (
                 <div
@@ -165,7 +165,7 @@ const AnimeDetail: NextPage<Props> = (props) => {
               ))}
             </div>
           )}
-          {CurrentUser && (
+          {CurrentUser && CurrentUser.isVerify && (
             <section className="mt40">
               {userReviewContent && <div className="">{userReviewContent}</div>}
               <div className="mt20">
