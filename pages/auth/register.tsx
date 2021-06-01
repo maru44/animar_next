@@ -1,4 +1,5 @@
 import { NextPage } from "next";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useSetRecoilState } from "recoil";
@@ -22,21 +23,38 @@ const Register: NextPage = () => {
 
     const email = e.target.email.value;
     const password = e.target.password.value;
+    const password2 = e.target.password2.value;
     const name = e.target.dname.value;
-    const ret = await fetchRegister(email, password, name);
-    if (ret["Status"] === 200) {
-      const CurrentUser = await fetchCurrentUser();
-      setCurrentUser(CurrentUser);
-      setMessages(null);
-      router.push("/anime");
-    } else {
+    // if password not correspond
+    if (password !== password2) {
       setMessages(null);
       const mess: IMessage = {
-        title: "ユーザーの作成に失敗しました",
+        title: "パスワードが一致しません",
         content: "お手数をおかけしますがもう一度お願いいたします。",
       };
       messages ? setMessages(addMessage(mess, messages)) : setMessages([mess]);
+    } else {
+      const ret = await fetchRegister(email, password, name);
+      switch (ret["Status"]) {
+        case 200:
+          const CurrentUser = await fetchCurrentUser();
+          setCurrentUser(CurrentUser);
+          setMessages(null);
+          router.push("/anime");
+          break;
+        default:
+          setMessages(null);
+          const mess: IMessage = {
+            title: "ユーザーの作成に失敗しました",
+            content: "お手数をおかけしますがもう一度お願いいたします。",
+          };
+          messages
+            ? setMessages(addMessage(mess, messages))
+            : setMessages([mess]);
+          break;
+      }
     }
+    return;
   };
 
   return (
@@ -57,12 +75,21 @@ const Register: NextPage = () => {
               <label htmlFor="password">パスワード</label>
               <input type="password" id="password" name="password" required />
             </div>
+            <div className="field mt10">
+              <label htmlFor="password2">確認用パスワード</label>
+              <input type="password" id="password2" name="password2" required />
+            </div>
             <div className="field mt10 wM500px">
               <button type="submit" className="floatR">
                 登録する
               </button>
             </div>
           </form>
+          <div className="mt100">
+            <Link href="/auth/login" passHref>
+              <a className="">ログイン</a>
+            </Link>
+          </div>
         </div>
       </main>
     </div>

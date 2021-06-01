@@ -29,6 +29,7 @@ import Link from "next/link";
 interface Props {
   anime: TAnime;
   stars: string;
+  reviews: TReview[];
 }
 
 interface Params extends ParsedUrlQuery {
@@ -39,7 +40,7 @@ const AnimeDetail: NextPage<Props> = (props) => {
   const anime = props.anime;
   const { isAuthChecking, CurrentUser } = useCurrentUser();
 
-  const [reviews, setReviews] = useState<TReview[]>(null);
+  const [reviews, setReviews] = useState<TReview[]>(props.reviews);
   const [watchCountsList, setWatchCountsList] = useState<number[]>(null);
   const [starAvg, setStarAvg] = useState<string>(props.stars);
   const [userWatch, setUserWatch] = useState<number>(null);
@@ -48,13 +49,13 @@ const AnimeDetail: NextPage<Props> = (props) => {
 
   useEffect(() => {
     const f = async () => {
-      const dataR = await baseFetcher(
-        `${BACKEND_URL}/reviews/anime/?anime=${anime.ID}`
-      ); // reviews exclude login user
+      // const dataR = await baseFetcher(
+      //   `${BACKEND_URL}/reviews/anime/?anime=${anime.ID}`
+      // );
       const dataW = await getWatchCountsList(anime.ID); // watch state
       const dataUW = await fetchWatchStateDetail(anime.ID); // user's watch state
       const dataRU = await fetchUserAnimeReview(anime.ID); //reviews of login user
-      setReviews(dataR);
+      //setReviews(dataR);
       setWatchCountsList(dataW);
       dataUW && setUserWatch(dataUW);
       dataRU && setUserReviewStar(dataRU["Star"]);
@@ -109,6 +110,8 @@ const AnimeDetail: NextPage<Props> = (props) => {
     setWatchCountsList(newWatchCountsList);
   };
 
+  console.log(reviews);
+
   return (
     <div>
       <main>
@@ -144,9 +147,9 @@ const AnimeDetail: NextPage<Props> = (props) => {
               興味: {watchCountsList && watchCountsList[1]}人
             </span>
           </div>
-          <div className="mt20 flexNormal watchStateZone spBw">
-            {watchStateList &&
-              watchStateList.map((st, index) => (
+          {CurrentUser && watchStateList && (
+            <div className="mt20 flexNormal watchStateZone spBw">
+              {watchStateList.map((st, index) => (
                 <div
                   className={
                     userWatch !== null && userWatch == index
@@ -160,7 +163,8 @@ const AnimeDetail: NextPage<Props> = (props) => {
                   {st}
                 </div>
               ))}
-          </div>
+            </div>
+          )}
           {CurrentUser && (
             <section className="mt40">
               {userReviewContent && <div className="">{userReviewContent}</div>}
@@ -208,37 +212,42 @@ const AnimeDetail: NextPage<Props> = (props) => {
             <br />
             <div className="mt20">
               {reviews &&
-                reviews.map((review: TReview, index: number) => (
-                  <article key={index} className="mb10">
-                    <p>{review.Content}</p>
-                    <div className="mt5 flexNormal hrefBox">
-                      <div
-                        className="imgCircle mla mr20"
-                        style={
-                          review.User && review.User.photoUrl
-                            ? {
-                                backgroundImage: `url(${review.User.photoUrl})`,
-                              }
-                            : { backgroundImage: `url(${DEFAULT_USER_IMAGE})` }
-                        }
-                      ></div>
-                      <p>
-                        {review.User && review.User.displayName
-                          ? review.User.displayName
-                          : "----"}
-                      </p>
-                      {review.User && (
-                        <Link
-                          href="/watch/[uid]"
-                          as={`/watch/${review.UserId}`}
-                          passHref
-                        >
-                          <a className="hrefBoxIn"></a>
-                        </Link>
-                      )}
-                    </div>
-                  </article>
-                ))}
+                reviews.map(
+                  (review: TReview, index: number) =>
+                    review.Content && (
+                      <article key={index} className="mb10">
+                        <p>{review.Content}</p>
+                        <div className="mt5 flexNormal hrefBox">
+                          <div
+                            className="imgCircle mla mr20"
+                            style={
+                              review.User && review.User.photoUrl
+                                ? {
+                                    backgroundImage: `url(${review.User.photoUrl})`,
+                                  }
+                                : {
+                                    backgroundImage: `url(${DEFAULT_USER_IMAGE})`,
+                                  }
+                            }
+                          ></div>
+                          <p>
+                            {review.User && review.User.displayName
+                              ? review.User.displayName
+                              : "----"}
+                          </p>
+                          {review.User && (
+                            <Link
+                              href="/watch/[uid]"
+                              as={`/watch/${review.UserId}`}
+                              passHref
+                            >
+                              <a className="hrefBoxIn"></a>
+                            </Link>
+                          )}
+                        </div>
+                      </article>
+                    )
+                )}
             </div>
           </div>
         </div>
@@ -255,12 +264,17 @@ export const getServerSideProps: GetServerSideProps<Props, Params> = async (
   const ret = await res.json();
   const anime: TAnime = ret["Data"][0];
 
+  const dataR = await baseFetcher(
+    `${BACKEND_URL}/reviews/anime/?anime=${anime.ID}`
+  );
+
   const dataS = await fetchAnimeStars(anime.ID);
 
   return {
     props: {
       anime: anime,
       stars: dataS,
+      reviews: dataR,
     },
   };
 };

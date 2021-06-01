@@ -1,4 +1,5 @@
 import { NextPage } from "next";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { useSetRecoilState } from "recoil";
 import Header from "../../components/Header";
@@ -47,6 +48,11 @@ const Login: NextPage = () => {
               </button>
             </div>
           </form>
+          <div className="mt100">
+            <Link href="/auth/register" passHref>
+              <a className="">新規登録</a>
+            </Link>
+          </div>
         </div>
       </main>
     </div>
