@@ -2,6 +2,7 @@ import { GetServerSideProps, NextPage } from "next";
 import { TAnime } from "../../types/anime";
 import { BACKEND_URL } from "../../helper/Config";
 import Link from "next/link";
+import AnimeElement from "../../components/AnimeElement";
 
 interface Props {
   animes: TAnime[];
@@ -18,30 +19,7 @@ const AnimeList: NextPage<Props> = (props) => {
           <div className="animeList">
             {animes &&
               animes.map((anime, index) => (
-                <div className="hrefBox oneAnime ovHide mb15" key={index}>
-                  <div className="flexNormal">
-                    <div className="w20 thumb frame">
-                      <img
-                        className="w100 contain"
-                        src={
-                          anime.ThumbUrl
-                            ? `${anime.ThumbUrl}`
-                            : "https://animar-bucket.s3-ap-northeast-1.amazonaws.com/slum.jpg"
-                        }
-                      />
-                    </div>
-                    <div className="flex1">
-                      <h3>{anime.Title}</h3>
-                    </div>
-                  </div>
-                  <Link
-                    href="/anime/[slug]"
-                    as={`/anime/${anime.Slug}`}
-                    passHref
-                  >
-                    <a className="hrefBoxIn"></a>
-                  </Link>
-                </div>
+                <AnimeElement index={index} anime={anime}></AnimeElement>
               ))}
           </div>
         </div>

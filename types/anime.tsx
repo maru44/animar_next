@@ -61,3 +61,20 @@ export type TAnimeMinimum = {
   Title: string;
   Slug?: string;
 };
+
+export type TAnimeAdmin = {
+  ID: number;
+  Slug: string;
+  Title: string;
+  Abbreviation: string;
+  Kana: string;
+  EngName: string;
+  ThumbUrl: string;
+  Content: string;
+  OnAirState: number;
+  Series: number;
+  Season: string;
+  Stories: string;
+  CreatedAt: string;
+  UpdatedAt: string;
+};
