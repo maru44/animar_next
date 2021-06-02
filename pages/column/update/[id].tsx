@@ -17,7 +17,7 @@ const BlogUpdate: NextPage<Props, Params> = (props) => {
   return (
     <div>
       <Head>
-        <meta name="robots" content="nofollow" />
+        <meta name="robots" content="nofollow noopener noreferrer" />
       </Head>
       <ColumnEditor blog={props.blog}></ColumnEditor>
     </div>

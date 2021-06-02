@@ -29,9 +29,17 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <RecoilRoot>
       <BaseLayouts
+        // header
         list={pageProps.list}
         uid={pageProps.uid}
         kind={pageProps.kind}
+        // head
+        title={pageProps.title}
+        ogType={pageProps.ogType}
+        ogImage={pageProps.ogImage}
+        ogDescription={pageProps.ogDescription}
+        ogSeoDescription={pageProps.ogSeoDescription}
+        robots={pageProps.robots}
       >
         <Component {...pageProps}></Component>
       </BaseLayouts>

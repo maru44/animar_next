@@ -30,6 +30,8 @@ interface Props {
   anime: TAnime;
   stars: string;
   reviews: TReview[];
+  title: string;
+  ogType: string;
 }
 
 interface Params extends ParsedUrlQuery {
@@ -117,8 +119,6 @@ const AnimeDetail: NextPage<Props> = (props) => {
     const newWatchCountsList = await getWatchCountsList(anime.ID);
     setWatchCountsList(newWatchCountsList);
   };
-
-  console.log(reviews);
 
   return (
     <div>
@@ -284,6 +284,8 @@ export const getServerSideProps: GetServerSideProps<Props, Params> = async (
       anime: anime,
       stars: dataS,
       reviews: dataR,
+      title: anime.Title,
+      ogType: "article",
     },
   };
 };

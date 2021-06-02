@@ -78,3 +78,11 @@ export type TAnimeAdmin = {
   CreatedAt: string;
   UpdatedAt: string;
 };
+
+export type TSeries = {
+  ID: number;
+  EngName: string;
+  SeriesName: string;
+  CreatedAt: string;
+  UpdatedAt: string;
+};

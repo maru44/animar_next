@@ -12,6 +12,9 @@ import { useRouter } from "next/router";
 
 interface Props {
   blog: TBlog;
+  title: string;
+  robots: string;
+  ogType: string;
 }
 
 interface Params extends ParsedUrlQuery {
@@ -32,7 +35,7 @@ const BlogDetail: NextPage<Props> = (props) => {
   return (
     <div>
       <Head>
-        <meta name="robots" content="nofollow" />
+        <meta name="robots" content="nofollow " />
       </Head>
       <main>
         <div className="mla mra content">
@@ -127,6 +130,9 @@ export const getServerSideProps: GetServerSideProps<Props, Params> = async (
   return {
     props: {
       blog: blog,
+      title: blog["Title"],
+      robots: "nofollow",
+      ogType: "article",
     },
   };
 };

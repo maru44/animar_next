@@ -16,7 +16,9 @@ const HeadCustom: NextPage<Props> = (props) => {
       <Head>
         <meta charSet="utf-8" />
         <title>
-          {props.title ? props.title : "loveAnime | アニメ好きのためのサイト"}
+          {props.title
+            ? `loveAnime - ${props.title}`
+            : "loveAnime | アニメ好きのためのサイト"}
         </title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta
