@@ -767,9 +767,9 @@ anime
   background-color: #ff937a;
 }
 
-/* .highcharts-container {
-  width: 100% !important;
-} */
+.graphWrapper {
+  width: 70%;
+}
 
 textarea.reviewContent {
   width: 100% !important;
@@ -1018,9 +1018,6 @@ responsive
 }
 
 @media screen and (max-width: 599px) {
-  /* .highcharts-container {
-    width: 100% !important;
-  } */
 }
 
 @media screen and (max-width: 559px) {
@@ -1039,5 +1036,8 @@ responsive
   }
   .oneAnime {
     font-size: 13px;
+  }
+  .graphWrapper {
+    width: 100%;
   }
 }

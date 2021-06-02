@@ -46,6 +46,7 @@ const AnimeDetail: NextPage<Props> = (props) => {
   const [userWatch, setUserWatch] = useState<number>(null);
   const [userReviewStar, setUserReviewStar] = useState<number>(null);
   const [userReviewContent, setUserReviewContent] = useState<string>(null);
+  const [wid, setWid] = useState<number>(null);
 
   useEffect(() => {
     const f = async () => {
@@ -56,10 +57,17 @@ const AnimeDetail: NextPage<Props> = (props) => {
       const dataUW = await fetchWatchStateDetail(anime.ID); // user's watch state
       const dataRU = await fetchUserAnimeReview(anime.ID); //reviews of login user
       //setReviews(dataR);
-      setWatchCountsList(dataW);
+      const wid =
+        window.innerWidth > 800
+          ? 800 * 0.68
+          : window.innerWidth < 559
+          ? window.innerWidth - 12
+          : window.innerWidth * 0.68;
+      setWid(wid);
       dataUW && setUserWatch(dataUW);
       dataRU && setUserReviewStar(dataRU["Star"]);
       dataRU && setUserReviewContent(dataRU["Content"]);
+      setWatchCountsList(dataW);
     };
     f();
   }, []);
@@ -133,11 +141,12 @@ const AnimeDetail: NextPage<Props> = (props) => {
                 />
               </div>
             </div>
-            <div className="flex1" style={{ maxWidth: "100%" }}>
+            <div className="flex1 graphWrapper">
               {watchCountsList && (
                 <WatchStateGraphPie
                   title="みんなの視聴状況"
                   lst={watchCountsList}
+                  width={wid}
                 ></WatchStateGraphPie>
               )}
             </div>

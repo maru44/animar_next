@@ -1,7 +1,8 @@
-import HighCharts from "highcharts";
+import HighCharts, { chart } from "highcharts";
 import HighchartsExporting from "highcharts/modules/exporting";
 import HighChartsReact from "highcharts-react-official";
 import { NextComponentType, NextPage, NextPageContext } from "next";
+import { useEffect, useState } from "react";
 
 if (typeof HighCharts === "object") {
   HighchartsExporting(HighCharts);
@@ -10,6 +11,7 @@ if (typeof HighCharts === "object") {
 interface Props {
   lst: number[];
   title: string;
+  width?: number;
 }
 
 const WatchStateGraphPie: NextPage<Props> = (props) => {
@@ -55,6 +57,7 @@ const WatchStateGraphPie: NextPage<Props> = (props) => {
     },
     chart: {
       height: "72%",
+      width: props.width,
     },
     responsive: {
       rules: [
@@ -77,11 +80,7 @@ const WatchStateGraphPie: NextPage<Props> = (props) => {
 
   return (
     <div>
-      <HighChartsReact
-        //containerProps={{ style: { width: "100%", height: `100%` } }}
-        highcharts={HighCharts}
-        options={options}
-      />
+      <HighChartsReact highcharts={HighCharts} options={options} />
     </div>
   );
 };

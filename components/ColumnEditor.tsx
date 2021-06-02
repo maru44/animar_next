@@ -217,15 +217,15 @@ const ColumnEditor: NextPage<Props> = (props) => {
               </ReactMarkdown>
             </div>
             <MessageComponent messages={mess}></MessageComponent>
-            {CurrentUser &&
-              CurrentUser.isVerify &&
-              CurrentUser.rawId === props.blog.UserId && (
-                <div className="mt20">
-                  <button type="submit" className="floatR">
-                    {props.blog ? "編集する" : "作成する"}
-                  </button>
-                </div>
-              )}
+            {CurrentUser && CurrentUser.isVerify && (
+              <div className="mt20">
+                <button type="submit" className="floatR">
+                  {props.blog && CurrentUser.rawId === props.blog.UserId
+                    ? "編集する"
+                    : "作成する"}
+                </button>
+              </div>
+            )}
           </form>
         </div>
       </main>
