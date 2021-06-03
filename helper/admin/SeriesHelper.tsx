@@ -11,7 +11,6 @@ export const fetchInsertSeries = async (
     body: JSON.stringify({ EngName: engName, SeriesName: seriesName }),
   });
   const ret = await res.json();
-  console.log(ret);
   return ret;
 };
 

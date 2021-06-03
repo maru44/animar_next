@@ -1,6 +1,10 @@
 import { GetServerSideProps, NextPage } from "next";
 import { useState } from "react";
-import { fetchAllSeries } from "../../helper/admin/SeriesHelper";
+import {
+  fetchAllSeries,
+  fetchInsertSeries,
+} from "../../helper/admin/SeriesHelper";
+import { BACKEND_URL } from "../../helper/Config";
 import { TSeries } from "../../types/anime";
 
 interface Props {
@@ -12,11 +16,25 @@ const AnimeAdminPost: NextPage<Props> = (props) => {
   const [series, setSeries] = useState(props.series);
   console.log(series);
 
+  const startAddSeries = async (e: any) => {
+    e.preventDefault();
+    console.log(e);
+    const ret = await fetchInsertSeries(
+      e.target.eng_name.value,
+      e.target.series_name.value
+    );
+    if (ret["Status"] === 200) {
+      const res = await fetchAllSeries();
+      const series = await res["Data"];
+      setSeries(series);
+    }
+  };
+
   return (
     <div>
       <main>
         <div className="content mla mra">
-          <form>
+          <form onSubmit={startAddSeries}>
             <h3>シリーズ追加</h3>
             <div className="field">
               <input type="text" required name="eng_name" placeholder="eng" />
@@ -56,7 +74,18 @@ const AnimeAdminPost: NextPage<Props> = (props) => {
               />
             </div>
             <div className="field mt20">
-              <textarea name="content"></textarea>
+              <textarea name="content" placeholder="紹介文" rows={5}></textarea>
+            </div>
+            <div className="field mt20">
+              <select name="series">
+                <option value="">------------</option>
+                {series &&
+                  series.map((ser: TSeries, index: number) => (
+                    <option value={ser.ID} key={index}>
+                      {ser.SeriesName}
+                    </option>
+                  ))}
+              </select>
             </div>
             <div className="field mt20">
               <input
