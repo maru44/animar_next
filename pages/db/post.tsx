@@ -1,9 +1,11 @@
 import { GetServerSideProps, NextPage } from "next";
+import { parseCookies } from "nookies";
 import { useState } from "react";
 import {
   fetchAllSeries,
   fetchInsertSeries,
 } from "../../helper/admin/SeriesHelper";
+import { fetchInsertAnime } from "../../helper/AnimeHelper";
 import { BACKEND_URL } from "../../helper/Config";
 import { TSeries } from "../../types/anime";
 
@@ -14,11 +16,9 @@ interface Props {
 
 const AnimeAdminPost: NextPage<Props> = (props) => {
   const [series, setSeries] = useState(props.series);
-  console.log(series);
 
   const startAddSeries = async (e: any) => {
     e.preventDefault();
-    console.log(e);
     const ret = await fetchInsertSeries(
       e.target.eng_name.value,
       e.target.series_name.value
@@ -28,6 +28,24 @@ const AnimeAdminPost: NextPage<Props> = (props) => {
       const series = await res["Data"];
       setSeries(series);
     }
+  };
+
+  const startAddAnime = async (e: any) => {
+    e.preventDefault();
+    const t = e.target;
+    const ret = await fetchInsertAnime(
+      t.title.value,
+      t.abbreviation.value,
+      t.kana.value,
+      t.eng_name.value,
+      t.thumb_url.files,
+      t.content.value,
+      t.on_air_state.value,
+      t.series.value,
+      t.season.value,
+      t.stories.value
+    );
+    console.log(ret);
   };
 
   return (
@@ -51,10 +69,15 @@ const AnimeAdminPost: NextPage<Props> = (props) => {
               <button type="submit">追加</button>
             </div>
           </form>
-          <form className="mt40">
+          <form className="mt40" onSubmit={startAddAnime}>
             <h3>アニメ追加</h3>
             <div className="field">
-              <input type="text" name="title" required placeholder="タイトル" />
+              <input
+                type="text"
+                name="title"
+                required
+                placeholder="*** タイトル"
+              />
             </div>
             <div className="field mt20">
               <input type="text" name="abbreviation" placeholder="略称" />
@@ -78,7 +101,7 @@ const AnimeAdminPost: NextPage<Props> = (props) => {
             </div>
             <div className="field mt20">
               <select name="series">
-                <option value="">------------</option>
+                <option value="0">------------</option>
                 {series &&
                   series.map((ser: TSeries, index: number) => (
                     <option value={ser.ID} key={index}>
@@ -95,6 +118,9 @@ const AnimeAdminPost: NextPage<Props> = (props) => {
               />
             </div>
             <div className="field mt20">
+              <input type="text" name="season" placeholder="season" />
+            </div>
+            <div className="field mt20">
               <input type="text" name="stories" placeholder="story count" />
             </div>
             <div className="field mt20">
@@ -108,7 +134,15 @@ const AnimeAdminPost: NextPage<Props> = (props) => {
 };
 
 export const getServerSideProps: GetServerSideProps<Props> = async (ctx) => {
-  const ret = await fetchAllSeries();
+  const cookies = parseCookies(ctx);
+  // const ret = await fetchAllSeries();
+  const res = await fetch(`${BACKEND_URL}/series/`, {
+    method: "POST",
+    mode: "cors",
+    credentials: "include",
+    body: JSON.stringify({ user_id: cookies["idToken"] }),
+  });
+  const ret = await res.json();
   return {
     props: {
       series: ret["Data"],
