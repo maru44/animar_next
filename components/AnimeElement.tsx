@@ -31,7 +31,7 @@ const AnimeElement: NextPage<Props> = (props) => {
         </div>
       </div>
       {mode && mode === "admin" && (
-        <Link href="/db/[slug]" as={`/db/${anime.Slug}`} passHref>
+        <Link href="/db/update/[id]" as={`/db/update/${anime.ID}`} passHref>
           <a className="hrefBoxIn"></a>
         </Link>
       )}

@@ -72,7 +72,7 @@ export type TAnimeAdmin = {
   ThumbUrl: string;
   Content: string;
   OnAirState: number;
-  Series: number;
+  SeriesId: number;
   Season: string;
   Stories: string;
   CreatedAt: string;
