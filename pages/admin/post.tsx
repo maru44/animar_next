@@ -13,6 +13,7 @@ import AnimePost from "../../components/Admin/AnimePost";
 interface Props {
   series: TSeries[];
   robots: string;
+  kind: string;
 }
 
 const AnimeAdminPost: NextPage<Props> = (props) => {
@@ -76,6 +77,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (ctx) => {
     props: {
       series: ret["Data"],
       robots: "nofollow noopener noreferrer noindex",
+      kind: "admin",
     },
   };
 };

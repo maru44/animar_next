@@ -5,6 +5,7 @@ import Link from "next/link";
 import MessageComponent, { IMessage } from "./Message";
 import ListHeader from "./ListHeader";
 import UserHeader from "./UserHeader";
+import AdminHeader from "./Admin/AdminHeader";
 import { DEFAULT_USER_IMAGE } from "../helper/Config";
 
 interface Props {
@@ -78,6 +79,9 @@ const Header: NextPage<Props> = (props) => {
         </div>
         {props.kind && props.kind === "user" && (
           <UserHeader uid={props.uid} list={props.list}></UserHeader>
+        )}
+        {props.kind && props.kind === "admin" && (
+          <AdminHeader list={props.list}></AdminHeader>
         )}
         {!props.kind && <ListHeader list={props.list}></ListHeader>}
         <MessageComponent messages={messages}></MessageComponent>

@@ -15,6 +15,7 @@ interface Props {
   series: TSeries[];
   robots: string;
   anime: TAnimeAdmin;
+  kind: string;
 }
 interface Params extends ParsedUrlQuery {
   id: string;
@@ -107,6 +108,7 @@ export const getServerSideProps: GetServerSideProps<Props, Params> = async (
       series: ret["Data"],
       robots: "nofollow noopener noreferrer noindex",
       anime: animeRet["Data"][0],
+      kind: "admin",
     },
   };
 };
