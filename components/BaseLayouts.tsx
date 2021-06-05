@@ -17,7 +17,6 @@ interface Props {
 }
 
 const BaseLayouts: NextPage<Props> = (props) => {
-  console.log(props);
   return (
     <div>
       <HeadCustom

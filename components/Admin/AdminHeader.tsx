@@ -14,7 +14,7 @@ const AdminHeader: NextPage<Props> = (props) => {
   console.log(props.list);
   const listList: AList[] = [
     { shown: "アニメ", href: `/admin` },
-    //{ shown: "レビュー", href: `/reviews/${props.uid}` },
+    { shown: "プラットフォーム", href: `/admin/platform` },
   ];
 
   return (
@@ -29,6 +29,7 @@ const AdminHeader: NextPage<Props> = (props) => {
                   : "hrefBox flexCen"
                 : "hrefBox flexCen"
             }
+            key={index}
           >
             {lst.shown}
             <Link href={lst.href} passHref>
