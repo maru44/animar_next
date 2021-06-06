@@ -52,12 +52,14 @@ const AnimeAdminPost: NextPage<Props> = (props) => {
   return (
     <div>
       <main>
-        <AnimePost
-          series={series}
-          anime={null}
-          addSeriesFunc={startAddSeries}
-          startFetchFunc={startAddAnime}
-        ></AnimePost>
+        <div className="content mla mra">
+          <AnimePost
+            series={series}
+            anime={null}
+            addSeriesFunc={startAddSeries}
+            startFetchFunc={startAddAnime}
+          ></AnimePost>
+        </div>
       </main>
     </div>
   );

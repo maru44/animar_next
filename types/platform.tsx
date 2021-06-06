@@ -8,3 +8,11 @@ export type TPlatformAdmin = {
   CreatedAt: string;
   UpdatedAt: string;
 };
+
+export type TRelationPlatform = {
+  PlatformId: number;
+  AnimeId: number;
+  LinkUrl: string;
+  CreatedAt: string;
+  UpdatedAt: string;
+};

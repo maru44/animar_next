@@ -46,3 +46,46 @@ export const fetchUpdatePlatform = async (
   const ret = await res.json();
   return ret;
 };
+
+export const fetchRelationPlatform = async (id: number) => {
+  const res = await fetch(`${BACKEND_URL}/relation/plat/?id=${id}`, {
+    mode: "cors",
+    credentials: "include",
+  });
+  const ret = await res.json();
+  return ret;
+};
+
+export const fetchInsertRelationPlatform = async (
+  animeId: number,
+  platId: number,
+  linkUrl: string
+) => {
+  const res = await fetch(`${BACKEND_URL}/admin/relation/plat/post/`, {
+    method: "POST",
+    mode: "cors",
+    credentials: "include",
+    body: JSON.stringify({
+      AnimeId: animeId,
+      PlatformId: platId,
+      LinkUrl: linkUrl,
+    }),
+  });
+  const ret = await res.json();
+  return ret;
+};
+
+export const fetchDeleteRelationPlatform = async (
+  animeId: number,
+  platformId: string
+) => {
+  const res = await fetch(
+    `${BACKEND_URL}/admin/relation/plat/delete/?anime=${animeId}&platform=${platformId}`,
+    {
+      method: "DELETE",
+      mode: "cors",
+      credentials: "include",
+    }
+  );
+  const ret = await res.json();
+};

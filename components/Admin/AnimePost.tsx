@@ -14,7 +14,7 @@ const AnimePost: NextPage<Props> = (props) => {
   const [anime, setAnime] = useState(props.anime);
 
   return (
-    <div className="content mla mra">
+    <div>
       <form onSubmit={props.addSeriesFunc}>
         <h3>シリーズ追加</h3>
         <div className="field mt20">
@@ -81,7 +81,7 @@ const AnimePost: NextPage<Props> = (props) => {
         <div className="field mt20">
           <select
             name="series"
-            //defaultValue={anime && anime.Series ? anime.Series.toString() : "0"}
+            defaultValue={anime && anime.SeriesId ? anime.SeriesId : "0"}
           >
             <option value="0">------------</option>
             {series &&
@@ -89,9 +89,9 @@ const AnimePost: NextPage<Props> = (props) => {
                 <option
                   value={ser.ID}
                   key={index}
-                  selected={
-                    anime && anime.SeriesId ? anime.SeriesId === ser.ID : false
-                  }
+                  // selected={
+                  //   anime && anime.SeriesId ? anime.SeriesId === ser.ID : false
+                  // }
                 >
                   {ser.SeriesName}
                 </option>
