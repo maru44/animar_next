@@ -15,8 +15,8 @@ const ReviewContentElement: NextPage<Props> = (props) => {
   const [author, setAuthor] = useState<TUser>(undefined);
   useEffect(() => {
     (async () => {
-      const uid = review.UserId;
-      if (review.UserId) {
+      const uid = review.user_id;
+      if (review.user_id) {
         const author = await fetchUserModel(uid);
         setAuthor(author);
       }
@@ -26,7 +26,7 @@ const ReviewContentElement: NextPage<Props> = (props) => {
   return (
     <div className="mb10">
       <article>
-        <p>{review.Content}</p>
+        <p>{review.content}</p>
         <div className="mt5 flexNormal hrefBox">
           <div
             className="imgCircle mla mr20"
@@ -42,7 +42,7 @@ const ReviewContentElement: NextPage<Props> = (props) => {
           ></div>
           <p>{author && author.displayName ? author.displayName : "----"}</p>
           {author && (
-            <Link href="/watch/[uid]" as={`/watch/${review.UserId}`} passHref>
+            <Link href="/watch/[uid]" as={`/watch/${review.user_id}`} passHref>
               <a className="hrefBoxIn"></a>
             </Link>
           )}

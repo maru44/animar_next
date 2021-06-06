@@ -1,87 +1,87 @@
 import { TUser } from "./auth";
 
 export type TAnime = {
-  ID: number;
-  Slug: string;
-  Title: string;
-  ThumbUrl: string;
-  Abbribation: string;
-  Content: string;
-  SeriesId: number;
-  Season: string;
-  OnAirState: number;
-  CreatedAt: string;
-  UpdatedAt: string;
+  id: number;
+  slug: string;
+  title: string;
+  thumb_url: string;
+  abbribation: string;
+  description: string;
+  copyright: string;
+  series_id: number;
+  state: number;
+  count_episodes: string;
+  created_at: string;
+  updated_at: string;
 };
 
 export type TReview = {
-  ID: number;
-  Content: string;
-  Star: number;
-  AnimeId: number;
-  CreatedAt: string;
-  UpdatedAt: string;
-  UserId: string;
+  id: number;
+  content: string;
+  rating: number;
+  anime_id: number;
+  created_at: string;
+  updated_at: string;
+  user_id: string;
 };
 
 export type TWatchCount = {
-  State: number;
-  Count: number;
+  state: number;
+  count: number;
 };
 
 export type TWatchJoinAnime = {
-  Watch: number;
-  AnimeId: number;
-  UserId: string;
-  CreatedAt: string;
-  UpdatedAt: string;
-  Title: string;
-  Slug: string;
-  Content: string;
-  OnAirState: number;
+  state: number;
+  anime_id: number;
+  user_id: string;
+  created_at: string;
+  updated_at: string;
+  title: string;
+  slug: string;
+  content: string;
+  anime_state: number;
 };
 
 export type TReviewJoinAnime = {
-  ID: number;
-  Content: string;
-  Star: number;
-  AnimeId: number;
-  UserId: string;
-  CreatedAt: string;
-  UpdatedAt: string;
-  Title: string;
-  Slug: string;
-  AnimeContent: string;
-  OnAirState: string;
+  id: number;
+  content: string;
+  rating: number;
+  anime_id: number;
+  user_id: string;
+  created_at: string;
+  updated_at: string;
+  title: string;
+  slug: string;
+  anime_content: string;
+  anime_state: string;
 };
 
 export type TAnimeMinimum = {
-  ID: number;
-  Title: string;
-  Slug?: string;
+  id: number;
+  title: string;
+  slug?: string;
 };
 
 export type TAnimeAdmin = {
-  ID: number;
-  Slug: string;
-  Title: string;
-  Abbreviation: string;
-  Kana: string;
-  EngName: string;
-  ThumbUrl: string;
-  Content: string;
-  OnAirState: number;
-  SeriesId: number;
-  Season: string;
-  Stories: string;
-  CreatedAt: string;
-  UpdatedAt: string;
+  id: number;
+  slug: string;
+  title: string;
+  abbreviation: string;
+  kana: string;
+  eng_name: string;
+  thumb_url: string;
+  content: string;
+  state: number;
+  series_id: number;
+  count_episodes: string;
+  created_at: string;
+  updated_at: string;
 };
 
 export type TSeries = {
-  ID: number;
-  EngName: string;
-  SeriesName: string;
-  CreatedAt: string;
-  UpdatedAt: string;
+  id: number;
+  eng_name: string;
+  series_name: string;
+  created_at: string;
+  updated_at: string;
 };

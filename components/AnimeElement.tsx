@@ -20,27 +20,27 @@ const AnimeElement: NextPage<Props> = (props) => {
           <img
             className="w100 contain"
             src={
-              anime.ThumbUrl
-                ? `${anime.ThumbUrl}`
+              anime.thumb_url
+                ? `${anime.thumb_url}`
                 : "https://animar-bucket.s3-ap-northeast-1.amazonaws.com/slum.jpg"
             }
           />
         </div>
         <div className="flex1">
-          <h3>{anime.Title}</h3>
+          <h3>{anime.title}</h3>
         </div>
       </div>
       {mode && mode === "admin" && (
         <Link
           href="/admin/update/[id]"
-          as={`/admin/update/${anime.ID}`}
+          as={`/admin/update/${anime.id}`}
           passHref
         >
           <a className="hrefBoxIn"></a>
         </Link>
       )}
       {!mode && (
-        <Link href="/anime/[slug]" as={`/anime/${anime.Slug}`} passHref>
+        <Link href="/anime/[slug]" as={`/anime/${anime.slug}`} passHref>
           <a className="hrefBoxIn"></a>
         </Link>
       )}

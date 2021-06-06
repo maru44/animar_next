@@ -1,7 +1,6 @@
 import { GetServerSideProps, NextPage } from "next";
 import { TAnime } from "../../types/anime";
 import { BACKEND_URL } from "../../helper/Config";
-import Link from "next/link";
 import AnimeElement from "../../components/AnimeElement";
 
 interface Props {
@@ -31,7 +30,7 @@ const AnimeList: NextPage<Props> = (props) => {
 export const getServerSideProps: GetServerSideProps<Props> = async (ctx) => {
   const res = await fetch(`${BACKEND_URL}/db/anime/`);
   const ret = await res.json();
-  const animes = ret["Data"];
+  const animes = ret["data"];
 
   return {
     props: {

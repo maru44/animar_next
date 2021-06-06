@@ -36,9 +36,9 @@ const AnimeAdminUpdate: NextPage<Props> = (props) => {
 
   useEffect(() => {
     (async () => {
-      const ret = await fetchRelationPlatform(anime.ID);
+      const ret = await fetchRelationPlatform(anime.id);
       console.log(ret);
-      ret["Status"] === 200 && setPlats(ret["Data"]);
+      ret["status"] === 200 && setPlats(ret["data"]);
     })();
   }, []);
 
@@ -48,9 +48,9 @@ const AnimeAdminUpdate: NextPage<Props> = (props) => {
       e.target.eng_name.value,
       e.target.series_name.value
     );
-    if (ret["Status"] === 200) {
+    if (ret["status"] === 200) {
       const res = await fetchAllSeries();
-      const series = await res["Data"];
+      const series = await res["data"];
       setSeries(series);
     }
   };
@@ -59,7 +59,7 @@ const AnimeAdminUpdate: NextPage<Props> = (props) => {
     e.preventDefault();
     const t = e.target;
     const ret = await fetchUpdateAnime(
-      anime.ID,
+      anime.id,
       t.title.value,
       t.abbreviation.value,
       t.kana.value,
@@ -73,21 +73,21 @@ const AnimeAdminUpdate: NextPage<Props> = (props) => {
     );
     if (ret["Status"] === 200) {
       const res = await fetch(
-        `${BACKEND_URL}/admin/anime/detail/?id=${anime.ID}`,
+        `${BACKEND_URL}/admin/anime/detail/?id=${anime.id}`,
         {
           mode: "cors",
           credentials: "include",
         }
       );
       const ret = await res.json();
-      setAnime(ret["Data"][0]);
+      setAnime(ret["data"][0]);
     }
   };
 
   const startAddRelationPlatform = async (e: any) => {
     e.preventDefault();
     const ret = await fetchInsertRelationPlatform(
-      anime.ID,
+      anime.id,
       parseInt(e.target.plat.value),
       e.target.url.value
     );
@@ -96,7 +96,7 @@ const AnimeAdminUpdate: NextPage<Props> = (props) => {
 
   const startDelete = async (e: any) => {
     const ret = await fetchDeleteRelationPlatform(
-      anime.ID,
+      anime.id,
       e.target.dataset.pid
     );
     console.log(ret);
@@ -116,16 +116,16 @@ const AnimeAdminUpdate: NextPage<Props> = (props) => {
             <div className="mt60">
               {plats.map((p, index) => (
                 <div key={index} className="mb15">
-                  {allPlats[p.PlatformId - 1].PlatName}{" "}
+                  {allPlats[p.platform_id - 1].plat_name}{" "}
                   <span
                     className="floatR"
-                    data-pid={p.PlatformId}
+                    data-pid={p.platform_id}
                     onClick={startDelete}
                   >
                     削除する
                   </span>
                   <br />
-                  URL: {p.LinkUrl}
+                  URL: {p.link_url}
                 </div>
               ))}
             </div>
@@ -139,8 +139,8 @@ const AnimeAdminUpdate: NextPage<Props> = (props) => {
               <select name="plat">
                 {allPlats &&
                   allPlats.map((p, index) => (
-                    <option key={index} value={p.ID}>
-                      {p.PlatName}
+                    <option key={index} value={p.id}>
+                      {p.plat_name}
                     </option>
                   ))}
               </select>
@@ -189,11 +189,11 @@ export const getServerSideProps: GetServerSideProps<Props, Params> = async (
 
   return {
     props: {
-      series: ret["Data"],
+      series: ret["data"],
       robots: "nofollow noopener noreferrer noindex",
-      anime: animeRet["Data"][0],
+      anime: animeRet["data"][0],
       kind: "admin",
-      plats: platRet["Data"],
+      plats: platRet["data"],
     },
   };
 };

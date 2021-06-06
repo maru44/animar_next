@@ -25,9 +25,9 @@ const AnimeAdminPost: NextPage<Props> = (props) => {
       e.target.eng_name.value,
       e.target.series_name.value
     );
-    if (ret["Status"] === 200) {
+    if (ret["status"] === 200) {
       const res = await fetchAllSeries();
-      const series = await res["Data"];
+      const series = await res["data"];
       setSeries(series);
     }
   };
@@ -77,7 +77,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (ctx) => {
   const ret = await res.json();
   return {
     props: {
-      series: ret["Data"],
+      series: ret["data"],
       robots: "nofollow noopener noreferrer noindex",
       kind: "admin",
     },

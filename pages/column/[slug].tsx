@@ -38,8 +38,8 @@ const BlogDetail: NextPage<Props> = (props) => {
   const [author, setAuthor] = useState<TUser>(undefined);
   useEffect(() => {
     (async () => {
-      const uid = blog.UserId;
-      if (blog.UserId) {
+      const uid = blog.user_id;
+      if (blog.user_id) {
         const author = await fetchUserModel(uid);
         setAuthor(author);
       }
@@ -54,15 +54,15 @@ const BlogDetail: NextPage<Props> = (props) => {
       <main>
         <div className="mla mra content">
           <div className="columnArea">
-            <h1 className="brAll">{blog.Title}</h1>
-            {blog.Animes && (
+            <h1 className="brAll">{blog.title}</h1>
+            {blog.animes && (
               <div className="mt20 relAnimeList">
-                {blog.Animes.map((anime: TMinAnime, idx: number) => (
+                {blog.animes.map((anime: TMinAnime, idx: number) => (
                   <span className="hrefBox mr20" key={idx}>
-                    {anime.Title}
+                    {anime.title}
                     <Link
                       href="/anime/[slug]"
-                      as={`/anime/${blog.Slug}`}
+                      as={`/anime/${blog.slug}`}
                       passHref
                     >
                       <a className="hrefBoxIn"></a>
@@ -71,8 +71,8 @@ const BlogDetail: NextPage<Props> = (props) => {
                 ))}
               </div>
             )}
-            {blog.Abstract && (
-              <p className="mt20 abstract preWrap brAll">{blog.Abstract}</p>
+            {blog.abstract && (
+              <p className="mt20 abstract preWrap brAll">{blog.abstract}</p>
             )}
             <ReactMarkdown
               plugins={[remarkGfm]}
@@ -80,15 +80,15 @@ const BlogDetail: NextPage<Props> = (props) => {
               unwrapDisallowed={false}
               linkTarget="_new"
             >
-              {blog.Content}
+              {blog.content}
             </ReactMarkdown>
-            {CurrentUser && CurrentUser.rawId === blog.UserId && (
+            {CurrentUser && CurrentUser.rawId === blog.user_id && (
               <div className="mt40 flexNormal spBw ownerOnly">
                 <button className="button hrefBox w48 flexCen">
                   編集する
                   <Link
                     href="/column/update/[id]"
-                    as={`/column/update/${blog.ID}`}
+                    as={`/column/update/${blog.id}`}
                     passHref
                   >
                     <a className="hrefBoxIn"></a>
@@ -97,7 +97,7 @@ const BlogDetail: NextPage<Props> = (props) => {
                 <button
                   className="button hrefBox w48 flexCen"
                   onClick={exeDeleteColumn}
-                  data-id={blog.ID}
+                  data-id={blog.id}
                 >
                   削除する
                 </button>
@@ -118,7 +118,7 @@ const BlogDetail: NextPage<Props> = (props) => {
                   <p>{author.displayName}</p>
                   <Link
                     href="/column/u/[uid]"
-                    as={`/column/u/${blog.UserId}`}
+                    as={`/column/u/${blog.user_id}`}
                     passHref
                   >
                     <a className="hrefBoxIn"></a>
@@ -140,11 +140,11 @@ export const getServerSideProps: GetServerSideProps<Props, Params> = async (
   const res = await fetch(`${BACKEND_URL}/blog/?s=${slug}`);
   const ret = await res.json();
 
-  const blog = ret["Data"][0];
+  const blog = ret["data"][0];
   return {
     props: {
       blog: blog,
-      title: blog["Title"],
+      title: blog["title"],
       robots: "nofollow",
       ogType: "article",
     },

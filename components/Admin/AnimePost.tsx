@@ -28,12 +28,12 @@ const AnimePost: NextPage<Props> = (props) => {
         </div>
       </form>
       <form className="mt40" onSubmit={props.startFetchFunc}>
-        <h3>{anime ? `${anime.Title}編集` : "アニメ追加"}</h3>
+        <h3>{anime ? `${anime.title}編集` : "アニメ追加"}</h3>
         <div className="field mt20">
           <input
             type="text"
             name="title"
-            defaultValue={anime && anime.Title ? anime.Title : ""}
+            defaultValue={anime && anime.title ? anime.title : ""}
             required
             placeholder="*** タイトル"
           />
@@ -43,7 +43,7 @@ const AnimePost: NextPage<Props> = (props) => {
             type="text"
             name="abbreviation"
             placeholder="略称"
-            defaultValue={anime && anime.Abbreviation ? anime.Abbreviation : ""}
+            defaultValue={anime && anime.abbreviation ? anime.abbreviation : ""}
           />
         </div>
         <div className="field mt20">
@@ -51,7 +51,7 @@ const AnimePost: NextPage<Props> = (props) => {
             type="text"
             name="kana"
             placeholder="カナ"
-            defaultValue={anime && anime.Kana ? anime.Kana : ""}
+            defaultValue={anime && anime.kana ? anime.kana : ""}
           />
         </div>
         <div className="field mt20">
@@ -59,7 +59,7 @@ const AnimePost: NextPage<Props> = (props) => {
             type="text"
             name="eng_name"
             placeholder="eng"
-            defaultValue={anime && anime.EngName ? anime.EngName : ""}
+            defaultValue={anime && anime.eng_name ? anime.eng_name : ""}
           />
         </div>
         <div className="field mt20">
@@ -75,25 +75,25 @@ const AnimePost: NextPage<Props> = (props) => {
             name="content"
             placeholder="紹介文"
             rows={5}
-            defaultValue={anime && anime.Content ? anime.Content : ""}
+            defaultValue={anime && anime.content ? anime.content : ""}
           ></textarea>
         </div>
         <div className="field mt20">
           <select
             name="series"
-            defaultValue={anime && anime.SeriesId ? anime.SeriesId : "0"}
+            defaultValue={anime && anime.series_id ? anime.series_id : "0"}
           >
             <option value="0">------------</option>
             {series &&
               series.map((ser: TSeries, index: number) => (
                 <option
-                  value={ser.ID}
+                  value={ser.id}
                   key={index}
                   // selected={
                   //   anime && anime.SeriesId ? anime.SeriesId === ser.ID : false
                   // }
                 >
-                  {ser.SeriesName}
+                  {ser.series_name}
                 </option>
               ))}
           </select>
@@ -103,22 +103,24 @@ const AnimePost: NextPage<Props> = (props) => {
             type="text"
             name="on_air_state"
             placeholder="onair (int)"
-            defaultValue={anime && anime.OnAirState ? anime.OnAirState : ""}
+            defaultValue={anime && anime.state ? anime.state : ""}
           />
         </div>
-        <div className="field mt20">
+        {/* <div className="field mt20">
           <input
             type="text"
             name="season"
             placeholder="season"
-            defaultValue={anime && anime.Season ? anime.Season : ""}
+            defaultValue={anime && anime.Season ? anime.sea : ""}
           />
-        </div>
+        </div> */}
         <div className="field mt20">
           <input
             type="text"
             name="stories"
-            defaultValue={anime && anime.Stories ? anime.Stories : ""}
+            defaultValue={
+              anime && anime.count_episodes ? anime.count_episodes : ""
+            }
             placeholder="story count"
           />
         </div>

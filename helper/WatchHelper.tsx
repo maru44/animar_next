@@ -7,13 +7,13 @@ export const getWatchCountsList = async (
 ): Promise<number[]> => {
   const res = await fetch(url);
   const ret = await res.json();
-  const watchCounts: TWatchCount[] = ret["Data"];
+  const watchCounts: TWatchCount[] = ret["data"];
 
   const watchCountsList = [0, 0, 0, 0, 0];
 
   if (watchCounts) {
     watchCounts.forEach((wc) => {
-      watchCountsList[wc.State] = wc.Count;
+      watchCountsList[wc.state] = wc.count;
     });
   }
   return watchCountsList;
@@ -28,7 +28,7 @@ export const fetchPostWatchStates = async (animeId: number, watch: number) => {
   });
   const ret = await res.json();
 
-  const successWatch = ret["ID"];
+  const successWatch = ret["data"];
   return successWatch;
 };
 
@@ -41,13 +41,13 @@ export const fetchWatchStateDetail = async (animeId: number) => {
   const ret = await res.json();
   console.log(ret);
 
-  if (ret["Status"] === 4001) {
+  if (ret["status"] === 4001) {
     return null;
   } else {
-    if (ret["ID"] === -1) {
+    if (ret["data"] === -1) {
       return null;
     }
-    return ret["ID"];
+    return ret["data"];
   }
 };
 

@@ -26,7 +26,7 @@ const AdminPlatform: NextPage<Props> = (props) => {
       e.target.thumb_url.files,
       e.currentTarget.valid.checked
     );
-    if (ret["Data"] === 200) {
+    if (ret["data"] === 200) {
       // @TODO platform更新処理
       console.log(ret);
     }
@@ -41,12 +41,12 @@ const AdminPlatform: NextPage<Props> = (props) => {
               plats.map((plat: TPlatformAdmin, index: number) => (
                 <article key={index} className="mb15 hrefBox">
                   <h4>
-                    {plat.ID}: {plat.PlatName}
+                    {plat.id}: {plat.plat_name}
                   </h4>
-                  <p>URL: {plat.BaseUrl}</p>
+                  <p>URL: {plat.base_url}</p>
                   <Link
                     href="/admin/platform/[id]"
-                    as={`/admin/platform/${plat.ID}`}
+                    as={`/admin/platform/${plat.id}`}
                     passHref
                   >
                     <a className="hrefBoxIn"></a>
@@ -75,7 +75,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (ctx) => {
   const ret = await res.json();
   return {
     props: {
-      plats: ret["Data"],
+      plats: ret["data"],
       robots: "nofollow noopener noreferrer noindex",
       kind: "admin",
       list: 2,

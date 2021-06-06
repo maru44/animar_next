@@ -18,7 +18,7 @@ const PlatformPost: NextPage<Props> = (props) => {
             name="eng_name"
             placeholder="*** eng_name"
             required
-            defaultValue={plat && plat.EngName ? plat.EngName : ""}
+            defaultValue={plat && plat.eng_name ? plat.eng_name : ""}
           />
         </div>
         <div className="field mt20">
@@ -26,7 +26,7 @@ const PlatformPost: NextPage<Props> = (props) => {
             type="text"
             name="plat_name"
             placeholder="plat_name"
-            defaultValue={plat && plat.PlatName ? plat.PlatName : ""}
+            defaultValue={plat && plat.plat_name ? plat.plat_name : ""}
           />
         </div>
         <div className="field mt20">
@@ -42,7 +42,7 @@ const PlatformPost: NextPage<Props> = (props) => {
             type="text"
             name="url"
             placeholder="url"
-            defaultValue={plat && plat.BaseUrl ? plat.BaseUrl : ""}
+            defaultValue={plat && plat.base_url ? plat.base_url : ""}
           />
         </div>
         <div className="mt20">
@@ -51,7 +51,7 @@ const PlatformPost: NextPage<Props> = (props) => {
               id="valid"
               type="checkbox"
               name="valid"
-              defaultChecked={plat ? plat.IsValid : true}
+              defaultChecked={plat ? plat.is_valid : true}
             />
             有効
           </label>

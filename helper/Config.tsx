@@ -10,5 +10,5 @@ export const baseFetcher = async (url: string) => {
   });
   const ret = await res.json();
 
-  return ret["Data"];
+  return ret["data"];
 };

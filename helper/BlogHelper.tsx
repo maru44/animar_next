@@ -21,9 +21,9 @@ export const fetchPostBlog = async (
       "Content-Type": "application/json; charset=utf-8",
     },
     body: JSON.stringify({
-      Title: title,
-      Abstract: abst,
-      Content: content,
+      title: title,
+      abstract: abst,
+      content: content,
       anime_ids: animeIds,
     }),
   });
@@ -57,9 +57,9 @@ export const fetchUpdateBlog = async (
       "Content-Type": "application/json; charset=utf-8",
     },
     body: JSON.stringify({
-      Title: title,
-      Abstract: abst,
-      Content: content,
+      title: title,
+      abstract: abst,
+      content: content,
       anime_ids: animeIds,
     }),
   });

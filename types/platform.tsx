@@ -1,18 +1,18 @@
 export type TPlatformAdmin = {
-  ID: number;
-  EngName: string;
-  PlatName: string;
-  BaseUrl: string;
-  Image: string;
-  IsValid: boolean;
-  CreatedAt: string;
-  UpdatedAt: string;
+  id: number;
+  eng_name: string;
+  plat_name: string;
+  base_url: string;
+  image: string;
+  is_valid: boolean;
+  created_at: string;
+  updated_at: string;
 };
 
 export type TRelationPlatform = {
-  PlatformId: number;
-  AnimeId: number;
-  LinkUrl: string;
-  CreatedAt: string;
-  UpdatedAt: string;
+  platform_id: number;
+  anime_id: number;
+  link_url: string;
+  created_at: string;
+  updated_at: string;
 };

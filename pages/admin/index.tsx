@@ -52,7 +52,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (ctx) => {
     const ret = await res.json();
     return {
       props: {
-        animes: ret["Data"],
+        animes: ret["data"],
         kind: "admin",
         list: 1,
         robots: "nofollow noopener noreferrer noindex",

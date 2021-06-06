@@ -1,7 +1,6 @@
 import { GetServerSideProps, NextPage } from "next";
 import Link from "next/link";
 import { ParsedUrlQuery } from "querystring";
-import Header from "../../components/Header";
 import { BACKEND_URL, DEFAULT_USER_IMAGE } from "../../helper/Config";
 import { reviewStarList } from "../../helper/ReviewHelper";
 import { useCurrentUser } from "../../hooks/useCurrentUser";
@@ -56,14 +55,14 @@ const UserReviews: NextPage<Props> = (props) => {
             {reviews &&
               reviews.map((review, index) => (
                 <article className="usersReview mb20 hrefBox" key={index}>
-                  <h3 className="flexNormal alCen">{review.Title}</h3>
+                  <h3 className="flexNormal alCen">{review.title}</h3>
                   <div className="mt10 reviewStars">
-                    {review.Star &&
+                    {review.rating &&
                       reviewStarList &&
                       reviewStarList.map((star, index) => (
                         <span
                           className={
-                            review.Star && review.Star - 1 >= index
+                            review.rating && review.rating - 1 >= index
                               ? "mr5 star active"
                               : "mr5 star"
                           }
@@ -74,12 +73,12 @@ const UserReviews: NextPage<Props> = (props) => {
                         </span>
                       ))}
                   </div>
-                  {review.Content && (
-                    <p className="brAll mt10">{review.Content}</p>
+                  {review.content && (
+                    <p className="brAll mt10">{review.content}</p>
                   )}
                   <Link
                     href="/anime/[slug]"
-                    as={`/anime/${review.Slug}`}
+                    as={`/anime/${review.slug}`}
                     passHref
                   >
                     <a className="hrefBoxIn"></a>
@@ -103,8 +102,8 @@ export const getServerSideProps: GetServerSideProps<Props, Params> = async (
   const resU = await fetch(`${BACKEND_URL}/auth/user/?uid=${uid}`);
   const retU = await resU.json();
 
-  const reviews = ret["Data"];
-  const user = retU["User"];
+  const reviews = ret["data"];
+  const user = retU["user"];
   return {
     props: {
       reviews: reviews,

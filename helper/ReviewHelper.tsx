@@ -8,7 +8,7 @@ export const fetchAnimeReviews = async (animeId: number) => {
   });
   const ret = await res.json();
   console.log(ret);
-  return ret["Data"];
+  return ret["data"];
 };
 
 export const fetchUpsertReviewContent = async (
@@ -19,7 +19,7 @@ export const fetchUpsertReviewContent = async (
     method: "POST",
     mode: "cors",
     credentials: "include",
-    body: JSON.stringify({ AnimeId: animeId, Content: content }),
+    body: JSON.stringify({ anime_id: animeId, content: content }),
   });
   const ret = await res.json();
   return ret;
@@ -30,7 +30,7 @@ export const fetchUpsertReviewStar = async (animeId: number, star: number) => {
     method: "POST",
     mode: "cors",
     credentials: "include",
-    body: JSON.stringify({ AnimeId: animeId, Star: star }),
+    body: JSON.stringify({ anime_id: animeId, rating: star }),
   });
   const ret = await res.json();
   return ret;
@@ -43,8 +43,8 @@ export const fetchUserAnimeReview = async (animeId: number) => {
     credentials: "include",
   });
   const ret = await res.json();
-  if (ret["Data"]) {
-    return ret["Data"][0];
+  if (ret["data"]) {
+    return ret["data"][0];
   } else {
     return null;
   }
@@ -69,5 +69,5 @@ export const fetchAnimeStars = async (animeId: number) => {
     credentials: "include",
   });
   const ret = await res.json();
-  return ret["String"];
+  return ret["data"];
 };

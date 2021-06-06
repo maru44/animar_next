@@ -31,7 +31,7 @@ export const getServerSideProps: GetServerSideProps<Props, Params> = async (
   const res = await fetch(`${BACKEND_URL}/blog/?id=${id}`);
   const ret = await res.json();
 
-  const blog = ret["Data"][0];
+  const blog = ret["data"][0];
   return {
     props: {
       blog: blog,

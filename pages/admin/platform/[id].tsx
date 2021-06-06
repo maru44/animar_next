@@ -1,6 +1,6 @@
 import { GetServerSideProps, NextPage } from "next";
-import { ParsedUrlQuery } from "node:querystring";
 import { parseCookies } from "nookies";
+import { ParsedUrlQuery } from "querystring";
 import { useState } from "react";
 import PlatformPost from "../../../components/Admin/PlatformPost";
 import { fetchUpdatePlatform } from "../../../helper/admin/PlatformHelper";
@@ -27,9 +27,9 @@ const AdminEditPlatform: NextPage<Props> = (props) => {
       e.target.url.value,
       e.target.thumb_url.files,
       e.currentTarget.valid.checked,
-      plat.ID
+      plat.id
     );
-    if (ret["Data"] === 200) {
+    if (ret["data"] === 200) {
       // @TODO platform更新処理
       console.log(ret);
     }
@@ -61,7 +61,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (ctx) => {
   return {
     props: {
       kind: "admin",
-      plat: ret["Data"][0],
+      plat: ret["data"][0],
     },
   };
 };

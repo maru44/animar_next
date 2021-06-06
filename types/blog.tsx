@@ -1,32 +1,32 @@
 import { TUser } from "./auth";
 
 export type TBlog = {
-  ID: number;
-  Slug: string;
-  Title: string;
-  Abstract: string;
-  Content: string;
-  UserId: string;
-  CreatedAt: string;
-  UpdatedAt: string;
-  Animes: TMinAnime[];
+  id: number;
+  slug: string;
+  title: string;
+  abstract: string;
+  content: string;
+  user_id: string;
+  created_at: string;
+  updated_at: string;
+  animes: TMinAnime[];
 };
 
 export type TBlogJoinUser = {
-  ID: number;
-  Slug: string;
-  Title: string;
-  Abstract: string;
-  Content: string;
-  UserId: string;
-  CreatedAt: string;
-  UpdatedAt: string;
-  Animes: TMinAnime[];
+  id: number;
+  slug: string;
+  title: string;
+  abstract: string;
+  content: string;
+  user_id: string;
+  created_at: string;
+  updated_at: string;
+  animes: TMinAnime[];
   User: TUser;
 };
 
 export type TMinAnime = {
-  AnimeId: number;
-  Slug: string;
-  Title: string;
+  anime_id: number;
+  slug: string;
+  title: string;
 };

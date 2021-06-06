@@ -13,7 +13,7 @@ export const SetJWTCookie = async (email: string, password: string) => {
     body: JSON.stringify({ Email: email, Password: password }),
   });
   const ret: { [key: string]: number } = await res.json();
-  const status = ret["Status"];
+  const status = ret["status"];
 
   return status;
 };
@@ -66,20 +66,20 @@ export const getUserModelFromCookie = async () => {
 export const fetchCurrentUser = async () => {
   try {
     const ret = await getUserModelFromCookie();
-    if (ret["Status"] === 4001) {
+    if (ret["status"] === 4001) {
       await RefreshToken();
       const ret = await getUserModelFromCookie();
-      if (ret["Status"] === 4002) {
+      if (ret["status"] === 4002) {
         return null;
       }
-      const user: TUser = ret["User"];
-      user.isVerify = ret["IsVerify"];
+      const user: TUser = ret["user"];
+      user.isVerify = ret["is_verify"];
       return user;
-    } else if (ret["Status"] === 200) {
-      const user: TUser = ret["User"];
-      user.isVerify = ret["IsVerify"];
+    } else if (ret["status"] === 200) {
+      const user: TUser = ret["user"];
+      user.isVerify = ret["is_verify"];
       return user;
-    } else if (ret["Status"] === 4002) {
+    } else if (ret["status"] === 4002) {
       return null;
     }
   } catch (e) {
@@ -107,6 +107,6 @@ export const fetchUpdateProfile = async (e: any) => {
 export const fetchUserModel = async (uid: string) => {
   const res = await fetch(`${BACKEND_URL}/auth/user/?uid=${uid}`);
   const ret = await res.json();
-  const user = ret["Status"] === 200 ? ret["User"] : null;
+  const user = ret["status"] === 200 ? ret["user"] : null;
   return user;
 };

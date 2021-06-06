@@ -72,8 +72,8 @@ export const getServerSideProps: GetServerSideProps<Props, Params> = async (
   const resU = await fetch(`${BACKEND_URL}/auth/user/?uid=${uid}`);
   const retU = await resU.json();
 
-  const blogs = ret["Data"];
-  const user = retU["User"];
+  const blogs = ret["data"];
+  const user = retU["user"];
   return {
     props: {
       blogs: blogs,

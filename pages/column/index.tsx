@@ -30,7 +30,7 @@ const BlogList: NextPage<Props> = (props) => {
 export const getServerSideProps: GetServerSideProps<Props> = async (ctx) => {
   const res = await fetch(`${BACKEND_URL}/blog/`);
   const ret = await res.json();
-  const blogs = ret["Data"];
+  const blogs = ret["data"];
 
   return {
     props: {

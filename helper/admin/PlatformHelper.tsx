@@ -66,9 +66,9 @@ export const fetchInsertRelationPlatform = async (
     mode: "cors",
     credentials: "include",
     body: JSON.stringify({
-      AnimeId: animeId,
-      PlatformId: platId,
-      LinkUrl: linkUrl,
+      anime_id: animeId,
+      platform_id: platId,
+      link_url: linkUrl,
     }),
   });
   const ret = await res.json();

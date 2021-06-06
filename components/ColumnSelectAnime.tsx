@@ -22,11 +22,11 @@ const ColumnSelectAnime: NextPage<Props> = ({
         {searchedAnime &&
           searchedAnime.map((ani, index) => (
             <li key={index}>
-              {ani.Title}
+              {ani.title}
               <span
                 className="addButton"
-                data-id={ani.ID}
-                data-title={ani.Title}
+                data-id={ani.id}
+                data-title={ani.title}
                 onClick={addSelected}
               >
                 +

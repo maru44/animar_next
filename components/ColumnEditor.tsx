@@ -24,22 +24,22 @@ const ColumnEditor: NextPage<Props> = (props) => {
 
   const router = useRouter();
   const [title, setTitle] = useState<string>(
-    props.blog ? props.blog.Title : null
+    props.blog ? props.blog.title : null
   );
   const [abst, setAbst] = useState<string>(
-    props.blog ? props.blog.Abstract : null
+    props.blog ? props.blog.abstract : null
   );
   const [prev, setPrev] = useState<string>(
-    props.blog ? props.blog.Content : null
+    props.blog ? props.blog.content : null
   );
 
   const [mess, setMess] = useState<IMessage[]>(null);
 
   const initialRelAnimeIds: number[] = props.blog
-    ? extractValueList(props.blog.Animes, "AnimeId")
+    ? extractValueList(props.blog.animes, "AnimeId")
     : [];
   const initialRelAnimeTitles: string[] = props.blog
-    ? extractValueList(props.blog.Animes, "Title")
+    ? extractValueList(props.blog.animes, "Title")
     : [];
 
   const [isPrev, setIsPrev] = useState<boolean>(false);
@@ -59,7 +59,7 @@ const ColumnEditor: NextPage<Props> = (props) => {
       const mess: IMessage = { title: "送信中" };
       setMess([mess]);
       const ret = await fetchPostBlog(title, abst, prev, relAnimeIds);
-      ret["Status"] === 200 && router.push("/column");
+      ret["status"] === 200 && router.push("/column");
     }
   };
   const startEditBlog = async (e: any) => {
@@ -68,13 +68,13 @@ const ColumnEditor: NextPage<Props> = (props) => {
     setMess([mess]);
     if (title && prev) {
       const ret = await fetchUpdateBlog(
-        props.blog.ID,
+        props.blog.id,
         title,
         abst,
         prev,
         relAnimeIds
       );
-      ret["Status"] === 200 && router.back();
+      ret["status"] === 200 && router.back();
     }
   };
 
@@ -96,7 +96,7 @@ const ColumnEditor: NextPage<Props> = (props) => {
   const searchAnime = async (e: any) => {
     if (e.target.value) {
       const ret = await fetchSearchAnime(e.target.value);
-      ret["Status"] === 200 && setSearchedAnime(ret["Data"]);
+      ret["status"] === 200 && setSearchedAnime(ret["data"]);
     }
   };
 
@@ -168,7 +168,7 @@ const ColumnEditor: NextPage<Props> = (props) => {
                   name="blogtitle"
                   onChange={changeTitle}
                   required
-                  defaultValue={props.blog && props.blog.Title}
+                  defaultValue={props.blog && props.blog.title}
                 />
               </div>
               <div className="mt20 field">
@@ -180,7 +180,7 @@ const ColumnEditor: NextPage<Props> = (props) => {
                   onChange={changeAbst}
                   placeholder="概要: 160文字以内"
                   defaultValue={
-                    props.blog && props.blog.Abstract && props.blog.Abstract
+                    props.blog && props.blog.abstract && props.blog.abstract
                   }
                 />
               </div>
@@ -192,7 +192,7 @@ const ColumnEditor: NextPage<Props> = (props) => {
                   placeholder="本文: マークダウン形式です"
                   style={{ height: `${textHeight}px` }}
                   required
-                  defaultValue={props.blog && props.blog.Content}
+                  defaultValue={props.blog && props.blog.content}
                 ></textarea>
               </div>
             </div>
@@ -220,7 +220,7 @@ const ColumnEditor: NextPage<Props> = (props) => {
             {CurrentUser && CurrentUser.isVerify && (
               <div className="mt20">
                 <button type="submit" className="floatR">
-                  {props.blog && CurrentUser.rawId === props.blog.UserId
+                  {props.blog && CurrentUser.rawId === props.blog.user_id
                     ? "編集する"
                     : "作成する"}
                 </button>

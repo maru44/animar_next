@@ -79,16 +79,16 @@ const UsersWatch: NextPage<Props> = (props) => {
             {showWatches &&
               showWatches.map(
                 (watch, index) =>
-                  (selectShow === null || selectShow === watch.Watch) && (
+                  (selectShow === null || selectShow === watch.state) && (
                     <div
-                      className={`aWatch hrefBox mb10 watch_${watch.Watch}`}
+                      className={`aWatch hrefBox mb10 watch_${watch.state}`}
                       key={index}
                     >
                       <span></span>
-                      <p className="brAll flex1 ml20">{watch.Title}</p>
+                      <p className="brAll flex1 ml20">{watch.title}</p>
                       <Link
                         href="/anime/[slug]"
-                        as={`/anime/${watch.Slug}`}
+                        as={`/anime/${watch.slug}`}
                         passHref
                       >
                         <a className="hrefBoxIn"></a>
@@ -113,8 +113,8 @@ export const getServerSideProps: GetServerSideProps<Props, Params> = async (
   const resU = await fetch(`${BACKEND_URL}/auth/user/?uid=${uid}`);
   const retU = await resU.json();
 
-  const data = ret["Data"];
-  const user = retU["User"];
+  const data = ret["data"];
+  const user = retU["user"];
   return {
     props: {
       watches: data,

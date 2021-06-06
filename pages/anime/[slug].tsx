@@ -46,9 +46,9 @@ const AnimeDetail: NextPage<Props> = (props) => {
 
   useEffect(() => {
     const f = async () => {
-      const dataW = await getWatchCountsList(anime.ID); // watch state
-      const dataUW = await fetchWatchStateDetail(anime.ID); // user's watch state
-      const dataRU = await fetchUserAnimeReview(anime.ID); //reviews of login user
+      const dataW = await getWatchCountsList(anime.id); // watch state
+      const dataUW = await fetchWatchStateDetail(anime.id); // user's watch state
+      const dataRU = await fetchUserAnimeReview(anime.id); //reviews of login user
       const wid =
         window.innerWidth > 800
           ? 800 * 0.68
@@ -57,8 +57,8 @@ const AnimeDetail: NextPage<Props> = (props) => {
           : window.innerWidth * 0.68;
       setWid(wid);
       dataUW && setUserWatch(dataUW);
-      dataRU && setUserReviewStar(dataRU["Star"]);
-      dataRU && setUserReviewContent(dataRU["Content"]);
+      dataRU && setUserReviewStar(dataRU["star"]);
+      dataRU && setUserReviewContent(dataRU["content"]);
       setWatchCountsList(dataW);
     };
     f();
@@ -68,16 +68,16 @@ const AnimeDetail: NextPage<Props> = (props) => {
   const startPostContent = async (e: any) => {
     e.preventDefault();
     const content = e.target.content.value;
-    const ret = await fetchUpsertReviewContent(anime.ID, content);
-    setUserReviewContent(ret["String"]);
+    const ret = await fetchUpsertReviewContent(anime.id, content);
+    setUserReviewContent(ret["data"]);
   };
 
   const startPostStar = async (e: any) => {
     e.preventDefault();
     const star = e.target.dataset.id;
-    const ret = await fetchUpsertReviewStar(anime.ID, star);
-    setUserReviewStar(ret["ID"]);
-    const newAvg = await fetchAnimeStars(anime.ID);
+    const ret = await fetchUpsertReviewStar(anime.id, star);
+    setUserReviewStar(ret["data"]);
+    const newAvg = await fetchAnimeStars(anime.id);
     setStarAvg(newAvg);
   };
 
@@ -85,11 +85,11 @@ const AnimeDetail: NextPage<Props> = (props) => {
   const startWatchPost = async (e: any) => {
     e.preventDefault();
     const watch = e.target.dataset.id;
-    const ret = await fetchPostWatchStates(anime.ID, watch);
+    const ret = await fetchPostWatchStates(anime.id, watch);
     console.log(ret);
     setUserWatch(ret);
 
-    const newWatchCountsList = await getWatchCountsList(anime.ID);
+    const newWatchCountsList = await getWatchCountsList(anime.id);
     setWatchCountsList(newWatchCountsList);
   };
 
@@ -97,7 +97,7 @@ const AnimeDetail: NextPage<Props> = (props) => {
     <div>
       <main>
         <div className="content mla mra">
-          <h1 className="brAll">{anime.Title}</h1>
+          <h1 className="brAll">{anime.title}</h1>
           <div className="animeDetailTop flexNormal flexWrap alCen mt20">
             <div className="thumbWrapper">
               <div className="avgStar">
@@ -107,8 +107,8 @@ const AnimeDetail: NextPage<Props> = (props) => {
                 <img
                   className="w100 contain"
                   src={
-                    anime.ThumbUrl
-                      ? `${anime.ThumbUrl}`
+                    anime.thumb_url
+                      ? `${anime.thumb_url}`
                       : "https://animar-bucket.s3-ap-northeast-1.amazonaws.com/slum.jpg"
                   }
                 />
@@ -196,7 +196,7 @@ const AnimeDetail: NextPage<Props> = (props) => {
               {reviews &&
                 reviews.map(
                   (review: TReview, index: number) =>
-                    review.Content && (
+                    review.content && (
                       <ReviewContentElement
                         key={index}
                         review={review}
@@ -217,20 +217,20 @@ export const getServerSideProps: GetServerSideProps<Props, Params> = async (
   const slug = ctx.params.slug;
   const res = await fetch(`${BACKEND_URL}/db/anime/?slug=${slug}`);
   const ret = await res.json();
-  const anime: TAnime = ret["Data"][0];
+  const anime: TAnime = ret["data"][0];
 
   const dataR = await baseFetcher(
-    `${BACKEND_URL}/reviews/anime/?anime=${anime.ID}`
+    `${BACKEND_URL}/reviews/anime/?anime=${anime.id}`
   );
 
-  const dataS = await fetchAnimeStars(anime.ID);
+  const dataS = await fetchAnimeStars(anime.id);
 
   return {
     props: {
       anime: anime,
       stars: dataS,
       reviews: dataR,
-      title: anime.Title,
+      title: anime.title,
       ogType: "article",
     },
   };

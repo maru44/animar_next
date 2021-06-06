@@ -13,13 +13,11 @@ interface Props {
 const ColumnElement: NextPage<Props> = (props) => {
   const blog = props.column;
   const index = props.index;
-
   const [author, setAuthor] = useState<TUser>(undefined);
-
   useEffect(() => {
     (async () => {
-      const uid = blog.UserId;
-      if (blog.UserId) {
+      const uid = blog.user_id;
+      if (blog.user_id) {
         const author = await fetchUserModel(uid);
         setAuthor(author);
       }
@@ -29,19 +27,19 @@ const ColumnElement: NextPage<Props> = (props) => {
   return (
     <>
       <article key={index} className="aBlog mb35 hrefBox ovHide">
-        <h3 className="ovHide">{blog.Title}</h3>
-        {blog.Animes && (
+        <h3 className="ovHide">{blog.title}</h3>
+        {blog.animes && (
           <div className="mt5 relAnimeList">
-            {blog.Animes.map((anime: TMinAnime, idx: number) => (
+            {blog.animes.map((anime: TMinAnime, idx: number) => (
               <span className="hrefBox mr10" key={idx}>
-                {anime.Title}
+                {anime.title}
               </span>
             ))}
           </div>
         )}
-        <p className="mt5 brAll ovHide abstractZone">{blog.Abstract}</p>
+        <p className="mt5 brAll ovHide abstractZone">{blog.abstract}</p>
         <p className="mt5">
-          <small>{blog.CreatedAt}</small>
+          <small>{blog.created_at}</small>
           <span className="floatR">
             <small>
               {author !== undefined && author && author.displayName
@@ -50,7 +48,7 @@ const ColumnElement: NextPage<Props> = (props) => {
             </small>
           </span>
         </p>
-        <Link href="/column/[slug]" as={`/column/${blog.Slug}`} passHref>
+        <Link href="/column/[slug]" as={`/column/${blog.slug}`} passHref>
           <a className="hrefBoxIn"></a>
         </Link>
       </article>
