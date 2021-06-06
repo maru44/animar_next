@@ -1,6 +1,9 @@
 import { NextPage } from "next";
 import { TBlog, TMinAnime } from "../types/blog";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import { TUser } from "../types/auth";
+import { fetchUserModel } from "../helper/UserHelper";
 
 interface Props {
   index: number;
@@ -10,6 +13,18 @@ interface Props {
 const ColumnElement: NextPage<Props> = (props) => {
   const blog = props.column;
   const index = props.index;
+
+  const [author, setAuthor] = useState<TUser>(undefined);
+
+  useEffect(() => {
+    (async () => {
+      const uid = blog.UserId;
+      if (blog.UserId) {
+        const author = await fetchUserModel(uid);
+        setAuthor(author);
+      }
+    })();
+  }, []);
 
   return (
     <>
@@ -29,8 +44,8 @@ const ColumnElement: NextPage<Props> = (props) => {
           <small>{blog.CreatedAt}</small>
           <span className="floatR">
             <small>
-              {blog.User && blog.User.displayName
-                ? blog.User.displayName
+              {author !== undefined && author && author.displayName
+                ? author.displayName
                 : "-----"}
             </small>
           </span>

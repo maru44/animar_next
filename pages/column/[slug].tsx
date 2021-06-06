@@ -9,6 +9,9 @@ import { useCurrentUser } from "../../hooks/useCurrentUser";
 import Head from "next/head";
 import { fetchDeleteBlog } from "../../helper/BlogHelper";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import { TUser } from "../../types/auth";
+import { fetchUserModel } from "../../helper/UserHelper";
 
 interface Props {
   blog: TBlog;
@@ -31,6 +34,17 @@ const BlogDetail: NextPage<Props> = (props) => {
     const ret = await fetchDeleteBlog(id);
     ret["Status"] === 200 ? router.back() : console.log(ret);
   };
+
+  const [author, setAuthor] = useState<TUser>(undefined);
+  useEffect(() => {
+    (async () => {
+      const uid = blog.UserId;
+      if (blog.UserId) {
+        const author = await fetchUserModel(uid);
+        setAuthor(author);
+      }
+    })();
+  }, []);
 
   return (
     <div>
@@ -91,17 +105,17 @@ const BlogDetail: NextPage<Props> = (props) => {
             )}
             <div className="mt40 authorZone">
               Author
-              {blog.User && blog.User.displayName && (
+              {author !== undefined && author && author.displayName && (
                 <div className="hrefBox mt10 flexNormal alCen">
                   <div
                     className="imgCircle"
                     style={
-                      blog.User.photoUrl
-                        ? { backgroundImage: `url(${blog.User.photoUrl})` }
+                      author.photoUrl
+                        ? { backgroundImage: `url(${author.photoUrl})` }
                         : { backgroundImage: `url(${DEFAULT_USER_IMAGE})` }
                     }
                   ></div>
-                  <p>{blog.User.displayName}</p>
+                  <p>{author.displayName}</p>
                   <Link
                     href="/column/u/[uid]"
                     as={`/column/u/${blog.UserId}`}

@@ -88,7 +88,7 @@ export const fetchCurrentUser = async () => {
 };
 
 export const fetchUpdateProfile = async (e: any) => {
-  let formData = new FormData();
+  const formData = new FormData();
   formData.set("dname", e.target.dname.value);
   if (e.target.image.files.length !== 0) {
     formData.set("image", e.target.image.files[0]);
@@ -102,4 +102,11 @@ export const fetchUpdateProfile = async (e: any) => {
   });
   const ret = await res.json();
   return ret;
+};
+
+export const fetchUserModel = async (uid: string) => {
+  const res = await fetch(`${BACKEND_URL}/auth/user/?uid=${uid}`);
+  const ret = await res.json();
+  const user = ret["Status"] === 200 ? ret["User"] : null;
+  return user;
 };

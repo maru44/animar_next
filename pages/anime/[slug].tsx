@@ -1,15 +1,9 @@
 import { GetServerSideProps, NextPage } from "next";
 import { ParsedUrlQuery } from "querystring";
 import { useEffect, useState } from "react";
-import useSWR from "swr";
 import WatchStateGraphPie from "../../components/WatchStateGraphPie";
+import { BACKEND_URL, baseFetcher } from "../../helper/Config";
 import {
-  BACKEND_URL,
-  baseFetcher,
-  DEFAULT_USER_IMAGE,
-} from "../../helper/Config";
-import {
-  fetchAnimeReviews,
   fetchUpsertReviewContent,
   fetchUpsertReviewStar,
   fetchUserAnimeReview,
@@ -24,7 +18,7 @@ import {
 } from "../../helper/WatchHelper";
 import { TAnime, TReview } from "../../types/anime";
 import { useCurrentUser } from "../../hooks/useCurrentUser";
-import Link from "next/link";
+import ReviewContentElement from "../../components/ReviewContentElement";
 
 interface Props {
   anime: TAnime;
@@ -52,13 +46,9 @@ const AnimeDetail: NextPage<Props> = (props) => {
 
   useEffect(() => {
     const f = async () => {
-      // const dataR = await baseFetcher(
-      //   `${BACKEND_URL}/reviews/anime/?anime=${anime.ID}`
-      // );
       const dataW = await getWatchCountsList(anime.ID); // watch state
       const dataUW = await fetchWatchStateDetail(anime.ID); // user's watch state
       const dataRU = await fetchUserAnimeReview(anime.ID); //reviews of login user
-      //setReviews(dataR);
       const wid =
         window.innerWidth > 800
           ? 800 * 0.68
@@ -73,23 +63,6 @@ const AnimeDetail: NextPage<Props> = (props) => {
     };
     f();
   }, []);
-
-  // useSwr sample
-  /*
-  const { data: reviews, error } = useSWR(
-    `${BACKEND_URL}/reviews/anime/?anime=${anime.ID}`,
-    baseFetcher
-  );
-  
-  const { data: watchCountsList, error: watchCountsError } = useSWR(
-    `${BACKEND_URL}/watch/?anime=${anime.ID}`,
-    // getWatchCountsList,
-    (url: string) => getWatchCountsList(anime.ID, url),
-    {
-      initialData: props.watchCounts,
-    }
-  );
-  */
 
   // review post start
   const startPostContent = async (e: any) => {
@@ -224,37 +197,10 @@ const AnimeDetail: NextPage<Props> = (props) => {
                 reviews.map(
                   (review: TReview, index: number) =>
                     review.Content && (
-                      <article key={index} className="mb10">
-                        <p>{review.Content}</p>
-                        <div className="mt5 flexNormal hrefBox">
-                          <div
-                            className="imgCircle mla mr20"
-                            style={
-                              review.User && review.User.photoUrl
-                                ? {
-                                    backgroundImage: `url(${review.User.photoUrl})`,
-                                  }
-                                : {
-                                    backgroundImage: `url(${DEFAULT_USER_IMAGE})`,
-                                  }
-                            }
-                          ></div>
-                          <p>
-                            {review.User && review.User.displayName
-                              ? review.User.displayName
-                              : "----"}
-                          </p>
-                          {review.User && (
-                            <Link
-                              href="/watch/[uid]"
-                              as={`/watch/${review.UserId}`}
-                              passHref
-                            >
-                              <a className="hrefBoxIn"></a>
-                            </Link>
-                          )}
-                        </div>
-                      </article>
+                      <ReviewContentElement
+                        key={index}
+                        review={review}
+                      ></ReviewContentElement>
                     )
                 )}
             </div>

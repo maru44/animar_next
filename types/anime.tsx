@@ -22,7 +22,6 @@ export type TReview = {
   CreatedAt: string;
   UpdatedAt: string;
   UserId: string;
-  User: TUser;
 };
 
 export type TWatchCount = {
