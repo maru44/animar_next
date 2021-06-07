@@ -54,6 +54,14 @@ const AnimePost: NextPage<Props> = (props) => {
             defaultValue={anime && anime.kana ? anime.kana : ""}
           />
         </div>
+        <div className="filed mt20">
+          <input
+            type="text"
+            name="copyright"
+            placeholder="著作権"
+            defaultValue={anime && anime.copyright ? anime.copyright : ""}
+          />
+        </div>
         <div className="field mt20">
           <input
             type="text"
@@ -72,10 +80,10 @@ const AnimePost: NextPage<Props> = (props) => {
         </div>
         <div className="field mt20">
           <textarea
-            name="content"
+            name="description"
             placeholder="紹介文"
             rows={5}
-            defaultValue={anime && anime.content ? anime.content : ""}
+            defaultValue={anime && anime.description ? anime.description : ""}
           ></textarea>
         </div>
         <div className="field mt20">
@@ -99,12 +107,15 @@ const AnimePost: NextPage<Props> = (props) => {
           </select>
         </div>
         <div className="field mt20">
-          <input
-            type="text"
-            name="on_air_state"
-            placeholder="onair (int)"
-            defaultValue={anime && anime.state ? anime.state : ""}
-          />
+          <select
+            name="state"
+            defaultValue={anime && anime.state ? anime.state : "fin"}
+          >
+            <option value="cut">打ち切り</option>
+            <option value="fin">放送終了</option>
+            <option value="now">放送中</option>
+            <option value="pre">放送前</option>
+          </select>
         </div>
         {/* <div className="field mt20">
           <input
@@ -117,7 +128,7 @@ const AnimePost: NextPage<Props> = (props) => {
         <div className="field mt20">
           <input
             type="text"
-            name="stories"
+            name="count_episodes"
             defaultValue={
               anime && anime.count_episodes ? anime.count_episodes : ""
             }

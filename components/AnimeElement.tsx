@@ -17,17 +17,20 @@ const AnimeElement: NextPage<Props> = (props) => {
     <div className="hrefBox oneAnime ovHide mb15" key={index}>
       <div className="flexNormal">
         <div className="w20 thumb frame">
-          <img
-            className="w100 contain"
-            src={
-              anime.thumb_url
-                ? `${anime.thumb_url}`
-                : "https://animar-bucket.s3-ap-northeast-1.amazonaws.com/slum.jpg"
-            }
-          />
+          {anime.thumb_url ? (
+            <img
+              className="w100 contain"
+              src={anime.thumb_url}
+              alt={anime.title}
+            />
+          ) : (
+            <img className="w100 contain" />
+          )}
         </div>
         <div className="flex1">
           <h3>{anime.title}</h3>
+          <small className="copyright">&copy;{anime.copyright}</small>
+          <p className="description brAll">{anime.description}</p>
         </div>
       </div>
       {mode && mode === "admin" && (

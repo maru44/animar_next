@@ -9,7 +9,7 @@ export type TAnime = {
   description: string;
   copyright: string;
   series_id: number;
-  state: number;
+  state: string;
   count_episodes: string;
   created_at: string;
   updated_at: string;
@@ -38,8 +38,8 @@ export type TWatchJoinAnime = {
   updated_at: string;
   title: string;
   slug: string;
-  content: string;
-  anime_state: number;
+  description: string;
+  anime_state: string;
 };
 
 export type TReviewJoinAnime = {
@@ -68,10 +68,11 @@ export type TAnimeAdmin = {
   title: string;
   abbreviation: string;
   kana: string;
+  copyright: string;
   eng_name: string;
   thumb_url: string;
-  content: string;
-  state: number;
+  description: string;
+  state: string;
   series_id: number;
   count_episodes: string;
   created_at: string;

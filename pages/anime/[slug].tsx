@@ -16,6 +16,7 @@ import {
   getWatchCountsList,
   watchStateList,
 } from "../../helper/WatchHelper";
+import { AnimeStateDict } from "../../helper/AnimeHelper";
 import { TAnime, TReview } from "../../types/anime";
 import { useCurrentUser } from "../../hooks/useCurrentUser";
 import ReviewContentElement from "../../components/ReviewContentElement";
@@ -104,14 +105,15 @@ const AnimeDetail: NextPage<Props> = (props) => {
                 <strong>&#9733; {starAvg}</strong>
               </div>
               <div className="thumb frame">
-                <img
-                  className="w100 contain"
-                  src={
-                    anime.thumb_url
-                      ? `${anime.thumb_url}`
-                      : "https://animar-bucket.s3-ap-northeast-1.amazonaws.com/slum.jpg"
-                  }
-                />
+                {anime.thumb_url ? (
+                  <img
+                    className="w100 contain"
+                    src={anime.thumb_url}
+                    alt={anime.title}
+                  />
+                ) : (
+                  <img className="w100 contain" />
+                )}
               </div>
             </div>
             <div className="flex1 graphWrapper">
@@ -126,7 +128,7 @@ const AnimeDetail: NextPage<Props> = (props) => {
           </div>
           <div className="mt20">
             <span className="curiousArea">
-              興味: {watchCountsList && watchCountsList[1]}人
+              興味: {watchCountsList && watchCountsList[1]}
             </span>
           </div>
           {CurrentUser && CurrentUser.isVerify && watchStateList && (
@@ -147,6 +149,21 @@ const AnimeDetail: NextPage<Props> = (props) => {
               ))}
             </div>
           )}
+          <div className="mt40 animeInfo">
+            <div className="">
+              <span
+                className={
+                  anime.state ? `${anime.state} onAirState` : "onAirState"
+                }
+              >
+                {AnimeStateDict[anime.state]}
+              </span>
+              <span className="countEpisodes">全{anime.count_episodes}話</span>
+              {/* <span>{anime.series_id}</span> */}
+            </div>
+            <div className="mt10 copyright">&copy;{anime.copyright}</div>
+            <p className="brAll description mt10">{anime.description}</p>
+          </div>
           {CurrentUser && CurrentUser.isVerify && (
             <section className="mt40">
               {userReviewContent && <div className="">{userReviewContent}</div>}

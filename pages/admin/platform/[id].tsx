@@ -61,7 +61,8 @@ export const getServerSideProps: GetServerSideProps<Props> = async (ctx) => {
   return {
     props: {
       kind: "admin",
-      plat: ret["data"][0],
+      // @TODO -> data
+      plat: ret["Data"][0],
     },
   };
 };

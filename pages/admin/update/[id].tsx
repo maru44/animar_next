@@ -65,11 +65,11 @@ const AnimeAdminUpdate: NextPage<Props> = (props) => {
       t.kana.value,
       t.eng_name.value,
       t.thumb_url.files,
-      t.content.value,
-      t.on_air_state.value,
+      t.description.value,
+      t.state.value,
       t.series.value,
-      t.season.value,
-      t.stories.value
+      t.copyright.value,
+      t.count_episodes.value
     );
     if (ret["Status"] === 200) {
       const res = await fetch(
@@ -193,7 +193,8 @@ export const getServerSideProps: GetServerSideProps<Props, Params> = async (
       robots: "nofollow noopener noreferrer noindex",
       anime: animeRet["data"][0],
       kind: "admin",
-      plats: platRet["data"],
+      // @TODO -> data
+      plats: platRet["Data"],
     },
   };
 };
