@@ -24,7 +24,7 @@ export const fetchPostWatchStates = async (animeId: number, watch: number) => {
     method: "POST",
     mode: "cors",
     credentials: "include",
-    body: JSON.stringify({ AnimeId: animeId, Watch: watch }),
+    body: JSON.stringify({ anime_id: animeId, state: watch }),
   });
   const ret = await res.json();
 
