@@ -761,15 +761,22 @@ anime
   padding: 5px 10px;
   border-radius: 6px;
 }
-.animeInfo span.countEpisodes {
-  background-color: rgba(31, 31, 31, 0.3);
-}
-.animeInfo span.onAirState {
+.animeInfo span {
   background-color: rgba(31, 31, 31, 0.3);
 }
 .animeInfo span.onAirState.now {
   background-color: #e82a00;
   color: #fff;
+}
+.animeInfo .platformZone > div {
+  width: 30%;
+  height: 40px;
+  background-color: #1f1f1f;
+  color: #fff;
+  border-radius: 6px;
+}
+.animeInfo .platformZone > div:not():nth-child(3n + 1) {
+  margin-left: 5%;
 }
 
 .reviewStars {

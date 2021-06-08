@@ -15,7 +15,7 @@ const SeasonIndex: NextPage<Props> = (props) => {
 
   const startInsertSeason = async (e: any) => {
     e.preventDefault();
-    const res = await fetch(`${BACKEND_URL}/season/post/`, {
+    const res = await fetch(`${BACKEND_URL}/admin/season/post/`, {
       method: "POST",
       mode: "cors",
       credentials: "include",
@@ -51,6 +51,18 @@ const SeasonIndex: NextPage<Props> = (props) => {
                 <button type="submit">追加</button>
               </div>
             </form>
+          </div>
+          <div className="mt20">
+            <h3>一覧</h3>
+            <div>
+              {props.seasons &&
+                props.seasons.map((s, index) => (
+                  <div key={index}>
+                    {s.year}
+                    {s.season}
+                  </div>
+                ))}
+            </div>
           </div>
         </div>
       </main>

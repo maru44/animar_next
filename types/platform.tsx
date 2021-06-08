@@ -15,4 +15,5 @@ export type TRelationPlatform = {
   link_url: string;
   created_at: string;
   updated_at: string;
+  plat_name: string;
 };

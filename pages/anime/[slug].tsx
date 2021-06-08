@@ -20,6 +20,11 @@ import { AnimeStateDict } from "../../helper/AnimeHelper";
 import { TAnime, TReview } from "../../types/anime";
 import { useCurrentUser } from "../../hooks/useCurrentUser";
 import ReviewContentElement from "../../components/ReviewContentElement";
+import { fetchRelationSeason } from "../../helper/admin/SeasonHelper";
+import { fetchRelationPlatform } from "../../helper/admin/PlatformHelper";
+import { TSeason } from "../../types/season";
+import { TRelationPlatform } from "../../types/platform";
+import Link from "next/link";
 
 interface Props {
   anime: TAnime;
@@ -27,6 +32,8 @@ interface Props {
   reviews: TReview[];
   title: string;
   ogType: string;
+  seasons: TSeason[];
+  plats: TRelationPlatform[];
 }
 
 interface Params extends ParsedUrlQuery {
@@ -151,18 +158,34 @@ const AnimeDetail: NextPage<Props> = (props) => {
           )}
           <div className="mt40 animeInfo">
             <div className="">
-              <span
-                className={
-                  anime.state ? `${anime.state} onAirState` : "onAirState"
-                }
-              >
-                {AnimeStateDict[anime.state]}
-              </span>
+              {anime.state && (
+                <span className={`onAirState ${anime.state}`}>
+                  {AnimeStateDict[anime.state]}
+                </span>
+              )}
               <span className="countEpisodes">全{anime.count_episodes}話</span>
               {/* <span>{anime.series_id}</span> */}
+              {props.seasons &&
+                props.seasons.map((s, i) => (
+                  <span className="seasons" key={i}>
+                    {s.year}
+                    {s.season}
+                  </span>
+                ))}
             </div>
             <div className="mt10 copyright">&copy;{anime.copyright}</div>
             <p className="brAll description mt10">{anime.description}</p>
+            <div className="mt20 platformZone flexNormal flexWrap">
+              {props.plats &&
+                props.plats.map((p, i) => (
+                  <div className="hrefBox flexCen">
+                    {p.plat_name}
+                    <Link href={p.link_url} passHref>
+                      <a target="_new" className="hrefBoxIn"></a>
+                    </Link>
+                  </div>
+                ))}
+            </div>
           </div>
           {CurrentUser && CurrentUser.isVerify && (
             <section className="mt40">
@@ -206,6 +229,7 @@ const AnimeDetail: NextPage<Props> = (props) => {
               </form>
             </section>
           )}
+
           <div className="reviewList mt40">
             <span className="titleSpan ">みんなのレビュー</span>
             <br />
@@ -242,6 +266,9 @@ export const getServerSideProps: GetServerSideProps<Props, Params> = async (
 
   const dataS = await fetchAnimeStars(anime.id);
 
+  const seasonRet = await fetchRelationSeason(anime.id);
+  const platRet = await fetchRelationPlatform(anime.id);
+
   return {
     props: {
       anime: anime,
@@ -249,6 +276,8 @@ export const getServerSideProps: GetServerSideProps<Props, Params> = async (
       reviews: dataR,
       title: anime.title,
       ogType: "article",
+      seasons: seasonRet["data"],
+      plats: platRet["data"],
     },
   };
 };

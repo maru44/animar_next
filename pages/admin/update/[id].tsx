@@ -15,7 +15,12 @@ import {
   fetchInsertRelationPlatform,
   fetchRelationPlatform,
 } from "../../../helper/admin/PlatformHelper";
+import {
+  fetchInsertRelationSeason,
+  fetchRelationSeason,
+} from "../../../helper/admin/SeasonHelper";
 import { TPlatformAdmin, TRelationPlatform } from "../../../types/platform";
+import { TSeason } from "../../../types/season";
 
 interface Props {
   series: TSeries[];
@@ -23,6 +28,7 @@ interface Props {
   anime: TAnimeAdmin;
   kind: string;
   plats: TPlatformAdmin[]; // all plats
+  seasons: TSeason[]; // all season
 }
 interface Params extends ParsedUrlQuery {
   id: string;
@@ -33,12 +39,16 @@ const AnimeAdminUpdate: NextPage<Props> = (props) => {
   const [anime, setAnime] = useState(props.anime);
   const [allPlats, setAllPlats] = useState(props.plats);
   const [plats, setPlats] = useState<TRelationPlatform[]>(null);
+  const [allSeasons, setAllSeasons] = useState<TSeason[]>(props.seasons);
+  const [seasons, setSeasons] = useState<TSeason[]>(null);
 
   useEffect(() => {
     (async () => {
       const ret = await fetchRelationPlatform(anime.id);
+      const seasonRet = await fetchRelationSeason(anime.id);
       console.log(ret);
       ret["status"] === 200 && setPlats(ret["data"]);
+      seasonRet["status"] === 200 && setSeasons(seasonRet["data"]);
     })();
   }, []);
 
@@ -102,6 +112,15 @@ const AnimeAdminUpdate: NextPage<Props> = (props) => {
     console.log(ret);
   };
 
+  const startAddSeason = async (e: any) => {
+    e.preventDefault();
+    const ret = await fetchInsertRelationSeason(
+      parseInt(e.target.season.value),
+      anime.id
+    );
+    console.log(ret);
+  };
+
   return (
     <div>
       <main>
@@ -151,6 +170,35 @@ const AnimeAdminUpdate: NextPage<Props> = (props) => {
               </button>
             </div>
           </form>
+          <form className="mt40" onSubmit={startAddSeason}>
+            <h3>シーズン</h3>
+            <div className="mt20">
+              {seasons &&
+                seasons.map((s, index) => (
+                  <div key={index}>
+                    {s.year}
+                    {s.season}
+                  </div>
+                ))}
+            </div>
+            <div className="field mt20">
+              <select defaultValue={0} name="season">
+                <option value={0}>------</option>
+                {allSeasons &&
+                  allSeasons.map((s, index) => (
+                    <option key={index} value={s.id}>
+                      {s.year}
+                      {s.season}
+                    </option>
+                  ))}
+              </select>
+            </div>
+            <div className="field mt20">
+              <button className="" type="submit">
+                追加する
+              </button>
+            </div>
+          </form>
         </div>
       </main>
     </div>
@@ -165,7 +213,6 @@ export const getServerSideProps: GetServerSideProps<Props, Params> = async (
   const res = await fetch(`${BACKEND_URL}/series/`, {
     method: "POST",
     mode: "cors",
-    credentials: "include",
     body: JSON.stringify({ token: token }),
   });
   const ret = await res.json();
@@ -174,7 +221,6 @@ export const getServerSideProps: GetServerSideProps<Props, Params> = async (
   const animeRes = await fetch(`${BACKEND_URL}/admin/anime/detail/?id=${id}`, {
     method: "POST",
     mode: "cors",
-    credentials: "include",
     body: JSON.stringify({ token: token }),
   });
   const animeRet = await animeRes.json();
@@ -182,10 +228,16 @@ export const getServerSideProps: GetServerSideProps<Props, Params> = async (
   const platRes = await fetch(`${BACKEND_URL}/admin/platform/`, {
     method: "POST",
     mode: "cors",
-    credentials: "include",
     body: JSON.stringify({ token: token }),
   });
   const platRet = await platRes.json();
+
+  const seasonRes = await fetch(`${BACKEND_URL}/season/`, {
+    method: "POST",
+    mode: "cors",
+    body: JSON.stringify({ token: token }),
+  });
+  const seasonRet = await seasonRes.json();
 
   return {
     props: {
@@ -194,7 +246,8 @@ export const getServerSideProps: GetServerSideProps<Props, Params> = async (
       anime: animeRet["data"][0],
       kind: "admin",
       // @TODO -> data
-      plats: platRet["Data"],
+      plats: platRet["data"],
+      seasons: seasonRet["data"],
     },
   };
 };

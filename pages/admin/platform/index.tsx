@@ -76,7 +76,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (ctx) => {
   return {
     props: {
       // @TODO -> data
-      plats: ret["Data"],
+      plats: ret["data"],
       robots: "nofollow noopener noreferrer noindex",
       kind: "admin",
       list: 2,
