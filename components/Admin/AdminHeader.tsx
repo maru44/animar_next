@@ -15,6 +15,7 @@ const AdminHeader: NextPage<Props> = (props) => {
   const listList: AList[] = [
     { shown: "アニメ", href: `/admin` },
     { shown: "プラットフォーム", href: `/admin/platform` },
+    { shown: "シーズン", href: `/admin/season` },
   ];
 
   return (
