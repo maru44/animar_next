@@ -8,9 +8,11 @@ import MessageComponent, {
   IMessage,
 } from "../../components/Message";
 import { fetchCurrentUser, fetchRegister } from "../../helper/UserHelper";
+import { useRequireAnonymous } from "../../hooks/useRequireLogin";
 import CurrentUserState from "../../states/CurrentUser";
 
 const Register: NextPage = () => {
+  useRequireAnonymous();
   const [messages, setMessages] = useState<IMessage[]>(null);
   const setCurrentUser = useSetRecoilState(CurrentUserState);
   const router = useRouter();

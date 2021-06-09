@@ -2,6 +2,7 @@ import { NextPage } from "next";
 import { ReactNode } from "react-markdown";
 import HeadCustom from "./HeadCustom";
 import Header from "./Header";
+import Footer from "./Footer";
 
 interface Props {
   children: ReactNode;
@@ -29,6 +30,7 @@ const BaseLayouts: NextPage<Props> = (props) => {
       ></HeadCustom>
       <Header list={props.list} kind={props.kind} uid={props.uid}></Header>
       {props.children}
+      <Footer></Footer>
     </div>
   );
 };

@@ -9,9 +9,11 @@ import {
   RefreshToken,
   fetchCurrentUser,
 } from "../../helper/UserHelper";
+import { useRequireAnonymous } from "../../hooks/useRequireLogin";
 import CurrentUserState from "../../states/CurrentUser";
 
 const Login: NextPage = () => {
+  useRequireAnonymous();
   const setCurrentUser = useSetRecoilState(CurrentUserState);
   const router = useRouter();
 

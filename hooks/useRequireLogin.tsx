@@ -20,3 +20,12 @@ export const useRequireVerified = () => {
       router.push("/user/login");
   }, [isAuthChecking, CurrentUser]);
 };
+
+export const useRequireAnonymous = () => {
+  const { isAuthChecking, CurrentUser } = useCurrentUser();
+  const router = useRouter();
+  useEffect(() => {
+    if (isAuthChecking) return;
+    if (CurrentUser) router.push("/anime");
+  }, [isAuthChecking, CurrentUser]);
+};

@@ -80,6 +80,10 @@ span.circleButton {
   opacity: 0.6;
 }
 
+.textCen {
+  text-align: center;
+}
+
 /*//////////////////////
 Href
 //////////////////////*/
@@ -686,6 +690,18 @@ header {
 }
 
 /*///////////////
+footer
+///////////////*/
+
+.footerCon {
+  height: 76px;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  border-top: 1px solid #1f1f1f;
+}
+
+/*///////////////
 main
 ///////////////*/
 
@@ -695,6 +711,49 @@ main
   max-width: 800px;
   padding-bottom: 60px;
   padding-top: 16px;
+}
+
+/*/////////////////
+home
+/////////////////*/
+
+.homePage .h1Title {
+  padding-top: 20%;
+}
+
+.homeCard {
+  width: 48%;
+  padding: 0.6em;
+  border-radius: 6px;
+  border: 1px solid rgba(31, 31, 31, 0.3);
+  margin-bottom: 1em;
+}
+
+.releaseSchedule h2 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.releaseSchedule h2::after,
+.releaseSchedule h2::before {
+  content: "";
+  height: 1px;
+  flex-grow: 0.2;
+  background-color: #1f1f1f;
+}
+.releaseSchedule h2::before {
+  margin-right: 1em;
+}
+.releaseSchedule h2::after {
+  margin-left: 1em;
+}
+.releaseSchedule ul {
+  margin-right: auto;
+  margin-left: auto;
+}
+.releaseSchedule li {
+  width: auto;
+  white-space: nowrap;
 }
 
 /*/////////////////
