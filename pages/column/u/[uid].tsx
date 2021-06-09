@@ -6,10 +6,12 @@ import { BACKEND_URL, DEFAULT_USER_IMAGE } from "../../../helper/Config";
 import Link from "next/link";
 import { TUser } from "../../../types/auth";
 import { useCurrentUser } from "../../../hooks/useCurrentUser";
+import { useEffect, useState } from "react";
+import { fetchUserModel } from "../../../helper/UserHelper";
+import AuthorZone from "../../../components/AuthorZone";
 
 interface Props {
   blogs: TBlog[];
-  user: TUser;
   kind: string;
   list: number;
   uid: string;
@@ -20,35 +22,25 @@ interface Params extends ParsedUrlQuery {
 
 const UserColumn: NextPage<Props> = (props) => {
   const blogs = props.blogs;
-  const user = props.user;
   const { isAuthChecking, CurrentUser } = useCurrentUser();
+
+  const [author, setAuthor] = useState<TUser>(undefined);
+  useEffect(() => {
+    (async () => {
+      const uid = props.uid;
+      if (uid) {
+        const author = await fetchUserModel(uid);
+        setAuthor(author);
+      }
+    })();
+  }, []);
 
   return (
     <div>
       <main>
         <div className="mla mra content">
           <div className="authorZone">
-            {user && user.displayName && (
-              <div className="mt10 flexNormal alCen">
-                <div
-                  className="imgCircle"
-                  style={
-                    user.photoUrl
-                      ? { backgroundImage: `url(${user.photoUrl})` }
-                      : { backgroundImage: `url(${DEFAULT_USER_IMAGE})` }
-                  }
-                ></div>
-                <p>{user.displayName}</p>
-                {CurrentUser && CurrentUser.rawId === user.rawId && (
-                  <h4 className="hrefBox mla">
-                    Edit
-                    <Link href="/auth/profile" passHref>
-                      <a className="hrefBoxIn"></a>
-                    </Link>
-                  </h4>
-                )}
-              </div>
-            )}
+            <AuthorZone author={author} currentUser={CurrentUser}></AuthorZone>
           </div>
           <div className="mt40">
             {blogs &&
@@ -69,15 +61,11 @@ export const getServerSideProps: GetServerSideProps<Props, Params> = async (
   const res = await fetch(`${BACKEND_URL}/blog/?u=${uid}`);
   const ret = await res.json();
 
-  const resU = await fetch(`${BACKEND_URL}/auth/user/?uid=${uid}`);
-  const retU = await resU.json();
-
   const blogs = ret["data"];
-  const user = retU["user"];
+
   return {
     props: {
       blogs: blogs,
-      user: user,
       kind: "user",
       list: 1,
       uid: uid,

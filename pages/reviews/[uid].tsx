@@ -1,15 +1,17 @@
 import { GetServerSideProps, NextPage } from "next";
 import Link from "next/link";
 import { ParsedUrlQuery } from "querystring";
+import { useEffect, useState } from "react";
+import AuthorZone from "../../components/AuthorZone";
 import { BACKEND_URL, DEFAULT_USER_IMAGE } from "../../helper/Config";
 import { reviewStarList } from "../../helper/ReviewHelper";
+import { fetchUserModel } from "../../helper/UserHelper";
 import { useCurrentUser } from "../../hooks/useCurrentUser";
 import { TReviewJoinAnime } from "../../types/anime";
 import { TUser } from "../../types/auth";
 
 interface Props {
   reviews: TReviewJoinAnime[];
-  user: TUser;
   kind: string;
   list: number;
   uid: string;
@@ -21,35 +23,25 @@ interface Params extends ParsedUrlQuery {
 
 const UserReviews: NextPage<Props> = (props) => {
   const reviews = props.reviews;
-  const user = props.user;
   const { isAuthChecking, CurrentUser } = useCurrentUser();
+
+  const [author, setAuthor] = useState<TUser>(undefined);
+  useEffect(() => {
+    (async () => {
+      const uid = props.uid;
+      if (uid) {
+        const author = await fetchUserModel(uid);
+        setAuthor(author);
+      }
+    })();
+  }, []);
 
   return (
     <div>
       <main>
         <div className="content mla mra">
           <div className="authorZone">
-            {user && user.displayName && (
-              <div className="mt10 flexNormal alCen">
-                <div
-                  className="imgCircle"
-                  style={
-                    user.photoUrl
-                      ? { backgroundImage: `url(${user.photoUrl})` }
-                      : { backgroundImage: `url(${DEFAULT_USER_IMAGE})` }
-                  }
-                ></div>
-                <p>{user.displayName}</p>
-                {CurrentUser && CurrentUser.rawId === user.rawId && (
-                  <h4 className="hrefBox mla">
-                    Edit
-                    <Link href="/auth/profile" passHref>
-                      <a className="hrefBoxIn"></a>
-                    </Link>
-                  </h4>
-                )}
-              </div>
-            )}
+            <AuthorZone author={author} currentUser={CurrentUser}></AuthorZone>
           </div>
           <div className="mt40">
             {reviews &&
@@ -99,15 +91,10 @@ export const getServerSideProps: GetServerSideProps<Props, Params> = async (
   const res = await fetch(`${BACKEND_URL}/reviews/user/?user=${uid}`);
   const ret = await res.json();
 
-  const resU = await fetch(`${BACKEND_URL}/auth/user/?uid=${uid}`);
-  const retU = await resU.json();
-
   const reviews = ret["data"];
-  const user = retU["user"];
   return {
     props: {
       reviews: reviews,
-      user: user,
       kind: "user",
       list: 2,
       uid: uid,

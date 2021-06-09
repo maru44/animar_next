@@ -42,6 +42,7 @@ interface Params extends ParsedUrlQuery {
 
 const AnimeDetail: NextPage<Props> = (props) => {
   const anime = props.anime;
+  console.log(anime);
   const { isAuthChecking, CurrentUser } = useCurrentUser();
 
   const [reviews, setReviews] = useState<TReview[]>(props.reviews);

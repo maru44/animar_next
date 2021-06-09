@@ -1011,6 +1011,7 @@ blog
 }
 
 .authorZone > div {
+  height: 80px;
   padding: 0.6em 0.6em;
   border-radius: 6px;
   box-shadow: 0 0 10px rgba(31, 31, 31, 0.3);

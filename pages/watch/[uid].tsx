@@ -1,6 +1,6 @@
 import { GetServerSideProps, NextPage } from "next";
 import { ParsedUrlQuery } from "querystring";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BACKEND_URL, DEFAULT_USER_IMAGE } from "../../helper/Config";
 import { TWatchJoinAnime } from "../../types/anime";
 import Link from "next/link";
@@ -8,10 +8,11 @@ import Link from "next/link";
 import { watchStateList } from "../../helper/WatchHelper";
 import { TUser } from "../../types/auth";
 import { useCurrentUser } from "../../hooks/useCurrentUser";
+import { fetchUserModel } from "../../helper/UserHelper";
+import AuthorZone from "../../components/AuthorZone";
 
 interface Props {
   watches: TWatchJoinAnime[];
-  user: TUser;
   kind: string;
   list: number;
   uid: string;
@@ -23,7 +24,6 @@ interface Params extends ParsedUrlQuery {
 const UsersWatch: NextPage<Props> = (props) => {
   const [selectShow, setSelectShow] = useState<number>(null);
   const [showWatches, setShowWatches] = useState(props.watches);
-  const user = props.user;
   const { isAuthChecking, CurrentUser } = useCurrentUser();
 
   const scopeState = (e: any) => {
@@ -31,32 +31,23 @@ const UsersWatch: NextPage<Props> = (props) => {
     setSelectShow(id);
   };
 
+  const [author, setAuthor] = useState<TUser>(undefined);
+  useEffect(() => {
+    (async () => {
+      const uid = props.uid;
+      if (uid) {
+        const author = await fetchUserModel(uid);
+        setAuthor(author);
+      }
+    })();
+  }, []);
+
   return (
     <div>
       <main>
         <div className="content mla mra">
           <div className="authorZone">
-            {user && user.displayName && (
-              <div className="mt10 flexNormal alCen">
-                <div
-                  className="imgCircle"
-                  style={
-                    user.photoUrl
-                      ? { backgroundImage: `url(${user.photoUrl})` }
-                      : { backgroundImage: `url(${DEFAULT_USER_IMAGE})` }
-                  }
-                ></div>
-                <p>{user.displayName}</p>
-                {CurrentUser && CurrentUser.rawId === user.rawId && (
-                  <h4 className="hrefBox mla">
-                    Edit
-                    <Link href="/auth/profile" passHref>
-                      <a className="hrefBoxIn"></a>
-                    </Link>
-                  </h4>
-                )}
-              </div>
-            )}
+            <AuthorZone author={author} currentUser={CurrentUser}></AuthorZone>
           </div>
           <div className="mt40 flexNormal watchStateZone spBw">
             {watchStateList &&
@@ -110,15 +101,10 @@ export const getServerSideProps: GetServerSideProps<Props, Params> = async (
   const res = await fetch(`${BACKEND_URL}/watch/u/?user=${uid}`);
   const ret = await res.json();
 
-  const resU = await fetch(`${BACKEND_URL}/auth/user/?uid=${uid}`);
-  const retU = await resU.json();
-
   const data = ret["data"];
-  const user = retU["user"];
   return {
     props: {
       watches: data,
-      user: user,
       kind: "user",
       list: 3,
       uid: uid,

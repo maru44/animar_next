@@ -17,7 +17,8 @@ const EditProfile: NextPage = (props) => {
       <main>
         <div className="content mla mra">
           <form onSubmit={startUpdate} className="mla mra wM500px">
-            <div className="field mt10">
+            <h2 className="pt20">プロフィール編集</h2>
+            <div className="field mt20">
               <label htmlFor="dname">表示名</label>
               <input
                 type="text"
