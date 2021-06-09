@@ -5,12 +5,13 @@ import { fetchCurrentUser } from "../helper/UserHelper";
 import { useRouter } from "next/router";
 import CurrentUserState from "../states/CurrentUser";
 import BaseLayouts from "../components/BaseLayouts";
-import ListHeader from "../components/ListHeader";
-import MessageComponent from "../components/Message";
+import * as gtag from "../helper/gtag";
 import "../styles/globals.css";
 
 const AppInt = (): null => {
   const setCurrentUser = useSetRecoilState(CurrentUserState);
+  const router = useRouter();
+
   useEffect(() => {
     (async function () {
       try {
@@ -21,6 +22,16 @@ const AppInt = (): null => {
       }
     })();
   }, []);
+
+  useEffect(() => {
+    const handleRouteChange = (url: URL) => {
+      gtag.pageview(url);
+    };
+    router.events.on("routeChangeComplete", handleRouteChange);
+    return () => {
+      router.events.off("routeChangeComplete", handleRouteChange);
+    };
+  }, [router.events]);
 
   return null;
 };

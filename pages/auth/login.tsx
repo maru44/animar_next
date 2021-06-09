@@ -33,8 +33,9 @@ const Login: NextPage = () => {
     <div>
       <main>
         <div className="content mla mra">
-          <form onSubmit={loginStart}>
-            <div className="field">
+          <form onSubmit={loginStart} className="mla mra wM500px">
+            <h2 className="pt20">ログイン</h2>
+            <div className="field mt20">
               <label htmlFor="email">メールアドレス</label>
               <input type="email" id="email" name="email" required />
             </div>
@@ -42,17 +43,17 @@ const Login: NextPage = () => {
               <label htmlFor="password">パスワード</label>
               <input type="password" id="password" name="password" required />
             </div>
-            <div className="mt10 wM500px">
+            <div className="mt10">
               <button type="submit" className="floatR">
                 ログイン
               </button>
             </div>
+            <div className="mt100">
+              <Link href="/auth/register" passHref>
+                <a className="">新規登録</a>
+              </Link>
+            </div>
           </form>
-          <div className="mt100">
-            <Link href="/auth/register" passHref>
-              <a className="">新規登録</a>
-            </Link>
-          </div>
         </div>
       </main>
     </div>

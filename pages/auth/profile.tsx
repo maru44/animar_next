@@ -16,7 +16,7 @@ const EditProfile: NextPage = (props) => {
     <div>
       <main>
         <div className="content mla mra">
-          <form onSubmit={startUpdate}>
+          <form onSubmit={startUpdate} className="mla mra wM500px">
             <div className="field mt10">
               <label htmlFor="dname">表示名</label>
               <input
@@ -26,7 +26,7 @@ const EditProfile: NextPage = (props) => {
                 defaultValue={CurrentUser && CurrentUser.displayName}
               />
             </div>
-            <div className="field mt10">
+            <div className="field mt20">
               <label htmlFor="image">プロフィール画像</label>
               <input
                 type="file"
@@ -35,7 +35,7 @@ const EditProfile: NextPage = (props) => {
                 name="image"
               />
             </div>
-            <div className="field mt40 wM500px">
+            <div className="field mt40">
               <button type="submit" className="floatR">
                 編集する
               </button>

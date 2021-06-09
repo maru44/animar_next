@@ -62,8 +62,9 @@ const Register: NextPage = () => {
       <main>
         <MessageComponent messages={messages}></MessageComponent>
         <div className="content mla mra">
-          <form onSubmit={startRegister}>
-            <div className="field">
+          <form onSubmit={startRegister} className="mla mra wM500px">
+            <h2 className="pt20">会員登録</h2>
+            <div className="field mt20">
               <label htmlFor="email">メールアドレス</label>
               <input type="email" id="email" name="email" required />
             </div>
@@ -84,12 +85,12 @@ const Register: NextPage = () => {
                 登録する
               </button>
             </div>
+            <div className="mt100">
+              <Link href="/auth/login" passHref>
+                <a className="">ログイン</a>
+              </Link>
+            </div>
           </form>
-          <div className="mt100">
-            <Link href="/auth/login" passHref>
-              <a className="">ログイン</a>
-            </Link>
-          </div>
         </div>
       </main>
     </div>
