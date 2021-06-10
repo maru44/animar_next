@@ -16,6 +16,9 @@ interface Props {
   kind: string;
   list: number;
   uid: string;
+  // ogp
+  title: string;
+  // ogImage: string;
 }
 interface Params extends ParsedUrlQuery {
   uid: string;
@@ -75,6 +78,7 @@ export const getServerSideProps: GetServerSideProps<Props, Params> = async (
       kind: "user",
       list: 1,
       uid: uid,
+      title: "コラム一覧",
     },
   };
 };

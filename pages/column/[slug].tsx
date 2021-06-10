@@ -18,6 +18,9 @@ interface Props {
   title: string;
   robots: string;
   ogType: string;
+  ogDescription: string;
+  ogSeoDescription: string;
+  // ogImage: string;
 }
 
 interface Params extends ParsedUrlQuery {
@@ -147,6 +150,8 @@ export const getServerSideProps: GetServerSideProps<Props, Params> = async (
       title: blog["title"],
       robots: "nofollow",
       ogType: "article",
+      ogDescription: blog["abstract"],
+      ogSeoDescription: blog["abstract"],
     },
   };
 };

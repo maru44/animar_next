@@ -15,6 +15,7 @@ interface Props {
   kind: string;
   list: number;
   uid: string;
+  title: string;
 }
 
 interface Params extends ParsedUrlQuery {
@@ -98,6 +99,7 @@ export const getServerSideProps: GetServerSideProps<Props, Params> = async (
       kind: "user",
       list: 2,
       uid: uid,
+      title: "レビュー一覧",
     },
   };
 };

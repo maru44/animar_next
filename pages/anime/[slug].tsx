@@ -30,10 +30,14 @@ interface Props {
   anime: TAnime;
   stars: string;
   reviews: TReview[];
-  title: string;
-  ogType: string;
   seasons: TSeason[];
   plats: TRelationPlatform[];
+  // ogp
+  title: string;
+  ogType: string;
+  ogImage: string;
+  ogDescription: string;
+  ogSeoDescription: string;
 }
 
 interface Params extends ParsedUrlQuery {
@@ -275,10 +279,13 @@ export const getServerSideProps: GetServerSideProps<Props, Params> = async (
       anime: anime,
       stars: dataS,
       reviews: dataR,
-      title: anime.title,
-      ogType: "article",
       seasons: seasonRet["data"],
       plats: platRet["data"],
+      title: anime.title,
+      ogType: "article",
+      ogImage: anime.thumb_url,
+      ogDescription: anime.description,
+      ogSeoDescription: anime.description,
     },
   };
 };

@@ -6,6 +6,7 @@ import ColumnElement from "../../components/ColumnElement";
 interface Props {
   blogs: TBlog[];
   list: number;
+  title: string;
 }
 
 const BlogList: NextPage<Props> = (props) => {
@@ -36,6 +37,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (ctx) => {
     props: {
       blogs: blogs,
       list: 2,
+      title: "コラム一覧",
     },
   };
 };
