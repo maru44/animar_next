@@ -245,7 +245,6 @@ export const getServerSideProps: GetServerSideProps<Props, Params> = async (
       robots: "nofollow noopener noreferrer noindex",
       anime: animeRet["data"][0],
       kind: "admin",
-      // @TODO -> data
       plats: platRet["data"],
       seasons: seasonRet["data"],
     },

@@ -81,7 +81,6 @@ export const getServerSideProps: GetServerSideProps<Props> = async (ctx) => {
   const ret = await res.json();
   return {
     props: {
-      // @TODO -> data
       seasons: ret["data"],
       robots: "nofollow noopener noreferrer noindex",
       kind: "admin",

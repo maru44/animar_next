@@ -32,6 +32,9 @@ const ColumnEditor: NextPage<Props> = (props) => {
   const [prev, setPrev] = useState<string>(
     props.blog ? props.blog.content : null
   );
+  const [isPub, setIsPub] = useState<boolean>(
+    (props.blog && props.blog.is_public) ?? true
+  );
 
   const [mess, setMess] = useState<IMessage[]>(null);
 
@@ -91,12 +94,22 @@ const ColumnEditor: NextPage<Props> = (props) => {
   const changeIsPrev = () => {
     setIsPrev(!isPrev);
   };
+  const changePub = (e: any) => {
+    const isChecked = e.target.checked;
+    setIsPub(isChecked);
+  };
 
   // relation anime
   const searchAnime = async (e: any) => {
     if (e.target.value) {
       const ret = await fetchSearchAnime(e.target.value);
-      ret["status"] === 200 && setSearchedAnime(ret["data"]);
+      if (ret["status"] === 200) {
+        ret["data"]
+          ? setSearchedAnime(ret["data"])
+          : setSearchedAnime(undefined);
+      }
+    } else {
+      setSearchedAnime(null);
     }
   };
 
@@ -218,8 +231,21 @@ const ColumnEditor: NextPage<Props> = (props) => {
             </div>
             <MessageComponent messages={mess}></MessageComponent>
             {CurrentUser && CurrentUser.isVerify && (
-              <div className="mt20">
-                <button type="submit" className="floatR">
+              <div className="mt20 flexNormal alCen">
+                <div className="">
+                  <label htmlFor="isPublic" className="cursorP">
+                    <input
+                      type="checkbox"
+                      defaultChecked={isPub}
+                      name="is_public"
+                      id="isPublic"
+                      className="mr20"
+                      onChange={changePub}
+                    />
+                    公開する
+                  </label>
+                </div>
+                <button type="submit" className="mla">
                   {props.blog && CurrentUser.rawId === props.blog.user_id
                     ? "編集する"
                     : "作成する"}

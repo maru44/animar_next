@@ -9,6 +9,7 @@ import { useCurrentUser } from "../../../hooks/useCurrentUser";
 import { useEffect, useState } from "react";
 import { fetchUserModel } from "../../../helper/UserHelper";
 import AuthorZone from "../../../components/AuthorZone";
+import { parseCookies } from "nookies";
 
 interface Props {
   blogs: TBlog[];
@@ -58,7 +59,12 @@ export const getServerSideProps: GetServerSideProps<Props, Params> = async (
   ctx
 ) => {
   const uid = ctx.params.uid;
-  const res = await fetch(`${BACKEND_URL}/blog/?u=${uid}`);
+  const cookies = parseCookies(ctx);
+  const res = await fetch(`${BACKEND_URL}/blog/?u=${uid}`, {
+    method: "POST",
+    mode: "cors",
+    body: JSON.stringify({ token: cookies["idToken"] }),
+  });
   const ret = await res.json();
 
   const blogs = ret["data"];

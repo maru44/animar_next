@@ -33,6 +33,7 @@ const ColumnSelectAnime: NextPage<Props> = ({
               </span>
             </li>
           ))}
+        {searchedAnime === undefined && <p>該当するアニメが存在しません</p>}
       </ul>
       <ul className="mt20 field selectedRelAnime">
         {changed != 0 &&
