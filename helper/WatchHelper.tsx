@@ -39,7 +39,6 @@ export const fetchWatchStateDetail = async (animeId: number) => {
     credentials: "include",
   });
   const ret = await res.json();
-  console.log(ret);
 
   if (ret["status"] === 4001) {
     return null;
