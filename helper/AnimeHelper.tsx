@@ -89,7 +89,11 @@ export const AnimeStateDict: { [key: string]: string } = {
 };
 
 export const fetchDeleteAnime = async (animeId: number) => {
-  const res = await fetch(`${BACKEND_URL}/admin/anime/delete/?id=${animeId}`);
+  const res = await fetch(`${BACKEND_URL}/admin/anime/delete/?id=${animeId}`, {
+    method: "DELETE",
+    mode: "cors",
+    credentials: "include",
+  });
   const ret = await res.json();
   return ret;
 };
