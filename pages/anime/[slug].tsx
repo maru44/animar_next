@@ -283,9 +283,9 @@ export const getServerSideProps: GetServerSideProps<Props, Params> = async (
       plats: platRet["data"],
       title: anime.title,
       ogType: "article",
-      ogImage: anime.thumb_url,
-      ogDescription: anime.description,
-      ogSeoDescription: anime.description,
+      ogImage: anime.thumb_url ?? null,
+      ogDescription: anime.description ?? null,
+      ogSeoDescription: anime.description ?? null,
     },
   };
 };

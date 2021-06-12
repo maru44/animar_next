@@ -4,13 +4,13 @@ export type TAnime = {
   id: number;
   slug: string;
   title: string;
-  thumb_url: string;
-  abbribation: string;
-  description: string;
-  copyright: string;
+  thumb_url?: string;
+  abbribation?: string;
+  description?: string;
+  copyright?: string;
   series_id: number;
   state: string;
-  count_episodes: string;
+  count_episodes?: string;
   created_at: string;
   updated_at: string;
 };

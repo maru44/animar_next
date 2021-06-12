@@ -150,8 +150,8 @@ export const getServerSideProps: GetServerSideProps<Props, Params> = async (
       title: blog["title"],
       robots: "nofollow",
       ogType: "article",
-      ogDescription: blog["abstract"],
-      ogSeoDescription: blog["abstract"],
+      ogDescription: blog["abstract"] ?? null,
+      ogSeoDescription: blog["abstract"] ?? null,
     },
   };
 };
