@@ -79,6 +79,13 @@ const AnimePost: NextPage<Props> = (props) => {
           />
         </div>
         <div className="field mt20">
+          <input
+            type={anime && anime.thumb_url ? "text" : "hidden"}
+            name="pre_image"
+            defaultValue={(anime && anime.thumb_url) ?? ""}
+          />
+        </div>
+        <div className="field mt20">
           <textarea
             name="description"
             placeholder="紹介文"

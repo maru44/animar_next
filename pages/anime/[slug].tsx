@@ -177,7 +177,9 @@ const AnimeDetail: NextPage<Props> = (props) => {
                 ))}
             </div>
             <div className="mt10 copyright">&copy;{anime.copyright}</div>
-            <p className="brAll description mt10">{anime.description}</p>
+            <p className="brAll description mt30 preWrap">
+              {anime.description}
+            </p>
             <div className="mt20 platformZone flexNormal flexWrap">
               {props.plats &&
                 props.plats.map((p, i) => (

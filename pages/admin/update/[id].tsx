@@ -74,6 +74,7 @@ const AnimeAdminUpdate: NextPage<Props> = (props) => {
       t.kana.value,
       t.eng_name.value,
       t.thumb_url.files,
+      t.pre_image.value,
       t.description.value,
       t.state.value,
       t.series.value,
