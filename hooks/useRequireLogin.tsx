@@ -11,6 +11,7 @@ export const useRequireLogin = () => {
   }, [isAuthChecking, CurrentUser]);
 };
 
+// only verified user
 export const useRequireVerified = () => {
   const { isAuthChecking, CurrentUser } = useCurrentUser();
   const router = useRouter();
