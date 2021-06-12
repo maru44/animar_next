@@ -5,7 +5,10 @@ import {
   fetchAllSeries,
   fetchInsertSeries,
 } from "../../../helper/admin/SeriesHelper";
-import { fetchUpdateAnime } from "../../../helper/AnimeHelper";
+import {
+  fetchDeleteAnime,
+  fetchUpdateAnime,
+} from "../../../helper/AnimeHelper";
 import { BACKEND_URL } from "../../../helper/Config";
 import { TAnimeAdmin, TSeries } from "../../../types/anime";
 import AnimePost from "../../../components/Admin/AnimePost";
@@ -21,6 +24,7 @@ import {
 } from "../../../helper/admin/SeasonHelper";
 import { TPlatformAdmin, TRelationPlatform } from "../../../types/platform";
 import { TSeason } from "../../../types/season";
+import router from "next/router";
 
 interface Props {
   series: TSeries[];
@@ -118,6 +122,11 @@ const AnimeAdminUpdate: NextPage<Props> = (props) => {
     );
   };
 
+  const startDeleteAnime = async () => {
+    const ret = await fetchDeleteAnime(anime.id);
+    router.back();
+  };
+
   return (
     <div>
       <main>
@@ -196,6 +205,11 @@ const AnimeAdminUpdate: NextPage<Props> = (props) => {
               </button>
             </div>
           </form>
+          <div className="field mt100">
+            <button className="" type="button" onClick={startDeleteAnime}>
+              削除する
+            </button>
+          </div>
         </div>
       </main>
     </div>

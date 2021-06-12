@@ -87,3 +87,9 @@ export const AnimeStateDict: { [key: string]: string } = {
   now: "放送中",
   cut: "打ち切り",
 };
+
+export const fetchDeleteAnime = async (animeId: number) => {
+  const res = await fetch(`${BACKEND_URL}/admin/anime/delete/?id=${animeId}`);
+  const ret = await res.json();
+  return ret;
+};
