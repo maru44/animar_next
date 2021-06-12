@@ -11,7 +11,6 @@ interface AList {
 }
 
 const AdminHeader: NextPage<Props> = (props) => {
-  console.log(props.list);
   const listList: AList[] = [
     { shown: "アニメ", href: `/admin` },
     { shown: "プラットフォーム", href: `/admin/platform` },

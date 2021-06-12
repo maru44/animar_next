@@ -46,7 +46,6 @@ interface Params extends ParsedUrlQuery {
 
 const AnimeDetail: NextPage<Props> = (props) => {
   const anime = props.anime;
-  console.log(anime);
   const { isAuthChecking, CurrentUser } = useCurrentUser();
 
   const [reviews, setReviews] = useState<TReview[]>(props.reviews);
@@ -99,7 +98,6 @@ const AnimeDetail: NextPage<Props> = (props) => {
     e.preventDefault();
     const watch = e.target.dataset.id;
     const ret = await fetchPostWatchStates(anime.id, watch);
-    console.log(ret);
     setUserWatch(ret);
 
     const newWatchCountsList = await getWatchCountsList(anime.id);

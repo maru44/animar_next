@@ -11,8 +11,6 @@ interface Props {
 }
 
 const SeasonIndex: NextPage<Props> = (props) => {
-  console.log(props);
-
   const startInsertSeason = async (e: any) => {
     e.preventDefault();
     const res = await fetch(`${BACKEND_URL}/admin/season/post/`, {
@@ -25,7 +23,6 @@ const SeasonIndex: NextPage<Props> = (props) => {
       }),
     });
     const ret = await res.json();
-    console.log(ret);
   };
 
   return (

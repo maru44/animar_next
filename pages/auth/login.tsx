@@ -27,7 +27,6 @@ const Login: NextPage = () => {
       setCurrentUser(currentUser);
       router.push("/anime");
     } else {
-      console.log("failed");
     }
   };
 

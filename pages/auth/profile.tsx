@@ -11,7 +11,6 @@ const EditProfile: NextPage = (props) => {
   const startUpdate = async (e: any) => {
     e.preventDefault();
     const ret = await fetchUpdateProfile(e);
-    console.log(ret);
   };
 
   return (

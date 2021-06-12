@@ -46,7 +46,6 @@ const AnimeAdminUpdate: NextPage<Props> = (props) => {
     (async () => {
       const ret = await fetchRelationPlatform(anime.id);
       const seasonRet = await fetchRelationSeason(anime.id);
-      console.log(ret);
       ret["status"] === 200 && setPlats(ret["data"]);
       seasonRet["status"] === 200 && setSeasons(seasonRet["data"]);
     })();
@@ -101,7 +100,6 @@ const AnimeAdminUpdate: NextPage<Props> = (props) => {
       parseInt(e.target.plat.value),
       e.target.url.value
     );
-    console.log(ret);
   };
 
   const startDelete = async (e: any) => {
@@ -109,7 +107,6 @@ const AnimeAdminUpdate: NextPage<Props> = (props) => {
       anime.id,
       e.target.dataset.pid
     );
-    console.log(ret);
   };
 
   const startAddSeason = async (e: any) => {
@@ -118,7 +115,6 @@ const AnimeAdminUpdate: NextPage<Props> = (props) => {
       parseInt(e.target.season.value),
       anime.id
     );
-    console.log(ret);
   };
 
   return (

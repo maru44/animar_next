@@ -17,7 +17,6 @@ interface Params extends ParsedUrlQuery {
 
 const AdminEditPlatform: NextPage<Props> = (props) => {
   const [plat, setPlat] = useState(props.plat);
-  console.log(plat);
 
   const startUpdatePlatform = async (e: any) => {
     e.preventDefault();

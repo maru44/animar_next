@@ -21,7 +21,6 @@ const Header: NextPage<Props> = (props) => {
     content: "メールを確認して認証を完了してください。",
   };
   const [messages, setMessages] = useState<IMessage[]>(null);
-  console.log(CurrentUser);
 
   const tabList = useRef(null);
 

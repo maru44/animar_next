@@ -58,7 +58,6 @@ export const getUserModelFromCookie = async () => {
     credentials: "include",
   });
   const ret = await res.json();
-  console.log(ret);
 
   return ret;
 };
