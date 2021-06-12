@@ -69,7 +69,8 @@ const AnimeDetail: NextPage<Props> = (props) => {
           : window.innerWidth * 0.68;
       setWid(wid);
       dataUW && setUserWatch(dataUW);
-      dataRU && setUserReviewStar(dataRU["star"]);
+      console.log(dataRU);
+      dataRU && setUserReviewStar(dataRU["rating"]);
       dataRU && setUserReviewContent(dataRU["content"]);
       setWatchCountsList(dataW);
     };
