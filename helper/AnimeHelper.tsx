@@ -16,6 +16,7 @@ export const fetchInsertAnime = async (
   kana?: string,
   engName?: string,
   thumb?: any,
+  preThumb?: string,
   description?: string,
   state?: string,
   seriesId?: string,
@@ -28,6 +29,7 @@ export const fetchInsertAnime = async (
   formData.set("kana", kana);
   formData.set("engName", engName);
   thumb[0] && formData.set("thumb", thumb[0]);
+  formData.set("pre_thumb", preThumb);
   formData.set("description", description);
   formData.set("state", state);
   formData.set("series_id", seriesId);

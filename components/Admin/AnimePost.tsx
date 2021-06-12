@@ -80,7 +80,7 @@ const AnimePost: NextPage<Props> = (props) => {
         </div>
         <div className="field mt20">
           <input
-            type={anime && anime.thumb_url ? "text" : "hidden"}
+            type="text"
             name="pre_image"
             defaultValue={(anime && anime.thumb_url) ?? ""}
           />
