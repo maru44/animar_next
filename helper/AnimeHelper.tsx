@@ -39,9 +39,9 @@ export const fetchInsertAnime = async (
     method: "POST",
     mode: "cors",
     credentials: "include",
-    headers: {
-      "Content-Type": "multipart/form-data;",
-    },
+    // headers: {
+    //   "Content-Type": "multipart/form-data;",
+    // },
     body: formData,
   });
   const ret = await res.json();
@@ -78,9 +78,9 @@ export const fetchUpdateAnime = async (
     method: "PUT",
     mode: "cors",
     credentials: "include",
-    headers: {
-      "Content-Type": "multipart/form-data;",
-    },
+    // headers: {
+    //   "Content-Type": "multipart/form-data;",
+    // },
     body: formData,
   });
   const ret = await res.json();
