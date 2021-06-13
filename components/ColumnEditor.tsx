@@ -137,7 +137,6 @@ const ColumnEditor: NextPage<Props> = (props) => {
     const newTitles = relAnimeTitles.filter((v, i) => i !== idx);
     setRelAnimeIds(newIds);
     setRelAnimeTitles(newTitles);
-    console.log(newIds);
     return null;
   };
 
