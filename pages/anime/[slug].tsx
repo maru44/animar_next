@@ -28,10 +28,7 @@ import Link from "next/link";
 
 interface Props {
   anime: TAnime;
-  stars: string;
   reviews: TReview[];
-  seasons: TSeason[];
-  plats: TRelationPlatform[];
   // ogp
   title: string;
   ogType: string;
@@ -50,17 +47,22 @@ const AnimeDetail: NextPage<Props> = (props) => {
 
   const [reviews, setReviews] = useState<TReview[]>(props.reviews);
   const [watchCountsList, setWatchCountsList] = useState<number[]>(null);
-  const [starAvg, setStarAvg] = useState<string>(props.stars);
+  const [starAvg, setStarAvg] = useState<string>(null);
   const [userWatch, setUserWatch] = useState<number>(null);
   const [userReviewStar, setUserReviewStar] = useState<number>(null);
   const [userReviewContent, setUserReviewContent] = useState<string>(null);
   const [wid, setWid] = useState<number>(null);
+  const [seasons, setSeasons] = useState<TSeason[]>(null);
+  const [plats, setPlats] = useState<TRelationPlatform[]>(null);
 
   useEffect(() => {
     const f = async () => {
       const dataW = await getWatchCountsList(anime.id); // watch state
       const dataUW = await fetchWatchStateDetail(anime.id); // user's watch state
       const dataRU = await fetchUserAnimeReview(anime.id); //reviews of login user
+      const dataStar = await fetchAnimeStars(anime.id);
+      const dataSeason = await fetchRelationSeason(anime.id);
+      const dataPlat = await fetchRelationPlatform(anime.id);
       const wid =
         window.innerWidth > 800
           ? 800 * 0.68
@@ -72,6 +74,9 @@ const AnimeDetail: NextPage<Props> = (props) => {
       dataRU && setUserReviewStar(dataRU["rating"]);
       dataRU && setUserReviewContent(dataRU["content"]);
       setWatchCountsList(dataW);
+      dataStar && setStarAvg(dataStar);
+      dataSeason && dataSeason["data"] && setSeasons(dataSeason["data"]);
+      dataPlat && dataPlat["data"] && setPlats(dataPlat["data"]);
     };
     f();
   }, []);
@@ -121,6 +126,8 @@ const AnimeDetail: NextPage<Props> = (props) => {
                     src={anime.thumb_url}
                     alt={anime.title}
                     loading="lazy"
+                    width={560}
+                    height={745}
                   />
                 ) : (
                   <img className="w100 contain" />
@@ -169,8 +176,8 @@ const AnimeDetail: NextPage<Props> = (props) => {
               )}
               <span className="countEpisodes">全{anime.count_episodes}話</span>
               {/* <span>{anime.series_id}</span> */}
-              {props.seasons &&
-                props.seasons.map((s, i) => (
+              {seasons &&
+                seasons.map((s, i) => (
                   <span className="seasons" key={i}>
                     {s.year}
                     {s.season}
@@ -182,8 +189,8 @@ const AnimeDetail: NextPage<Props> = (props) => {
               {anime.description}
             </p>
             <div className="mt20 platformZone flexNormal flexWrap">
-              {props.plats &&
-                props.plats.map((p, i) => (
+              {plats &&
+                plats.map((p, i) => (
                   <div className="hrefBox flexCen">
                     {p.plat_name}
                     <Link href={p.link_url} passHref>
@@ -270,18 +277,10 @@ export const getServerSideProps: GetServerSideProps<Props, Params> = async (
     `${BACKEND_URL}/reviews/anime/?anime=${anime.id}`
   );
 
-  const dataS = await fetchAnimeStars(anime.id);
-
-  const seasonRet = await fetchRelationSeason(anime.id);
-  const platRet = await fetchRelationPlatform(anime.id);
-
   return {
     props: {
       anime: anime,
-      stars: dataS,
       reviews: dataR,
-      seasons: seasonRet["data"],
-      plats: platRet["data"],
       title: anime.title,
       ogType: "article",
       ogImage: anime.thumb_url ?? null,
