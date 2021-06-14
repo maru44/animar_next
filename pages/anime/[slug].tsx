@@ -126,7 +126,7 @@ const AnimeDetail: NextPage<Props> = (props) => {
                 )}
               </div>
             </div>
-            <div className="flex1 graphWrapper">
+            {/* <div className="flex1 graphWrapper">
               {watchCountsList && (
                 <WatchStateGraphPie
                   title="みんなの視聴状況"
@@ -134,7 +134,7 @@ const AnimeDetail: NextPage<Props> = (props) => {
                   width={wid}
                 ></WatchStateGraphPie>
               )}
-            </div>
+            </div> */}
           </div>
           <div className="mt20">
             <span className="curiousArea">
