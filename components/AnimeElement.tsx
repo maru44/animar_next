@@ -14,7 +14,7 @@ const AnimeElement: NextPage<Props> = (props) => {
   const mode = props.mode;
 
   return (
-    <div className="hrefBox oneAnime ovHide mb15" key={index}>
+    <div className="hrefBox oneAnime ovHide mb25" key={index}>
       <div className="flexNormal">
         <div className="w20 thumb frame">
           {anime.thumb_url ? (

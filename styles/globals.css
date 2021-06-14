@@ -212,6 +212,9 @@ margin padding
 .mb30 {
   margin-bottom: 30px;
 }
+.mb25 {
+  margin-bottom: 25px;
+}
 .mb20 {
   margin-bottom: 20px;
 }
@@ -838,7 +841,8 @@ anime
   color: #fff;
   border-radius: 6px;
 }
-.animeInfo .platformZone > div:not():nth-child(3n + 1) {
+.animeInfo .platformZone > div:nth-child(3n + 2),
+.animeInfo .platformZone > div:nth-child(3n) {
   margin-left: 5%;
 }
 
