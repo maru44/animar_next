@@ -36,8 +36,8 @@ const Register: NextPage = () => {
       };
       messages ? setMessages(addMessage(mess, messages)) : setMessages([mess]);
     } else {
-      const ret = await fetchRegister(email, password, name);
-      switch (ret["status"]) {
+      const res = await fetchRegister(email, password, name);
+      switch (res.status) {
         case 200:
           const CurrentUser = await fetchCurrentUser();
           setCurrentUser(CurrentUser);

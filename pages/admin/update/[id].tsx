@@ -48,20 +48,26 @@ const AnimeAdminUpdate: NextPage<Props> = (props) => {
 
   useEffect(() => {
     (async () => {
-      const ret = await fetchRelationPlatform(anime.id);
-      const seasonRet = await fetchRelationSeason(anime.id);
-      ret["status"] === 200 && setPlats(ret["data"]);
-      seasonRet["status"] === 200 && setSeasons(seasonRet["data"]);
+      const res = await fetchRelationPlatform(anime.id);
+      const seasonRes = await fetchRelationSeason(anime.id);
+      if (res.status === 200) {
+        const ret = await res.json();
+        setPlats(ret["data"]);
+      }
+      if (seasonRes.status === 200) {
+        const ret = await res.json();
+        setSeasons(ret["data"]);
+      }
     })();
   }, []);
 
   const startAddSeries = async (e: any) => {
     e.preventDefault();
-    const ret = await fetchInsertSeries(
+    const res = await fetchInsertSeries(
       e.target.eng_name.value,
       e.target.series_name.value
     );
-    if (ret["status"] === 200) {
+    if (res.status === 200) {
       const res = await fetchAllSeries();
       const series = await res["data"];
       setSeries(series);
@@ -71,7 +77,7 @@ const AnimeAdminUpdate: NextPage<Props> = (props) => {
   const startUpdateAnime = async (e: any) => {
     e.preventDefault();
     const t = e.target;
-    const ret = await fetchUpdateAnime(
+    const res = await fetchUpdateAnime(
       anime.id,
       t.title.value,
       t.abbreviation.value,
@@ -85,7 +91,7 @@ const AnimeAdminUpdate: NextPage<Props> = (props) => {
       t.copyright.value,
       t.count_episodes.value
     );
-    if (ret["Status"] === 200) {
+    if (res.status === 200) {
       const res = await fetch(
         `${BACKEND_URL}/admin/anime/detail/?id=${anime.id}`,
         {
@@ -94,7 +100,7 @@ const AnimeAdminUpdate: NextPage<Props> = (props) => {
         }
       );
       const ret = await res.json();
-      setAnime(ret["data"][0]);
+      setAnime(ret["data"]);
     }
   };
 
@@ -254,7 +260,7 @@ export const getServerSideProps: GetServerSideProps<Props, Params> = async (
     props: {
       series: ret["data"],
       robots: "nofollow noopener noreferrer noindex",
-      anime: animeRet["data"][0],
+      anime: animeRet["data"],
       kind: "admin",
       plats: platRet["data"],
       seasons: seasonRet["data"],

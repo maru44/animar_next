@@ -61,8 +61,8 @@ const ColumnEditor: NextPage<Props> = (props) => {
     if (title && prev) {
       const mess: IMessage = { title: "送信中" };
       setMess([mess]);
-      const ret = await fetchPostBlog(title, abst, prev, relAnimeIds);
-      ret["status"] === 200 && router.push("/column");
+      const res = await fetchPostBlog(title, abst, prev, relAnimeIds);
+      res.status === 200 && router.push("/column");
     }
   };
   const startEditBlog = async (e: any) => {
@@ -70,14 +70,14 @@ const ColumnEditor: NextPage<Props> = (props) => {
     const mess: IMessage = { title: "送信中" };
     setMess([mess]);
     if (title && prev) {
-      const ret = await fetchUpdateBlog(
+      const res = await fetchUpdateBlog(
         props.blog.id,
         title,
         abst,
         prev,
         relAnimeIds
       );
-      ret["status"] === 200 && router.back();
+      res.status === 200 && router.back();
     }
   };
 
@@ -102,8 +102,9 @@ const ColumnEditor: NextPage<Props> = (props) => {
   // relation anime
   const searchAnime = async (e: any) => {
     if (e.target.value) {
-      const ret = await fetchSearchAnime(e.target.value);
-      if (ret["status"] === 200) {
+      const res = await fetchSearchAnime(e.target.value);
+      if (res.status === 200) {
+        const ret = await res.json();
         ret["data"]
           ? setSearchedAnime(ret["data"])
           : setSearchedAnime(undefined);

@@ -10,8 +10,7 @@ export const fetchInsertSeries = async (
     credentials: "include",
     body: JSON.stringify({ eng_name: engName, series_name: seriesName }),
   });
-  const ret = await res.json();
-  return ret;
+  return res;
 };
 
 export const fetchAllSeries = async () => {

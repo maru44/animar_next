@@ -43,7 +43,7 @@ export const fetchUserAnimeReview = async (animeId: number) => {
   });
   const ret = await res.json();
   if (ret["data"]) {
-    return ret["data"][0];
+    return ret["data"];
   } else {
     return null;
   }

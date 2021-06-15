@@ -27,9 +27,7 @@ export const fetchPostBlog = async (
       anime_ids: animeIds,
     }),
   });
-  const ret = await res.json();
-
-  return ret;
+  return res;
 };
 
 export const fetchDeleteBlog = async (id: string) => {
@@ -38,8 +36,7 @@ export const fetchDeleteBlog = async (id: string) => {
     mode: "cors",
     credentials: "include",
   });
-  const ret = await res.json();
-  return ret;
+  return res;
 };
 
 export const fetchUpdateBlog = async (
@@ -63,7 +60,5 @@ export const fetchUpdateBlog = async (
       anime_ids: animeIds,
     }),
   });
-  const ret = await res.json();
-
-  return ret;
+  return res;
 };

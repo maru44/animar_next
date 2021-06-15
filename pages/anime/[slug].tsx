@@ -61,8 +61,8 @@ const AnimeDetail: NextPage<Props> = (props) => {
       const dataUW = await fetchWatchStateDetail(anime.id); // user's watch state
       const dataRU = await fetchUserAnimeReview(anime.id); //reviews of login user
       const dataStar = await fetchAnimeStars(anime.id);
-      const dataSeason = await fetchRelationSeason(anime.id);
-      const dataPlat = await fetchRelationPlatform(anime.id);
+      const dataSeasonRes = await fetchRelationSeason(anime.id);
+      const dataPlatRes = await fetchRelationPlatform(anime.id);
       const wid =
         window.innerWidth > 800
           ? 800 * 0.68
@@ -75,8 +75,14 @@ const AnimeDetail: NextPage<Props> = (props) => {
       dataRU && setUserReviewContent(dataRU["content"]);
       setWatchCountsList(dataW);
       dataStar && setStarAvg(dataStar);
-      dataSeason && dataSeason["data"] && setSeasons(dataSeason["data"]);
-      dataPlat && dataPlat["data"] && setPlats(dataPlat["data"]);
+      if (dataSeasonRes.status === 200) {
+        const ret = await dataSeasonRes.json();
+        setSeasons(ret["data"]);
+      }
+      if (dataPlatRes.status === 200) {
+        const ret = await dataPlatRes.json();
+        setPlats(ret["data"]);
+      }
     };
     f();
   }, []);
@@ -268,26 +274,31 @@ const AnimeDetail: NextPage<Props> = (props) => {
 export const getServerSideProps: GetServerSideProps<Props, Params> = async (
   ctx
 ) => {
-  const slug = ctx.params.slug;
-  const res = await fetch(`${BACKEND_URL}/db/anime/?slug=${slug}`);
-  const ret = await res.json();
-  const anime: TAnime = ret["data"][0];
+  try {
+    const slug = ctx.params.slug;
+    const res = await fetch(`${BACKEND_URL}/db/anime/?slug=${slug}`);
+    const ret = await res.json();
+    const anime: TAnime = ret["data"];
 
-  const dataR = await baseFetcher(
-    `${BACKEND_URL}/reviews/anime/?anime=${anime.id}`
-  );
+    const dataR = await baseFetcher(
+      `${BACKEND_URL}/reviews/anime/?anime=${anime.id}`
+    );
 
-  return {
-    props: {
-      anime: anime,
-      reviews: dataR,
-      title: anime.title,
-      ogType: "article",
-      ogImage: anime.thumb_url ?? null,
-      ogDescription: anime.description ?? null,
-      ogSeoDescription: anime.description ?? null,
-    },
-  };
+    return {
+      props: {
+        anime: anime,
+        reviews: dataR,
+        title: anime.title,
+        ogType: "article",
+        ogImage: anime.thumb_url ?? null,
+        ogDescription: anime.description ?? null,
+        ogSeoDescription: anime.description ?? null,
+      },
+    };
+  } catch (e) {
+    // @TODO
+    //404
+  }
 };
 
 export default AnimeDetail;

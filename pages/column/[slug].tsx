@@ -34,8 +34,8 @@ const BlogDetail: NextPage<Props> = (props) => {
 
   const exeDeleteColumn = async (e: any) => {
     const id = e.target.dataset.id;
-    const ret = await fetchDeleteBlog(id);
-    ret["Status"] === 200 ? router.back() : console.log(ret);
+    const res = await fetchDeleteBlog(id);
+    res.status === 200 ? router.back() : console.log(res);
   };
 
   const [author, setAuthor] = useState<TUser>(undefined);
@@ -143,7 +143,7 @@ export const getServerSideProps: GetServerSideProps<Props, Params> = async (
   const res = await fetch(`${BACKEND_URL}/blog/?s=${slug}`);
   const ret = await res.json();
 
-  const blog = ret["data"][0];
+  const blog = ret["data"];
   return {
     props: {
       blog: blog,

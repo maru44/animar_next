@@ -6,8 +6,7 @@ export const fetchSearchAnime = async (title: string) => {
     mode: "cors",
     credentials: "include",
   });
-  const ret = await res.json();
-  return ret;
+  return res;
 };
 
 export const fetchInsertAnime = async (
@@ -83,8 +82,7 @@ export const fetchUpdateAnime = async (
     // },
     body: formData,
   });
-  const ret = await res.json();
-  return ret;
+  return res;
 };
 
 export const AnimeStateDict: { [key: string]: string } = {

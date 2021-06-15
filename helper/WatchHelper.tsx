@@ -38,11 +38,11 @@ export const fetchWatchStateDetail = async (animeId: number) => {
     mode: "cors",
     credentials: "include",
   });
-  const ret = await res.json();
 
-  if (ret["status"] === 4001) {
+  if (res.status === 401) {
     return null;
   } else {
+    const ret = await res.json();
     if (ret["data"] === -1) {
       return null;
     }

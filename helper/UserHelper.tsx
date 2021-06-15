@@ -12,10 +12,7 @@ export const SetJWTCookie = async (email: string, password: string) => {
     },
     body: JSON.stringify({ Email: email, Password: password }),
   });
-  const ret: { [key: string]: number } = await res.json();
-  const status = ret["status"];
-
-  return status;
+  return res.status;
 };
 
 export const fetchRegister = async (
@@ -36,9 +33,7 @@ export const fetchRegister = async (
       DisplayName: name,
     }),
   });
-  const ret = await res.json();
-
-  return ret;
+  return res;
 };
 
 // refresh idToken by refreshToken
@@ -57,29 +52,27 @@ export const getUserModelFromCookie = async () => {
     mode: "cors",
     credentials: "include",
   });
-  const ret = await res.json();
-
-  return ret;
+  return res;
 };
 
 export const fetchCurrentUser = async () => {
   try {
-    const ret = await getUserModelFromCookie();
-    if (ret["status"] === 4001) {
+    const res = await getUserModelFromCookie();
+    if (res.status === 400) {
       await RefreshToken();
-      const ret = await getUserModelFromCookie();
-      if (ret["status"] === 4002) {
+      const resAgain = await getUserModelFromCookie();
+      if (resAgain.status === 400) {
         return null;
       }
+      const ret = await resAgain.json();
       const user: TUser = ret["user"];
       user.isVerify = ret["is_verify"];
       return user;
-    } else if (ret["status"] === 200) {
+    } else {
+      const ret = await res.json();
       const user: TUser = ret["user"];
       user.isVerify = ret["is_verify"];
       return user;
-    } else if (ret["status"] === 4002) {
-      return null;
     }
   } catch (e) {
     console.log(e);
@@ -105,7 +98,9 @@ export const fetchUpdateProfile = async (e: any) => {
 
 export const fetchUserModel = async (uid: string) => {
   const res = await fetch(`${BACKEND_URL}/auth/user/?uid=${uid}`);
-  const ret = await res.json();
-  const user = ret["status"] === 200 ? ret["user"] : null;
-  return user;
+  if (res.status === 200) {
+    const ret = await res.json();
+    return ret["user"];
+  }
+  return null;
 };

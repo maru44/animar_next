@@ -60,7 +60,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (ctx) => {
   return {
     props: {
       kind: "admin",
-      plat: ret["data"][0],
+      plat: ret["data"],
       robots: "nofollow noopener noreferrer noindex",
     },
   };
