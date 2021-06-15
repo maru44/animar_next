@@ -21,11 +21,11 @@ const AnimeAdminPost: NextPage<Props> = (props) => {
 
   const startAddSeries = async (e: any) => {
     e.preventDefault();
-    const ret = await fetchInsertSeries(
+    const res = await fetchInsertSeries(
       e.target.eng_name.value,
       e.target.series_name.value
     );
-    if (ret["status"] === 200) {
+    if (res.status === 200) {
       const res = await fetchAllSeries();
       const series = await res["data"];
       setSeries(series);

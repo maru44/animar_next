@@ -55,7 +55,7 @@ const AnimeAdminUpdate: NextPage<Props> = (props) => {
         setPlats(ret["data"]);
       }
       if (seasonRes.status === 200) {
-        const ret = await res.json();
+        const ret = await seasonRes.json();
         setSeasons(ret["data"]);
       }
     })();
