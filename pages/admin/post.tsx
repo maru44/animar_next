@@ -9,6 +9,7 @@ import { fetchInsertAnime } from "../../helper/AnimeHelper";
 import { BACKEND_URL } from "../../helper/Config";
 import { TSeries } from "../../types/anime";
 import AnimePost from "../../components/Admin/AnimePost";
+import router from "next/router";
 
 interface Props {
   series: TSeries[];
@@ -26,16 +27,15 @@ const AnimeAdminPost: NextPage<Props> = (props) => {
       e.target.series_name.value
     );
     if (res.status === 200) {
-      const res = await fetchAllSeries();
-      const series = await res["data"];
-      setSeries(series);
+      const ret = await fetchAllSeries();
+      setSeries(ret["data"]);
     }
   };
 
   const startAddAnime = async (e: any) => {
     e.preventDefault();
     const t = e.target;
-    const ret = await fetchInsertAnime(
+    const res = await fetchInsertAnime(
       t.title.value,
       t.abbreviation.value,
       t.kana.value,
@@ -48,6 +48,10 @@ const AnimeAdminPost: NextPage<Props> = (props) => {
       t.copyright.value,
       t.count_episodes.value
     );
+    if (res.status === 200) {
+      const ret = await res.json();
+      router.push(`/admin/update/${ret["data"]}`);
+    }
   };
 
   return (

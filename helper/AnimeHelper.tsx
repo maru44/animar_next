@@ -43,8 +43,7 @@ export const fetchInsertAnime = async (
     // },
     body: formData,
   });
-  const ret = await res.json();
-  return ret;
+  return res;
 };
 
 export const fetchUpdateAnime = async (
