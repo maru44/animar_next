@@ -278,16 +278,12 @@ export const getServerSideProps: GetServerSideProps<Props, Params> = async (
     const slug = ctx.params.slug;
     const res = await fetch(`${BACKEND_URL}/db/anime/?slug=${slug}`);
     const ret = await res.json();
-    const anime: TAnime = ret["data"];
-
-    const dataR = await baseFetcher(
-      `${BACKEND_URL}/reviews/anime/?anime=${anime.id}`
-    );
+    const anime: TAnime = ret["anime"];
 
     return {
       props: {
         anime: anime,
-        reviews: dataR,
+        reviews: ret["reviews"],
         title: anime.title,
         ogType: "article",
         ogImage: anime.thumb_url ?? null,
