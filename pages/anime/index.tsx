@@ -2,6 +2,7 @@ import { GetServerSideProps, NextPage } from "next";
 import { TAnime } from "../../types/anime";
 import { BACKEND_URL } from "../../helper/Config";
 import AnimeElement from "../../components/AnimeElement";
+import SeasonScope from "../../components/SeasonScope";
 
 interface Props {
   animes: TAnime[];
@@ -15,7 +16,8 @@ const AnimeList: NextPage<Props> = (props) => {
     <div>
       <main>
         <div className="mla mra content">
-          <div className="animeList">
+          <SeasonScope></SeasonScope>
+          <div className="animeList mt30">
             {animes &&
               animes.map((anime, index) => (
                 <AnimeElement index={index} anime={anime}></AnimeElement>

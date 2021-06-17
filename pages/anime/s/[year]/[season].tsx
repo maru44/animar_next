@@ -2,11 +2,14 @@ import { GetServerSideProps, NextPage } from "next";
 import { TAnime } from "../../../../types/anime";
 import { BACKEND_URL } from "../../../../helper/Config";
 import AnimeElement from "../../../../components/AnimeElement";
+import SeasonScope from "../../../../components/SeasonScope";
 import { ParsedUrlQuery } from "querystring";
 
 interface Props {
   animes: TAnime[];
-  list: 1;
+  list: number;
+  year: string;
+  season: string;
 }
 
 interface Params extends ParsedUrlQuery {
@@ -21,7 +24,8 @@ const AnimeList: NextPage<Props> = (props) => {
     <div>
       <main>
         <div className="mla mra content">
-          <div className="animeList">
+          <SeasonScope year={props.year} season={props.season}></SeasonScope>
+          <div className="animeList mt30">
             {animes &&
               animes.map((anime, index) => (
                 <AnimeElement index={index} anime={anime}></AnimeElement>
@@ -48,6 +52,8 @@ export const getServerSideProps: GetServerSideProps<Props, Params> = async (
     props: {
       animes: animes,
       list: 1,
+      year: year,
+      season: season,
     },
   };
 };
