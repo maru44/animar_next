@@ -10,12 +10,25 @@ import MessageComponent, {
 import { fetchCurrentUser, fetchRegister } from "../../helper/UserHelper";
 import { useRequireAnonymous } from "../../hooks/useRequireLogin";
 import CurrentUserState from "../../states/CurrentUser";
+import RuleModal from "../../components/RuleModal";
 
 const Register: NextPage = () => {
   useRequireAnonymous();
   const [messages, setMessages] = useState<IMessage[]>(null);
+  const [openRule, setOpenRule] = useState(false);
+  const [isAccept, setIsAccept] = useState(false);
   const setCurrentUser = useSetRecoilState(CurrentUserState);
   const router = useRouter();
+
+  const closeRule = () => {
+    setOpenRule(false);
+  };
+  const openRuleExe = () => {
+    setOpenRule(true);
+  };
+  const changeAccept = (e: any) => {
+    setIsAccept(e.target.checked);
+  };
 
   const startRegister = async (e: any) => {
     e.preventDefault();
@@ -70,20 +83,33 @@ const Register: NextPage = () => {
               <label htmlFor="email">メールアドレス</label>
               <input type="email" id="email" name="email" required />
             </div>
-            <div className="field mt10">
+            <div className="field mt20">
               <label htmlFor="dname">表示名</label>
               <input type="text" id="dname" name="dname" placeholder="任意" />
             </div>
-            <div className="field mt10">
+            <div className="field mt20">
               <label htmlFor="password">パスワード</label>
               <input type="password" id="password" name="password" required />
             </div>
-            <div className="field mt10">
+            <div className="field mt20">
               <label htmlFor="password2">確認用パスワード</label>
               <input type="password" id="password2" name="password2" required />
             </div>
-            <div className="field mt10 wM500px">
-              <button type="submit" className="floatR">
+            <div className="mt30 field">
+              <input
+                id="ruleInput"
+                onClick={changeAccept}
+                className="mr20"
+                type="checkbox"
+              />
+              <a className="active" id="ruleOpen" onClick={openRuleExe}>
+                利用規約
+              </a>
+              に同意します。
+              <RuleModal open={openRule} closeFunc={closeRule}></RuleModal>
+            </div>
+            <div className="field mt20 wM500px">
+              <button type="submit" className="floatR" disabled={!isAccept}>
                 登録する
               </button>
             </div>

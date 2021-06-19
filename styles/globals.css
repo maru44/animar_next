@@ -88,6 +88,12 @@ span.circleButton {
   cursor: pointer;
 }
 
+a.active {
+  color: blue;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
 /*//////////////////////
 Href
 //////////////////////*/
@@ -105,6 +111,39 @@ Href
   position: absolute;
   width: 100%;
   height: 100%;
+}
+
+/*///////////////////
+modal
+///////////////////*/
+
+.modal {
+  position: fixed;
+  z-index: 30;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+}
+
+.modalCon {
+  position: fixed;
+  top: 10%;
+  height: auto;
+  max-height: 80%;
+  left: 10%;
+  width: 80%;
+  z-index: 31;
+  background-color: #fff;
+  padding: 20px;
+  overflow-y: scroll;
+}
+
+.closeBtn {
+  cursor: pointer;
+  width: 50px;
 }
 
 /*///////////////////
@@ -612,6 +651,11 @@ button[type="submit"] {
 }
 button[type="submit"]:hover {
   opacity: 0.6;
+}
+
+button:disabled {
+  cursor: default !important;
+  opacity: 0.3;
 }
 
 /*////////////////

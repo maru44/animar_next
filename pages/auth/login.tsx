@@ -44,7 +44,7 @@ const Login: NextPage = () => {
               <label htmlFor="password">パスワード</label>
               <input type="password" id="password" name="password" required />
             </div>
-            <div className="mt10">
+            <div className="mt20">
               <button type="submit" className="floatR">
                 ログイン
               </button>
