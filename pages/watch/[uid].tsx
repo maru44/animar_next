@@ -107,7 +107,7 @@ export const getServerSideProps: GetServerSideProps<Props, Params> = async (
     props: {
       watches: data,
       kind: "user",
-      list: 3,
+      list: 1,
       uid: uid,
       title: "見ているアニメ",
     },

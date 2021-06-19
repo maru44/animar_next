@@ -76,7 +76,7 @@ export const getServerSideProps: GetServerSideProps<Props, Params> = async (
     props: {
       blogs: blogs,
       kind: "user",
-      list: 1,
+      list: 3,
       uid: uid,
       title: "コラム一覧",
     },

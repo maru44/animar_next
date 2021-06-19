@@ -13,9 +13,9 @@ interface AList {
 
 const UserHeader: NextPage<Props> = (props) => {
   const listList: AList[] = [
-    { shown: "コラム", href: `/column/u/${props.uid}` },
-    { shown: "レビュー", href: `/reviews/${props.uid}` },
     { shown: "見てるアニメ", href: `/watch/${props.uid}` },
+    { shown: "レビュー", href: `/reviews/${props.uid}` },
+    { shown: "コラム", href: `/column/u/${props.uid}` },
   ];
 
   return (
