@@ -11,7 +11,8 @@ export const fetchPostBlog = async (
   title: string,
   abst: string,
   content: string,
-  animeIds: number[]
+  animeIds: number[],
+  isPublic: boolean
 ) => {
   const res = await fetch(`${BACKEND_URL}/blog/post/`, {
     method: "POST",
@@ -25,6 +26,7 @@ export const fetchPostBlog = async (
       abstract: abst,
       content: content,
       anime_ids: animeIds,
+      is_public: isPublic,
     }),
   });
   return res;
@@ -44,7 +46,8 @@ export const fetchUpdateBlog = async (
   title: string,
   abst: string,
   content: string,
-  animeIds: number[]
+  animeIds: number[],
+  isPublic: boolean
 ) => {
   const res = await fetch(`${BACKEND_URL}/blog/update/?id=${id}`, {
     method: "PUT",
@@ -58,6 +61,7 @@ export const fetchUpdateBlog = async (
       abstract: abst,
       content: content,
       anime_ids: animeIds,
+      is_public: isPublic,
     }),
   });
   return res;

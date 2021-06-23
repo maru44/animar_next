@@ -61,7 +61,7 @@ const ColumnEditor: NextPage<Props> = (props) => {
     if (title && prev) {
       const mess: IMessage = { title: "送信中" };
       setMess([mess]);
-      const res = await fetchPostBlog(title, abst, prev, relAnimeIds);
+      const res = await fetchPostBlog(title, abst, prev, relAnimeIds, isPub);
       res.status === 200 && router.push("/column");
     }
   };
@@ -75,7 +75,8 @@ const ColumnEditor: NextPage<Props> = (props) => {
         title,
         abst,
         prev,
-        relAnimeIds
+        relAnimeIds,
+        isPub
       );
       res.status === 200 && router.back();
     }
