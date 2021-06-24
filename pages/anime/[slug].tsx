@@ -70,11 +70,13 @@ const AnimeDetail: NextPage<Props> = (props) => {
           ? window.innerWidth - 12
           : window.innerWidth * 0.68;
       setWid(wid);
-      dataUW && setUserWatch(dataUW);
-      dataRU && setUserReviewStar(dataRU[0]["rating"]);
-      dataRU && setUserReviewContent(dataRU[0]["content"]);
+      console.log(dataW);
+      dataUW && dataUW["id"] !== 0 && setUserWatch(dataUW["state"]);
+      dataRU && setUserReviewStar(dataRU["rating"]);
+      dataRU && setUserReviewContent(dataRU["content"]);
       setWatchCountsList(dataW);
       dataStar && setStarAvg(dataStar);
+
       if (dataSeasonRes.status === 200) {
         const ret = await dataSeasonRes.json();
         setSeasons(ret["data"]);

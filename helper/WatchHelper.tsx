@@ -43,7 +43,7 @@ export const fetchWatchStateDetail = async (animeId: number) => {
     return null;
   } else {
     const ret = await res.json();
-    if (ret["data"] === -1) {
+    if (ret["data"]["id"] === 0) {
       return null;
     }
     return ret["data"];
