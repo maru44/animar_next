@@ -6,6 +6,7 @@ export const fetchUploadImage = async (image: any) => {
   const res = await fetch(`${BACKEND_URL}/utils/s3/`, {
     method: "POST",
     mode: "cors",
+    credentials: "include",
     body: formData,
   });
   if (res.status === 200) {
