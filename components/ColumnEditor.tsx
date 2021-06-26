@@ -12,6 +12,7 @@ import { useRouter } from "next/router";
 import MessageComponent, { IMessage } from "./Message";
 import { useRequireLogin } from "../hooks/useRequireLogin";
 import { useCurrentUser } from "../hooks/useCurrentUser";
+import { fetchUploadImage } from "../helper/UtilHelper";
 
 interface Props {
   blog?: TBlog;
@@ -142,6 +143,22 @@ const ColumnEditor: NextPage<Props> = (props) => {
     return null;
   };
 
+  const dropImage = async (e: any) => {
+    e.preventDefault();
+    const prevLength = prev ? prev.length : 0;
+    const nowPosition = e.target.selectionStart;
+    if (!CurrentUser) return;
+    const imageUrl = await fetchUploadImage(e.dataTransfer.files[0]);
+    if (imageUrl) {
+      const newPrev = `${prev.substr(
+        0,
+        nowPosition
+      )}\n![](${imageUrl})${prev.substr(nowPosition, prevLength)}\n`;
+      setPrev(newPrev);
+      e.target.value = newPrev;
+    }
+  };
+
   return (
     <div>
       <main>
@@ -203,10 +220,11 @@ const ColumnEditor: NextPage<Props> = (props) => {
                   name="content"
                   className="content"
                   onChange={changePrev}
-                  placeholder="本文: マークダウン形式です"
+                  placeholder="本文: マークダウン形式です。ドラッグアンドドロップで画像を挿入できます。"
                   style={{ height: `${textHeight}px` }}
                   required
                   defaultValue={props.blog && props.blog.content}
+                  onDrop={dropImage}
                 ></textarea>
               </div>
             </div>
