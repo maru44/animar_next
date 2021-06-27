@@ -740,6 +740,10 @@ header {
   border-radius: 6px;
 }
 
+.messageZone.local {
+  background-color: #555555;
+}
+
 /*///////////////
 footer
 ///////////////*/

@@ -25,6 +25,7 @@ import { fetchRelationPlatform } from "../../helper/admin/PlatformHelper";
 import { TSeason } from "../../types/season";
 import { TRelationPlatform } from "../../types/platform";
 import Link from "next/link";
+import LocalMessage from "../../components/LocalMessage";
 
 interface Props {
   anime: TAnime;
@@ -249,7 +250,16 @@ const AnimeDetail: NextPage<Props> = (props) => {
               </form>
             </section>
           )}
-
+          {CurrentUser === null && (
+            <div className="mt40">
+              <div className="local messageZone hrefBox">
+                <p>ログインして視聴管理とレビューをしよう!</p>
+                <Link href="/auth/login" passHref>
+                  <a className="hrefBoxIn"></a>
+                </Link>
+              </div>
+            </div>
+          )}
           <div className="reviewList mt40">
             <span className="titleSpan ">みんなのレビュー</span>
             <br />

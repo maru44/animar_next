@@ -65,7 +65,7 @@ const BlogDetail: NextPage<Props> = (props) => {
                     {anime.title}
                     <Link
                       href="/anime/[slug]"
-                      as={`/anime/${blog.slug}`}
+                      as={`/anime/${anime.slug}`}
                       passHref
                     >
                       <a className="hrefBoxIn"></a>

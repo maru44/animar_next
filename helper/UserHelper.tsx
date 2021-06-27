@@ -58,12 +58,9 @@ export const getUserModelFromCookie = async () => {
 export const fetchCurrentUser = async () => {
   try {
     const res = await getUserModelFromCookie();
-    if (res.status === 400) {
+    if (res.status !== 200) {
       await RefreshToken();
       const resAgain = await getUserModelFromCookie();
-      if (resAgain.status === 400) {
-        return null;
-      }
       const ret = await resAgain.json();
       const user: TUser = ret["user"];
       user.isVerify = ret["is_verify"];
@@ -75,7 +72,7 @@ export const fetchCurrentUser = async () => {
       return user;
     }
   } catch (e) {
-    console.log(e);
+    return null;
   }
 };
 

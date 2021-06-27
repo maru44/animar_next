@@ -10,6 +10,7 @@ import { extractValueList } from "../helper/BaseHelper";
 import ColumnSelectAnime from "./ColumnSelectAnime";
 import { useRouter } from "next/router";
 import MessageComponent, { IMessage } from "./Message";
+import LocalMessage from "./LocalMessage";
 import { useRequireLogin } from "../hooks/useRequireLogin";
 import { useCurrentUser } from "../hooks/useCurrentUser";
 import { fetchUploadImage } from "../helper/UtilHelper";
@@ -38,12 +39,15 @@ const ColumnEditor: NextPage<Props> = (props) => {
   );
 
   const [mess, setMess] = useState<IMessage[]>(null);
+  const [localMessage, setLocalMessage] = useState<string[]>(
+    CurrentUser ? null : ["投稿にはログインする必要があります。"]
+  );
 
   const initialRelAnimeIds: number[] = props.blog
-    ? extractValueList(props.blog.animes, "AnimeId")
+    ? extractValueList(props.blog.animes, "anime_id")
     : [];
   const initialRelAnimeTitles: string[] = props.blog
-    ? extractValueList(props.blog.animes, "Title")
+    ? extractValueList(props.blog.animes, "title")
     : [];
 
   const [isPrev, setIsPrev] = useState<boolean>(false);
@@ -247,6 +251,9 @@ const ColumnEditor: NextPage<Props> = (props) => {
               >
                 {prev}
               </ReactMarkdown>
+            </div>
+            <div className="mt20 mb20">
+              <LocalMessage message={localMessage}></LocalMessage>
             </div>
             <MessageComponent messages={mess}></MessageComponent>
             {CurrentUser && CurrentUser.isVerify && (
