@@ -30,9 +30,8 @@ const Index: NextPage = () => {
             <div className="mt60 releaseSchedule wM500px mla mra">
               <h2 className="textCen">追加予定機能</h2>
               <ul className="mt10">
-                <li>お問い合わせ、ご要望フォーム</li>
+                <li>お問い合わせフォーム</li>
                 <li>コラムのコメント、いいね機能</li>
-                <li>コラムの画像挿入</li>
                 <li>ユーザー同士のフォロー機能</li>
                 <li>ソーシャルログイン</li>
                 <li>検索、フィルター、ソート</li>

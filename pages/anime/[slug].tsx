@@ -57,10 +57,9 @@ const AnimeDetail: NextPage<Props> = (props) => {
   const [plats, setPlats] = useState<TRelationPlatform[]>(null);
 
   useEffect(() => {
-    const f = async () => {
+    (async () => {
       const dataW = await getWatchCountsList(anime.id); // watch state
-      const dataUW = await fetchWatchStateDetail(anime.id); // user's watch state
-      const dataRU = await fetchUserAnimeReview(anime.id); //reviews of login user
+
       const dataStar = await fetchAnimeStars(anime.id);
       const dataSeasonRes = await fetchRelationSeason(anime.id);
       const dataPlatRes = await fetchRelationPlatform(anime.id);
@@ -71,9 +70,7 @@ const AnimeDetail: NextPage<Props> = (props) => {
           ? window.innerWidth - 12
           : window.innerWidth * 0.68;
       setWid(wid);
-      dataUW && dataUW["id"] !== 0 && setUserWatch(dataUW["state"]);
-      dataRU && setUserReviewStar(dataRU["rating"]);
-      dataRU && setUserReviewContent(dataRU["content"]);
+
       setWatchCountsList(dataW);
       dataStar && setStarAvg(dataStar);
 
@@ -85,8 +82,14 @@ const AnimeDetail: NextPage<Props> = (props) => {
         const ret = await dataPlatRes.json();
         setPlats(ret["data"]);
       }
-    };
-    f();
+
+      const dataUW = await fetchWatchStateDetail(anime.id); // user's watch state
+      const dataRU = await fetchUserAnimeReview(anime.id); //reviews of login user
+
+      dataUW && dataUW["id"] !== 0 && setUserWatch(dataUW["state"]);
+      dataRU && setUserReviewStar(dataRU["rating"]);
+      dataRU && setUserReviewContent(dataRU["content"]);
+    })();
   }, []);
 
   // review post start
@@ -303,8 +306,7 @@ export const getServerSideProps: GetServerSideProps<Props, Params> = async (
       },
     };
   } catch (e) {
-    // @TODO
-    //404
+    console.log(e);
   }
 };
 
