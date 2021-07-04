@@ -5,8 +5,18 @@ import { fetchCurrentUser } from "../helper/UserHelper";
 import { useRouter } from "next/router";
 import CurrentUserState from "../states/CurrentUser";
 import BaseLayouts from "../components/BaseLayouts";
+import nprogress from "nprogress";
 import * as gtag from "../helper/gtag";
 import "../styles/globals.css";
+import "nprogress/nprogress.css";
+
+// definition of process.browser
+interface Process {
+  browser: boolean;
+}
+declare var process: Process;
+
+nprogress.configure({ showSpinner: false, speed: 400, minimum: 0.2 });
 
 const AppInt = (): null => {
   const setCurrentUser = useSetRecoilState(CurrentUserState);
@@ -37,6 +47,12 @@ const AppInt = (): null => {
 };
 
 function MyApp({ Component, pageProps }: AppProps) {
+  if (process.browser) {
+    nprogress.start();
+  }
+  useEffect(() => {
+    nprogress.done();
+  });
   return (
     <RecoilRoot>
       <BaseLayouts
