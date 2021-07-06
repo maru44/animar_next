@@ -79,7 +79,7 @@ export const fetchCurrentUser = async () => {
 export const fetchUpdateProfile = async (e: any) => {
   const formData = new FormData();
   formData.set("dname", e.target.dname.value);
-  if (e.target.image.files.length !== 0) {
+  if (e.target.image.files.length) {
     formData.set("image", e.target.image.files[0]);
   }
 
@@ -100,4 +100,17 @@ export const fetchUserModel = async (uid: string) => {
     return ret["user"];
   }
   return null;
+};
+
+export const sendJwtCookie = async (idToken: string, refreshToken: string) => {
+  const res = await fetch(`${BACKEND_URL}/auth/setcookie/`, {
+    method: "POST",
+    mode: "cors",
+    credentials: "include",
+    body: JSON.stringify({
+      idToken: idToken,
+      refreshToken: refreshToken,
+    }),
+  });
+  return res.status;
 };

@@ -41,7 +41,6 @@ export const fetchUserAnimeReview = async (animeId: number) => {
     mode: "cors",
     credentials: "include",
   });
-  console.log(res);
   if (res.status !== 200) return null;
   const ret = await res.json();
   if (ret["data"]) {

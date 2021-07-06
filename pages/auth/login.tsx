@@ -2,7 +2,6 @@ import { NextPage } from "next";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useSetRecoilState } from "recoil";
-import Header from "../../components/Header";
 import { BACKEND_URL } from "../../helper/Config";
 import {
   SetJWTCookie,
@@ -10,7 +9,9 @@ import {
   fetchCurrentUser,
 } from "../../helper/UserHelper";
 import { useRequireAnonymous } from "../../hooks/useRequireLogin";
+import GoogleOauth from "../../components/GoogleOauth";
 import CurrentUserState from "../../states/CurrentUser";
+import Header from "../../components/Header";
 
 const Login: NextPage = () => {
   useRequireAnonymous();
@@ -55,6 +56,9 @@ const Login: NextPage = () => {
               </Link>
             </div>
           </form>
+          <div className="mt60 wM500px mla mra">
+            <GoogleOauth></GoogleOauth>
+          </div>
         </div>
       </main>
     </div>
