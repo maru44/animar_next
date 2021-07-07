@@ -32,6 +32,15 @@ export const fetchPostWatchStates = async (animeId: number, watch: number) => {
   return successWatch;
 };
 
+export const fetchDeleteWatchStates = async (animeId: number) => {
+  const res = await fetch(`${BACKEND_URL}/watch/delete/?anime=${animeId}`, {
+    method: "DELETE",
+    mode: "cors",
+    credentials: "include",
+  });
+  return res.status;
+};
+
 export const fetchWatchStateDetail = async (animeId: number) => {
   const res = await fetch(`${BACKEND_URL}/watch/ua/?anime=${animeId}`, {
     method: "GET",

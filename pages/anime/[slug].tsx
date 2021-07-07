@@ -11,6 +11,7 @@ import {
   fetchAnimeStars,
 } from "../../helper/ReviewHelper";
 import {
+  fetchDeleteWatchStates,
   fetchPostWatchStates,
   fetchWatchStateDetail,
   getWatchCountsList,
@@ -102,9 +103,15 @@ const AnimeDetail: NextPage<Props> = (props) => {
 
   const startPostStar = async (e: any) => {
     e.preventDefault();
-    const star = e.target.dataset.id;
-    const ret = await fetchUpsertReviewStar(anime.id, star);
-    setUserReviewStar(ret["data"]);
+    const star = e.target.dataset.star;
+    console.log(userReviewStar, star);
+    if (userReviewStar && userReviewStar === parseInt(star)) {
+      const ret = await fetchUpsertReviewStar(anime.id, null);
+      setUserReviewStar(ret["data"]);
+    } else {
+      const ret = await fetchUpsertReviewStar(anime.id, star);
+      setUserReviewStar(ret["data"]);
+    }
     const newAvg = await fetchAnimeStars(anime.id);
     setStarAvg(newAvg);
   };
@@ -112,9 +119,14 @@ const AnimeDetail: NextPage<Props> = (props) => {
   // watch post start
   const startWatchPost = async (e: any) => {
     e.preventDefault();
-    const watch = e.target.dataset.id;
-    const ret = await fetchPostWatchStates(anime.id, watch);
-    setUserWatch(ret);
+    const watch = e.target.dataset.watch;
+    if (userWatch && userWatch === parseInt(watch)) {
+      const res = await fetchDeleteWatchStates(anime.id);
+      res === 200 && setUserWatch(null);
+    } else {
+      const ret = await fetchPostWatchStates(anime.id, watch);
+      setUserWatch(ret);
+    }
 
     const newWatchCountsList = await getWatchCountsList(anime.id);
     setWatchCountsList(newWatchCountsList);
@@ -169,7 +181,7 @@ const AnimeDetail: NextPage<Props> = (props) => {
                       ? "watchStateBtn flexCen selected"
                       : "watchStateBtn flexCen"
                   }
-                  data-id={index}
+                  data-watch={index}
                   onClick={startWatchPost}
                   key={index}
                 >
@@ -227,7 +239,7 @@ const AnimeDetail: NextPage<Props> = (props) => {
                           : "mr5 star"
                       }
                       key={index}
-                      data-id={index + 1}
+                      data-star={index + 1}
                       onClick={startPostStar}
                     >
                       &#9733;

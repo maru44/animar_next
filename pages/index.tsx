@@ -33,8 +33,8 @@ const Index: NextPage = () => {
                 <li>お問い合わせフォーム</li>
                 <li>コラムのコメント、いいね機能</li>
                 <li>ユーザー同士のフォロー機能</li>
-                <li>ソーシャルログイン</li>
                 <li>検索、フィルター、ソート</li>
+                <li>etc</li>
                 <li className="mt20">
                   <strong>鋭意制作中です。ご期待ください</strong>
                 </li>
