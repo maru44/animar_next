@@ -104,7 +104,6 @@ const AnimeDetail: NextPage<Props> = (props) => {
   const startPostStar = async (e: any) => {
     e.preventDefault();
     const star = e.target.dataset.star;
-    console.log(userReviewStar, star);
     if (userReviewStar && userReviewStar === parseInt(star)) {
       const ret = await fetchUpsertReviewStar(anime.id, null);
       setUserReviewStar(ret["data"]);
