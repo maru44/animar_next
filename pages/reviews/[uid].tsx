@@ -46,38 +46,41 @@ const UserReviews: NextPage<Props> = (props) => {
           </div>
           <div className="mt40">
             {reviews &&
-              reviews.map((review, index) => (
-                <article className="usersReview mb20 hrefBox" key={index}>
-                  <h3 className="flexNormal alCen">{review.title}</h3>
-                  <div className="mt10 reviewStars">
-                    {review.rating &&
-                      reviewStarList &&
-                      reviewStarList.map((star, index) => (
-                        <span
-                          className={
-                            review.rating && review.rating - 1 >= index
-                              ? "mr5 star active"
-                              : "mr5 star"
-                          }
-                          key={index}
-                          data-id={index + 1}
-                        >
-                          &#9733;
-                        </span>
-                      ))}
-                  </div>
-                  {review.content && (
-                    <p className="brAll mt10">{review.content}</p>
-                  )}
-                  <Link
-                    href="/anime/[slug]"
-                    as={`/anime/${review.slug}`}
-                    passHref
-                  >
-                    <a className="hrefBoxIn"></a>
-                  </Link>
-                </article>
-              ))}
+              reviews.map(
+                (review, index) =>
+                  (!review.rating && !review.content) || (
+                    <article className="usersReview mb20 hrefBox" key={index}>
+                      <h3 className="flexNormal alCen">{review.title}</h3>
+                      <div className="mt10 reviewStars">
+                        {review.rating &&
+                          reviewStarList &&
+                          reviewStarList.map((star, index) => (
+                            <span
+                              className={
+                                review.rating && review.rating - 1 >= index
+                                  ? "mr5 star active"
+                                  : "mr5 star"
+                              }
+                              key={index}
+                              data-id={index + 1}
+                            >
+                              &#9733;
+                            </span>
+                          ))}
+                      </div>
+                      {review.content && (
+                        <p className="brAll mt10">{review.content}</p>
+                      )}
+                      <Link
+                        href="/anime/[slug]"
+                        as={`/anime/${review.slug}`}
+                        passHref
+                      >
+                        <a className="hrefBoxIn"></a>
+                      </Link>
+                    </article>
+                  )
+              )}
           </div>
         </div>
       </main>
