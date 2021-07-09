@@ -26,10 +26,6 @@ const AdminPlatform: NextPage<Props> = (props) => {
       e.target.thumb_url.files,
       e.currentTarget.valid.checked
     );
-    if (ret["data"] === 200) {
-      // @TODO platform更新処理
-      console.log(ret);
-    }
   };
 
   return (

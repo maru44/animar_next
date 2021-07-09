@@ -3,7 +3,11 @@ import { useState } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { TAnimeMinimum } from "../types/anime";
-import { fetchPostBlog, fetchUpdateBlog } from "../helper/BlogHelper";
+import {
+  fetchPostBlog,
+  fetchUpdateBlog,
+  fetchUploadImageColumn,
+} from "../helper/BlogHelper";
 import { fetchSearchAnime } from "../helper/AnimeHelper";
 import { TBlog } from "../types/blog";
 import { extractValueList } from "../helper/BaseHelper";
@@ -13,7 +17,6 @@ import MessageComponent, { IMessage } from "./Message";
 import LocalMessage from "./LocalMessage";
 import { useRequireLogin } from "../hooks/useRequireLogin";
 import { useCurrentUser } from "../hooks/useCurrentUser";
-import { fetchUploadImage } from "../helper/UtilHelper";
 
 interface Props {
   blog?: TBlog;
@@ -87,24 +90,6 @@ const ColumnEditor: NextPage<Props> = (props) => {
     }
   };
 
-  const changePrev = (e: any) => {
-    setPrev(e.target.value);
-    setTextHeight(e.target.scrollHeight); // height auto
-  };
-  const changeTitle = (e: any) => {
-    setTitle(e.target.value);
-  };
-  const changeAbst = (e: any) => {
-    setAbst(e.target.value);
-  };
-  const changeIsPrev = () => {
-    setIsPrev(!isPrev);
-  };
-  const changePub = (e: any) => {
-    const isChecked = e.target.checked;
-    setIsPub(isChecked);
-  };
-
   // relation anime
   const searchAnime = async (e: any) => {
     if (e.target.value) {
@@ -152,12 +137,14 @@ const ColumnEditor: NextPage<Props> = (props) => {
     const prevLength = prev ? prev.length : 0;
     const nowPosition = e.target.selectionStart;
     if (!CurrentUser) return;
-    const imageUrl = await fetchUploadImage(e.dataTransfer.files[0]);
+    const imageUrl = await fetchUploadImageColumn(e.dataTransfer.files[0]);
     if (imageUrl) {
-      const newPrev = `${prev.substr(
-        0,
-        nowPosition
-      )}\n![](${imageUrl})${prev.substr(nowPosition, prevLength)}\n`;
+      const newPrev = prev
+        ? `${prev.substr(0, nowPosition)}\n![](${imageUrl})${prev.substr(
+            nowPosition,
+            prevLength
+          )}\n`
+        : `![](${imageUrl})\n`;
       setPrev(newPrev);
       e.target.value = newPrev;
     }
@@ -167,7 +154,12 @@ const ColumnEditor: NextPage<Props> = (props) => {
     <div>
       <main>
         <div className="mla mra content">
-          <div className="mt40" onClick={changeIsPrev}>
+          <div
+            className="mt40"
+            onClick={(e: any) => {
+              setIsPrev(!isPrev);
+            }}
+          >
             <span className="prevBtn">
               {isPrev ? "編集に戻る" : "プレビュー"}
             </span>
@@ -201,7 +193,9 @@ const ColumnEditor: NextPage<Props> = (props) => {
                   placeholder="タイトル"
                   maxLength={64}
                   name="blogtitle"
-                  onChange={changeTitle}
+                  onChange={(e: any) => {
+                    setTitle(e.target.value);
+                  }}
                   required
                   defaultValue={props.blog && props.blog.title}
                 />
@@ -212,7 +206,9 @@ const ColumnEditor: NextPage<Props> = (props) => {
                   className="abstract"
                   maxLength={160}
                   name="abst"
-                  onChange={changeAbst}
+                  onChange={(e: any) => {
+                    setAbst(e.target.value);
+                  }}
                   placeholder="概要: 160文字以内"
                   defaultValue={
                     props.blog && props.blog.abstract && props.blog.abstract
@@ -223,7 +219,10 @@ const ColumnEditor: NextPage<Props> = (props) => {
                 <textarea
                   name="content"
                   className="content"
-                  onChange={changePrev}
+                  onChange={(e: any) => {
+                    setPrev(e.target.value);
+                    setTextHeight(e.target.scrollHeight); // height auto
+                  }}
                   placeholder="本文: マークダウン形式です。ドラッグアンドドロップで画像を挿入できます。"
                   style={{ height: `${textHeight}px` }}
                   required
@@ -266,7 +265,10 @@ const ColumnEditor: NextPage<Props> = (props) => {
                       name="is_public"
                       id="isPublic"
                       className="mr20"
-                      onChange={changePub}
+                      onChange={(e: any) => {
+                        const isChecked = e.target.checked;
+                        setIsPub(isChecked);
+                      }}
                     />
                     公開する
                   </label>

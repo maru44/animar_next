@@ -66,3 +66,19 @@ export const fetchUpdateBlog = async (
   });
   return res;
 };
+
+export const fetchUploadImageColumn = async (image: any) => {
+  const formData = new FormData();
+  formData.set("image", image);
+  const res = await fetch(`${BACKEND_URL}/blog/image/`, {
+    method: "POST",
+    mode: "cors",
+    credentials: "include",
+    body: formData,
+  });
+  if (res.status === 200) {
+    const ret = await res.json();
+    return ret["data"];
+  }
+  return null;
+};

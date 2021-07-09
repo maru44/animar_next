@@ -28,10 +28,6 @@ const AdminEditPlatform: NextPage<Props> = (props) => {
       e.currentTarget.valid.checked,
       plat.id
     );
-    if (ret["data"] === 200) {
-      // @TODO platform更新処理
-      console.log(ret);
-    }
   };
 
   return (
