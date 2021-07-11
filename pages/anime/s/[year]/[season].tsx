@@ -4,13 +4,13 @@ import { BACKEND_URL } from "../../../../helper/Config";
 import AnimeElement from "../../../../components/AnimeElement";
 import SeasonScope from "../../../../components/SeasonScope";
 import { ParsedUrlQuery } from "querystring";
+import { pageBaseProps } from "../../../../types/page";
 
-interface Props {
+type Props = {
   animes: TAnime[];
-  list: number;
   year: string;
   season: string;
-}
+} & pageBaseProps;
 
 interface Params extends ParsedUrlQuery {
   year: string;

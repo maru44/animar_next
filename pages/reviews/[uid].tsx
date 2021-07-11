@@ -9,14 +9,11 @@ import { fetchUserModel } from "../../helper/UserHelper";
 import { useCurrentUser } from "../../hooks/useCurrentUser";
 import { TReviewJoinAnime } from "../../types/anime";
 import { TUser } from "../../types/auth";
+import { pageBaseProps } from "../../types/page";
 
-interface Props {
+type Props = {
   reviews: TReviewJoinAnime[];
-  kind: string;
-  list: number;
-  uid: string;
-  title: string;
-}
+} & pageBaseProps;
 
 interface Params extends ParsedUrlQuery {
   uid: string;

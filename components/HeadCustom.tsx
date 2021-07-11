@@ -1,16 +1,8 @@
 import { NextPage } from "next";
 import Head from "next/head";
+import { pageBaseProps } from "../types/page";
 
-interface Props {
-  title?: string;
-  ogType?: string;
-  ogImage?: string;
-  ogDescription?: string;
-  ogSeoDescription?: string;
-  robots?: string;
-}
-
-const HeadCustom: NextPage<Props> = (props) => {
+const HeadCustom: NextPage<pageBaseProps> = (props) => {
   return (
     <div>
       <Head>
@@ -37,7 +29,7 @@ const HeadCustom: NextPage<Props> = (props) => {
           }
         />
         <meta property="og:url" content="https://loveani.me" />
-        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:card" content={props.ogImageType ?? "summary"} />
         <meta name="og:image" content={props.ogImage ?? ""} />
         {props.robots && <meta name="robots" content={props.robots} />}
       </Head>

@@ -1,14 +1,12 @@
 import { NextPage, GetServerSideProps } from "next";
 import { parseCookies } from "nookies";
 import { BACKEND_URL } from "../../../helper/Config";
+import { pageBaseProps } from "../../../types/page";
 import { TSeason } from "../../../types/season";
 
-interface Props {
+type Props = {
   seasons: TSeason[];
-  robots: string;
-  kind: string;
-  list: number;
-}
+} & pageBaseProps;
 
 const SeasonIndex: NextPage<Props> = (props) => {
   const startInsertSeason = async (e: any) => {

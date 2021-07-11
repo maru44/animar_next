@@ -12,16 +12,11 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { TUser } from "../../types/auth";
 import { fetchUserModel } from "../../helper/UserHelper";
+import { pageBaseProps } from "../../types/page";
 
-interface Props {
+type Props = {
   blog: TBlog;
-  title: string;
-  robots: string;
-  ogType: string;
-  ogDescription: string;
-  ogSeoDescription: string;
-  // ogImage: string;
-}
+} & pageBaseProps;
 
 interface Params extends ParsedUrlQuery {
   slug: string;

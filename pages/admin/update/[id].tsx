@@ -25,15 +25,15 @@ import {
 import { TPlatformAdmin, TRelationPlatform } from "../../../types/platform";
 import { TSeason } from "../../../types/season";
 import router from "next/router";
+import { pageBaseProps } from "../../../types/page";
 
-interface Props {
+type Props = {
   series: TSeries[];
-  robots: string;
   anime: TAnimeAdmin;
-  kind: string;
   plats: TPlatformAdmin[]; // all plats
   seasons: TSeason[]; // all season
-}
+} & pageBaseProps;
+
 interface Params extends ParsedUrlQuery {
   id: string;
 }

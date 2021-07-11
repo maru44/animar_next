@@ -3,11 +3,11 @@ import { TAnime } from "../../types/anime";
 import { BACKEND_URL } from "../../helper/Config";
 import AnimeElement from "../../components/AnimeElement";
 import SeasonScope from "../../components/SeasonScope";
+import { pageBaseProps } from "../../types/page";
 
-interface Props {
+type Props = {
   animes: TAnime[];
-  list: 1;
-}
+} & pageBaseProps;
 
 const AnimeList: NextPage<Props> = (props) => {
   const animes = props.animes;

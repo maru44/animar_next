@@ -2,12 +2,11 @@ import { GetServerSideProps, NextPage } from "next";
 import { TBlog } from "../../types/blog";
 import { BACKEND_URL } from "../../helper/Config";
 import ColumnElement from "../../components/ColumnElement";
+import { pageBaseProps } from "../../types/page";
 
-interface Props {
+type Props = {
   blogs: TBlog[];
-  list: number;
-  title: string;
-}
+} & pageBaseProps;
 
 const BlogList: NextPage<Props> = (props) => {
   const blogs = props.blogs;

@@ -10,14 +10,12 @@ import { TUser } from "../../types/auth";
 import { useCurrentUser } from "../../hooks/useCurrentUser";
 import { fetchUserModel } from "../../helper/UserHelper";
 import AuthorZone from "../../components/AuthorZone";
+import { pageBaseProps } from "../../types/page";
 
-interface Props {
+type Props = {
   watches: TWatchJoinAnime[];
-  kind: string;
-  list: number;
-  uid: string;
-  title: string;
-}
+} & pageBaseProps;
+
 interface Params extends ParsedUrlQuery {
   uid: string;
 }

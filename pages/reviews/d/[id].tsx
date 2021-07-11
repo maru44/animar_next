@@ -1,0 +1,58 @@
+import { GetStaticPaths, GetStaticProps, NextPage } from "next";
+import Link from "next/link";
+import { ParsedUrlQuery } from "querystring";
+import { BACKEND_URL, DEFAULT_USER_IMAGE } from "../../../helper/Config";
+import { TReview } from "../../../types/anime";
+import { useRouter } from "next/router";
+import { pageBaseProps } from "../../../types/page";
+import { useEffect } from "react";
+import { createOgp } from "../../../helper/CreateOgp";
+
+interface Params extends ParsedUrlQuery {
+  id: string;
+}
+
+type Props = {
+  review: TReview & { anime_slug: string } & pageBaseProps;
+};
+
+const Review: NextPage<Props> = (props) => {
+  const review = props.review;
+  console.log(review);
+  const router = useRouter();
+  useEffect(() => {
+    router.push(`/anime/${review.anime_slug}`);
+  }, []);
+
+  return <div></div>;
+};
+
+export const getStaticPaths: GetStaticPaths = async (ctx) => {
+  const res = await fetch(`${BACKEND_URL}/reviews/`);
+  const ret = await res.json();
+
+  const paths = ret["data"].map((id: number, i: number) => `/reviews/d/${id}`);
+  return { paths, fallback: false };
+};
+
+export const getStaticProps: GetStaticProps<Props, Params> = async (ctx) => {
+  const id = ctx.params.id;
+
+  await createOgp({ id: parseInt(id) });
+
+  const res = await fetch(`${BACKEND_URL}/reviews/?id=${id}`);
+  const ret = await res.json();
+
+  return {
+    props: {
+      review: ret["data"],
+      ogType: "article",
+      ogDescription: ret["data"]["content"], //アニメの説明
+      ogSeoDescription: ret["data"]["content"], // アニメの説明
+      ogImage: `${process.env.NEXT_PUBLIC_FRONT_URL}/ogp/${id}.png`, // ここを生成
+      robots: "nofollow noindex",
+    },
+  };
+};
+
+export default Review;

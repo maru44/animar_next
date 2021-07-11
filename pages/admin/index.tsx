@@ -4,13 +4,11 @@ import { parseCookies } from "nookies";
 import AnimeElement from "../../components/AnimeElement";
 import { BACKEND_URL } from "../../helper/Config";
 import { TAnime, TAnimeAdmin } from "../../types/anime";
+import { pageBaseProps } from "../../types/page";
 
-interface Props {
+type Props = {
   animes: TAnime[];
-  kind: string;
-  list: number;
-  robots: string;
-}
+} & pageBaseProps;
 
 const AdminAnims: NextPage<Props> = (props) => {
   const animes = props.animes;

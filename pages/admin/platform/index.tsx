@@ -6,13 +6,11 @@ import { useState } from "react";
 import PlatformPost from "../../../components/Admin/PlatformPost";
 import Link from "next/link";
 import { fetchInsertPlatform } from "../../../helper/admin/PlatformHelper";
+import { pageBaseProps } from "../../../types/page";
 
-interface Props {
+type Props = {
   plats: TPlatformAdmin[];
-  robots: string;
-  kind: string;
-  list: number;
-}
+} & pageBaseProps;
 
 const AdminPlatform: NextPage<Props> = (props) => {
   const [plats, setPlats] = useState(props.plats);

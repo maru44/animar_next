@@ -5,12 +5,13 @@ import { useState } from "react";
 import PlatformPost from "../../../components/Admin/PlatformPost";
 import { fetchUpdatePlatform } from "../../../helper/admin/PlatformHelper";
 import { BACKEND_URL } from "../../../helper/Config";
+import { pageBaseProps } from "../../../types/page";
 import { TPlatformAdmin } from "../../../types/platform";
 
-interface Props {
-  kind: string;
+type Props = {
   plat: TPlatformAdmin;
-}
+} & pageBaseProps;
+
 interface Params extends ParsedUrlQuery {
   id: string;
 }

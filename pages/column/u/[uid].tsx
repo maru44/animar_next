@@ -10,16 +10,14 @@ import { useEffect, useState } from "react";
 import { fetchUserModel } from "../../../helper/UserHelper";
 import AuthorZone from "../../../components/AuthorZone";
 import { parseCookies } from "nookies";
+import { pageBaseProps } from "../../../types/page";
 
-interface Props {
+type Props = {
   blogs: TBlog[];
-  kind: string;
-  list: number;
   uid: string;
   // ogp
-  title: string;
-  // ogImage: string;
-}
+} & pageBaseProps;
+
 interface Params extends ParsedUrlQuery {
   uid: string;
 }

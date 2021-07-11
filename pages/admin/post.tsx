@@ -10,12 +10,11 @@ import { BACKEND_URL } from "../../helper/Config";
 import { TSeries } from "../../types/anime";
 import AnimePost from "../../components/Admin/AnimePost";
 import router from "next/router";
+import { pageBaseProps } from "../../types/page";
 
-interface Props {
+type Props = {
   series: TSeries[];
-  robots: string;
-  kind: string;
-}
+} & pageBaseProps;
 
 const AnimeAdminPost: NextPage<Props> = (props) => {
   const [series, setSeries] = useState(props.series);
