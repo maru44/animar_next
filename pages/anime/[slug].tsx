@@ -302,6 +302,13 @@ export const getServerSideProps: GetServerSideProps<Props, Params> = async (
   try {
     const slug = ctx.params.slug;
     const res = await fetch(`${BACKEND_URL}/db/anime/?slug=${slug}`);
+    // 404 Not Found
+    if (res.status === 404) {
+      return {
+        notFound: true,
+      };
+    }
+
     const ret = await res.json();
     const anime: TAnime = ret["anime"];
 

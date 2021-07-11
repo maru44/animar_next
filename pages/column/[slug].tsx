@@ -141,6 +141,14 @@ export const getServerSideProps: GetServerSideProps<Props, Params> = async (
 ) => {
   const slug = ctx.params.slug;
   const res = await fetch(`${BACKEND_URL}/blog/?s=${slug}`);
+
+  // 404 Not Found
+  if (res.status === 404) {
+    return {
+      notFound: true,
+    };
+  }
+
   const ret = await res.json();
 
   const blog = ret["data"];

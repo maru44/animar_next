@@ -38,7 +38,7 @@ const HeadCustom: NextPage<Props> = (props) => {
         />
         <meta property="og:url" content="https://loveani.me" />
         <meta name="twitter:card" content="summary" />
-        <meta name="og:image" content={props.ogImage && ""} />
+        <meta name="og:image" content={props.ogImage ?? ""} />
         {props.robots && <meta name="robots" content={props.robots} />}
       </Head>
     </div>
