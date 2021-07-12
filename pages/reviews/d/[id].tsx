@@ -55,6 +55,7 @@ export const getStaticProps: GetStaticProps<Props, Params> = async (ctx) => {
       ogDescription: data["content"], //アニメの説明
       ogSeoDescription: data["content"], // アニメの説明
       ogImage: `${process.env.NEXT_PUBLIC_FRONT_URL}/public/ogp/review_${id}.png`, // ここを生成
+      ogImageType: "summary_large_image",
       robots: "nofollow noindex",
     },
   };
