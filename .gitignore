@@ -36,4 +36,4 @@ yarn-error.log*
 .vercel
 
 # ogp
-**/ogp/*
+**/ogp/*.png
