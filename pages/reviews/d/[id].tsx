@@ -41,12 +41,14 @@ export const getStaticProps: GetStaticProps<Props, Params> = async (ctx) => {
   const ret = await res.json();
   const data = ret["data"];
 
-  await createOgp({
-    id: parseInt(id),
-    title: data["anime_title"],
-    rating: data["rating"] ?? null,
-    content: data["content"],
-  });
+  if (ret["data"]["content"]) {
+    await createOgp({
+      id: parseInt(id),
+      title: data["anime_title"],
+      rating: data["rating"] ?? null,
+      content: data["content"],
+    });
+  }
 
   return {
     props: {
