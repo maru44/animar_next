@@ -4,6 +4,9 @@ import fs from "fs";
 
 type OgpMaterial = {
   id: number;
+  title: string;
+  rating?: number;
+  content: string;
 };
 
 type sepText = {
@@ -19,26 +22,50 @@ export const createOgp = async (props: OgpMaterial) => {
   const canvas = createCanvas(WIDTH, HEIGHT);
   const ctx = canvas.getContext("2d");
 
-  registerFont(path.resolve("./fonts/NotoSansJP-Medium.otf"), {
+  registerFont(path.resolve("./public/fonts/NotoSansJP-Medium.otf"), {
     family: "Noto",
   });
 
-  // const backgroundImage = await loadImage(path.resolve("./public/ogp_background1.jpg"));
-  //   ctx.drawImage(backgroundImage, DX, DY, WIDTH, HEIGHT);
+  const backgroundImage = await loadImage(
+    path.resolve("./public/ogp_background1.jpg")
+  );
+  ctx.drawImage(backgroundImage, DX, DY, WIDTH, HEIGHT);
 
+  /**
+   * title
+   */
   ctx.font = "60px Noto";
-  ctx.textAlign = "center";
+  ctx.textAlign = "left";
   ctx.textBaseline = "middle";
+  const rawTitle = props.title;
+  const sepText = createTextLine(canvas, rawTitle);
+  ctx.fillText(sepText.line, 100, 60);
 
-  const title = "テストしてます。\n\nテスト中";
-
-  const lines = createTextLines(canvas, title);
+  /**
+   * content
+   */
+  ctx.font = "45px Noto";
+  const content = props.content;
+  const lines = createTextLines(canvas, content.replace(/\r?\n/g, " "));
   lines.forEach((line, index) => {
-    const y = 314 + 80 * (index - (lines.length - 1) / 2);
-    ctx.fillText(line, 600, y);
+    if (index < 6) ctx.fillText(line, 100, 150 + index * 60);
   });
+
+  /**
+   * additional
+   */
+  ctx.font = "36px Noto";
+  const rating = props.rating;
+  if (rating) {
+    const star = `★ ${rating}`;
+    ctx.fillText(star, 100, 580);
+  }
+  const loveanime = "loveani.me";
+  ctx.textAlign = "right";
+  ctx.fillText(loveanime, 1100, 580);
+
   const buffer = canvas.toBuffer();
-  fs.writeFileSync(path.resolve(`./public/ogp/${props.id}.png`), buffer);
+  fs.writeFileSync(path.resolve(`./public/ogp/review_${props.id}.png`), buffer);
 };
 
 const createTextLines = (canvas: Canvas, text: string): string[] => {

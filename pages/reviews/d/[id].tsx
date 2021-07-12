@@ -18,7 +18,6 @@ type Props = {
 
 const Review: NextPage<Props> = (props) => {
   const review = props.review;
-  console.log(review);
   const router = useRouter();
   useEffect(() => {
     router.push(`/anime/${review.anime_slug}`);
@@ -38,18 +37,24 @@ export const getStaticPaths: GetStaticPaths = async (ctx) => {
 export const getStaticProps: GetStaticProps<Props, Params> = async (ctx) => {
   const id = ctx.params.id;
 
-  await createOgp({ id: parseInt(id) });
-
   const res = await fetch(`${BACKEND_URL}/reviews/?id=${id}`);
   const ret = await res.json();
+  const data = ret["data"];
+
+  await createOgp({
+    id: parseInt(id),
+    title: data["anime_title"],
+    rating: data["rating"] ?? null,
+    content: data["content"],
+  });
 
   return {
     props: {
-      review: ret["data"],
+      review: data,
       ogType: "article",
-      ogDescription: ret["data"]["content"], //アニメの説明
-      ogSeoDescription: ret["data"]["content"], // アニメの説明
-      ogImage: `${process.env.NEXT_PUBLIC_FRONT_URL}/ogp/${id}.png`, // ここを生成
+      ogDescription: data["content"], //アニメの説明
+      ogSeoDescription: data["content"], // アニメの説明
+      ogImage: `${process.env.NEXT_PUBLIC_FRONT_URL}/public/ogp/review_${id}.png`, // ここを生成
       robots: "nofollow noindex",
     },
   };

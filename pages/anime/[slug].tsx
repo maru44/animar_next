@@ -32,11 +32,7 @@ interface Props {
   anime: TAnime;
   reviews: TReview[];
   // ogp
-  title: string;
-  ogType: string;
-  ogImage: string;
-  ogDescription: string;
-  ogSeoDescription: string;
+  
 }
 
 interface Params extends ParsedUrlQuery {
