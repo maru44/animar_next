@@ -26,13 +26,11 @@ import { fetchRelationPlatform } from "../../helper/admin/PlatformHelper";
 import { TSeason } from "../../types/season";
 import { TRelationPlatform } from "../../types/platform";
 import Link from "next/link";
-import LocalMessage from "../../components/LocalMessage";
 
 interface Props {
   anime: TAnime;
   reviews: TReview[];
   // ogp
-  
 }
 
 interface Params extends ParsedUrlQuery {
@@ -49,6 +47,7 @@ const AnimeDetail: NextPage<Props> = (props) => {
   const [userWatch, setUserWatch] = useState<number>(null);
   const [userReviewStar, setUserReviewStar] = useState<number>(null);
   const [userReviewContent, setUserReviewContent] = useState<string>(null);
+  const [userReviewId, setUserReviewId] = useState<number>(null);
   const [wid, setWid] = useState<number>(null);
   const [seasons, setSeasons] = useState<TSeason[]>(null);
   const [plats, setPlats] = useState<TRelationPlatform[]>(null);
@@ -86,6 +85,7 @@ const AnimeDetail: NextPage<Props> = (props) => {
       dataUW && dataUW["id"] !== 0 && setUserWatch(dataUW["state"]);
       dataRU && setUserReviewStar(dataRU["rating"]);
       dataRU && setUserReviewContent(dataRU["content"]);
+      dataRU && setUserReviewId(dataRU["id"]);
     })();
   }, []);
 
@@ -220,7 +220,24 @@ const AnimeDetail: NextPage<Props> = (props) => {
           </div>
           {CurrentUser && CurrentUser.isVerify && (
             <section className="mt40">
-              {userReviewContent && <div className="">{userReviewContent}</div>}
+              {userReviewContent && (
+                <div className="flexNormal alCen">
+                  <p className="brAll">{userReviewContent}</p>
+                  <div className="w10 ml20 cursorP hrefBox">
+                    <img className="w100" src="/image/twitter_black.png"></img>
+                    <Link
+                      href={`https://twitter.com/intent/tweet?hashtags=loveanime,ラブアニメ&text=${anime.title}-感想&url=${process.env.NEXT_PUBLIC_FRONT_URL}/reviews/${userReviewId}`}
+                      passHref
+                    >
+                      <a
+                        className="hrefBoxIn"
+                        target="_new"
+                        data-text={`${anime.title}-感想`}
+                      ></a>
+                    </Link>
+                  </div>
+                </div>
+              )}
               <div className="mt20">
                 <span className="titleSpan ">レビュー</span>
               </div>
