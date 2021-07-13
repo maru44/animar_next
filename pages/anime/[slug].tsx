@@ -223,10 +223,13 @@ const AnimeDetail: NextPage<Props> = (props) => {
               {userReviewContent && (
                 <div className="flexNormal alCen">
                   <p className="brAll">{userReviewContent}</p>
-                  <div className="w10 ml20 cursorP hrefBox">
+                  <div
+                    className="ml20 cursorP hrefBox"
+                    style={{ width: `${30}px` }}
+                  >
                     <img className="w100" src="/image/twitter_black.png"></img>
                     <Link
-                      href={`https://twitter.com/intent/tweet?hashtags=loveanime,ラブアニメ&text=${anime.title}-感想&url=${process.env.NEXT_PUBLIC_FRONT_URL}/reviews/${userReviewId}`}
+                      href={`https://twitter.com/intent/tweet?hashtags=loveanime,ラブアニメ&text=${anime.title}-感想&url=${process.env.NEXT_PUBLIC_FRONT_URL}/reviews/d/${userReviewId}`}
                       passHref
                     >
                       <a
