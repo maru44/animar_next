@@ -54,9 +54,9 @@ export const getStaticProps: GetStaticProps<Props, Params> = async (ctx) => {
     props: {
       review: data,
       ogType: "article",
-      ogDescription: data["content"] ?? null, //アニメの説明
-      ogSeoDescription: data["content"] ?? null, // アニメの説明
-      ogImage: `${process.env.NEXT_PUBLIC_FRONT_URL}/ogp/review_${id}.png`, // ここを生成
+      ogDescription: `"${data["anime_title"]}"を見た感想` ?? null, //アニメの説明
+      ogSeoDescription: `"${data["anime_title"]}"を見た感想` ?? null, // アニメの説明
+      ogImage: `${process.env.NEXT_PUBLIC_FRONT_URL}/ogp/review_${id}.png`,
       ogImageType: "summary_large_image",
       robots: "nofollow noindex",
     },

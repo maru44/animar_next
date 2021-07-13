@@ -38,7 +38,10 @@ const HeadCustom: NextPage<pageBaseProps> = (props) => {
         />
         <meta property="og:url" content="https://loveani.me" />
         <meta property="og:image" content={props.ogImage ?? ""} />
-        <meta name="twitter:card" content={props.ogImageType ?? "summary"} />
+        <meta
+          name="twitter:card"
+          content={props.ogImageType ?? "summary_large_image"}
+        />
         <meta
           name="twitter:title"
           content={props.title ?? "loveAnime | アニメ好きのためのサイト"}
