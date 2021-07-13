@@ -12,6 +12,14 @@ const HeadCustom: NextPage<pageBaseProps> = (props) => {
             ? `loveAnime - ${props.title}`
             : "loveAnime | アニメ好きのためのサイト"}
         </title>
+        <meta
+          name="og:title"
+          content={
+            props.title
+              ? `loveAnime - ${props.title}`
+              : "loveAnime | アニメ好きのためのサイト"
+          }
+        />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta property="og:type" content={props.ogType ?? "website"} />
         <meta
@@ -31,6 +39,11 @@ const HeadCustom: NextPage<pageBaseProps> = (props) => {
         <meta property="og:url" content="https://loveani.me" />
         <meta property="og:image" content={props.ogImage ?? ""} />
         <meta name="twitter:card" content={props.ogImageType ?? "summary"} />
+        <meta
+          name="twitter:title"
+          content={props.title ?? "loveAnime | アニメ好きのためのサイト"}
+        />
+        <meta name="twitter:site" content="@maru0078340425" />
         {props.robots && <meta name="robots" content={props.robots} />}
       </Head>
     </div>
