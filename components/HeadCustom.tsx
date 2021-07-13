@@ -29,8 +29,8 @@ const HeadCustom: NextPage<pageBaseProps> = (props) => {
           }
         />
         <meta property="og:url" content="https://loveani.me" />
+        <meta property="og:image" content={props.ogImage ?? ""} />
         <meta name="twitter:card" content={props.ogImageType ?? "summary"} />
-        <meta name="og:image" content={props.ogImage ?? ""} />
         {props.robots && <meta name="robots" content={props.robots} />}
       </Head>
     </div>
