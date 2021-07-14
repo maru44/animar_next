@@ -5,7 +5,8 @@ interface Props {
 }
 
 const LocalMessage: NextPage<Props> = (props) => {
-  if (!props.message) return null;
+  if (!props.message || (props.message && props.message.length === 0))
+    return null;
 
   return (
     <div className="">

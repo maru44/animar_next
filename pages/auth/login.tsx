@@ -12,14 +12,19 @@ import { useRequireAnonymous } from "../../hooks/useRequireLogin";
 import GoogleOauth from "../../components/GoogleOauth";
 import CurrentUserState from "../../states/CurrentUser";
 import Header from "../../components/Header";
+import LocalMessage from "../../components/LocalMessage";
+import { useState } from "react";
 
 const Login: NextPage = () => {
   useRequireAnonymous();
   const setCurrentUser = useSetRecoilState(CurrentUserState);
   const router = useRouter();
 
+  const [mess, setMess] = useState<string[]>(null);
+
   const loginStart = async (e: any) => {
     e.preventDefault();
+    setMess(["ログイン中です。"]);
     const email = e.target.email.value;
     const password = e.target.password.value;
     const ret = await SetJWTCookie(email, password);
@@ -28,6 +33,7 @@ const Login: NextPage = () => {
       setCurrentUser(currentUser);
       router.push("/anime");
     } else {
+      setMess(["ログインに失敗しました。emailとパスワードをご確認ください。"]);
     }
   };
 
@@ -49,6 +55,9 @@ const Login: NextPage = () => {
               <button type="submit" className="floatR">
                 ログイン
               </button>
+            </div>
+            <div className="mt60">
+              <LocalMessage message={mess}></LocalMessage>
             </div>
             <div className="mt100">
               <Link href="/auth/register" passHref>
