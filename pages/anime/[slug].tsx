@@ -221,7 +221,7 @@ const AnimeDetail: NextPage<Props> = (props) => {
           {CurrentUser && CurrentUser.isVerify && (
             <section className="mt40">
               {userReviewContent && (
-                <div className="flexNormal alCen">
+                <div className="flexNormal alCen spBw">
                   <p className="brAll">{userReviewContent}</p>
                   <div
                     className="ml20 cursorP hrefBox"
