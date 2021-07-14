@@ -35,9 +35,9 @@ const Header: NextPage<Props> = (props) => {
   }, [CurrentUser]);
 
   return (
-    <>
+    <div>
       <header>
-        <div className="headerCon w100 alCen flexNormal">
+        <div className="h14 max-w-screen-md my-auto w-screen items-center flex">
           <div className="headerTop hrefBox">
             LoveAni.me
             <Link href="/anime" passHref>
@@ -85,7 +85,7 @@ const Header: NextPage<Props> = (props) => {
         {!props.kind && <ListHeader list={props.list}></ListHeader>}
         <MessageComponent messages={messages}></MessageComponent>
       </header>
-    </>
+    </div>
   );
 };
 

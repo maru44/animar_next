@@ -7,7 +7,8 @@ import CurrentUserState from "../states/CurrentUser";
 import BaseLayouts from "../components/BaseLayouts";
 import nprogress from "nprogress";
 import * as gtag from "../helper/gtag";
-import "../styles/globals.css";
+// import "../styles/globals.css";
+import "tailwindcss/tailwind.css";
 import "nprogress/nprogress.css";
 
 // definition of process.browser
