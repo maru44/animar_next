@@ -1,8 +1,6 @@
 import HighCharts, { chart } from "highcharts";
 import HighchartsExporting from "highcharts/modules/exporting";
 import HighChartsReact from "highcharts-react-official";
-import { NextComponentType, NextPage, NextPageContext } from "next";
-import { useEffect, useState } from "react";
 
 if (typeof HighCharts === "object") {
   HighchartsExporting(HighCharts);
@@ -14,7 +12,7 @@ interface Props {
   width?: number;
 }
 
-const WatchStateGraphPie: NextPage<Props> = (props) => {
+const WatchStateGraphPie: React.FC<Props> = (props) => {
   const lst = props.lst;
   const dataList = [
     ["脱落", lst[0]],

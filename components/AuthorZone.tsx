@@ -1,4 +1,3 @@
-import { NextPage } from "next";
 import { BACKEND_URL, DEFAULT_USER_IMAGE } from "../helper/Config";
 import { TUser } from "../types/auth";
 import Link from "next/link";
@@ -8,7 +7,7 @@ interface Props {
   currentUser: TUser;
 }
 
-const AuthorZone: NextPage<Props> = (props) => {
+const AuthorZone: React.FC<Props> = (props) => {
   const author = props.author;
   const CurrentUser = props.currentUser;
 

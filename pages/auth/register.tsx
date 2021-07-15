@@ -1,7 +1,7 @@
 import { NextPage } from "next";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import React, { useState } from "react";
 import { useSetRecoilState } from "recoil";
 import MessageComponent, {
   addMessage,
@@ -20,26 +20,16 @@ const Register: NextPage = () => {
   const setCurrentUser = useSetRecoilState(CurrentUserState);
   const router = useRouter();
 
-  const closeRule = () => {
-    setOpenRule(false);
-  };
-  const openRuleExe = () => {
-    setOpenRule(true);
-  };
-  const changeAccept = (e: any) => {
-    setIsAccept(e.target.checked);
-  };
-
-  const startRegister = async (e: any) => {
+  const startRegister = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const mess: IMessage = { title: "Now loading ..." };
     messages ? setMessages(addMessage(mess, messages)) : setMessages([mess]);
 
-    const email = e.target.email.value;
-    const password = e.target.password.value;
-    const password2 = e.target.password2.value;
-    const name = e.target.dname.value;
+    const email = e.currentTarget.email.value;
+    const password = e.currentTarget.password.value;
+    const password2 = e.currentTarget.password2.value;
+    const name = e.currentTarget.dname.value;
     // if password not correspond
     if (password !== password2) {
       setMessages(null);
@@ -98,15 +88,24 @@ const Register: NextPage = () => {
             <div className="mt30 field">
               <input
                 id="ruleInput"
-                onClick={changeAccept}
+                onClick={(e: React.MouseEvent<HTMLInputElement>) =>
+                  setIsAccept(e.currentTarget.checked)
+                }
                 className="mr20"
                 type="checkbox"
               />
-              <a className="active" id="ruleOpen" onClick={openRuleExe}>
+              <a
+                className="active"
+                id="ruleOpen"
+                onClick={() => setOpenRule(true)}
+              >
                 利用規約
               </a>
               に同意します。
-              <RuleModal open={openRule} closeFunc={closeRule}></RuleModal>
+              <RuleModal
+                open={openRule}
+                closeFunc={() => setOpenRule(false)}
+              ></RuleModal>
             </div>
             <div className="field mt20 wM500px">
               <button type="submit" className="floatR" disabled={!isAccept}>

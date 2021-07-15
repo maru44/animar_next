@@ -1,4 +1,3 @@
-import { NextPage } from "next";
 import { useEffect, useRef, useState } from "react";
 import { useCurrentUser } from "../hooks/useCurrentUser";
 import Link from "next/link";
@@ -14,7 +13,7 @@ interface Props {
   uid?: string;
 }
 
-const Header: NextPage<Props> = (props) => {
+const Header: React.FC<Props> = (props) => {
   const { isAuthChecking, CurrentUser } = useCurrentUser();
   const initialMess: IMessage = {
     title: "ini",

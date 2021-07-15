@@ -1,12 +1,11 @@
-import { NextPage } from "next";
 import { TPlatformAdmin } from "../../types/platform";
 
 interface Props {
   plat: TPlatformAdmin;
-  fetchFunc: any;
+  fetchFunc: (e: React.FormEvent<HTMLFormElement>) => Promise<void>;
 }
 
-const PlatformPost: NextPage<Props> = (props) => {
+const PlatformPost: React.FC<Props> = (props) => {
   const plat = props.plat;
 
   return (

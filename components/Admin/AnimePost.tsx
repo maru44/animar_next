@@ -1,15 +1,14 @@
-import { NextPage } from "next";
 import { TSeries, TAnimeAdmin } from "../../types/anime";
-import { useState } from "react";
+import React, { useState } from "react";
 
 interface Props {
   series: TSeries[];
   anime: TAnimeAdmin;
-  addSeriesFunc: any;
-  startFetchFunc: any;
+  addSeriesFunc: (e: React.FormEvent<HTMLFormElement>) => Promise<void>;
+  startFetchFunc: (e: React.FormEvent<HTMLFormElement>) => Promise<void>;
 }
 
-const AnimePost: NextPage<Props> = (props) => {
+const AnimePost: React.FC<Props> = (props) => {
   const [series, setSeries] = useState(props.series);
   const [anime, setAnime] = useState(props.anime);
 

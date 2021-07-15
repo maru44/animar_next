@@ -1,5 +1,4 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
-import Link from "next/link";
 import { ParsedUrlQuery } from "querystring";
 import { BACKEND_URL, DEFAULT_USER_IMAGE } from "../../../helper/Config";
 import { TReview } from "../../../types/anime";

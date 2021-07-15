@@ -1,11 +1,10 @@
-import { NextPage } from "next";
 import "firebase/auth";
 import { GoogleLogin } from "../helper/Firebase";
 import { useSetRecoilState } from "recoil";
 import CurrentUserState from "../states/CurrentUser";
 import { TUser } from "../types/auth";
 
-const GoogleOauth: NextPage = () => {
+const GoogleOauth: React.FC = () => {
   const setCurrentUser = useSetRecoilState(CurrentUserState);
 
   const login = async () => {

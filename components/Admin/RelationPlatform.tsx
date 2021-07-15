@@ -1,12 +1,11 @@
-import { NextPage } from "next";
 import { TRelationPlatform } from "../../types/platform";
 
 interface Props {
-  startFetchFunc: any;
+  startFetchFunc: VoidFunction;
   allPlats: TRelationPlatform[];
 }
 
-const RelationPlatform: NextPage<Props> = (props) => {
+const RelationPlatform: React.FC<Props> = (props) => {
   return (
     <div>
       <form className="mt40" onSubmit={props.startFetchFunc}>

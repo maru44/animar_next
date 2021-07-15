@@ -1,7 +1,6 @@
 import HighCharts from "highcharts";
 import HighchartsExporting from "highcharts/modules/exporting";
 import HighChartsReact from "highcharts-react-official";
-import { NextComponentType, NextPage, NextPageContext } from "next";
 
 if (typeof HighCharts === "object") {
   HighchartsExporting(HighCharts);
@@ -12,7 +11,7 @@ interface Props {
   title: string;
 }
 
-const WatchStateGraphBar: NextPage<Props> = (props) => {
+const WatchStateGraphBar: React.FC<Props> = (props) => {
   const options: HighCharts.Options = {
     title: {
       text: props.title,

@@ -1,6 +1,6 @@
 import { GetServerSideProps, NextPage } from "next";
 import { parseCookies } from "nookies";
-import { useState } from "react";
+import React, { useState } from "react";
 import {
   fetchAllSeries,
   fetchInsertSeries,
@@ -19,11 +19,11 @@ type Props = {
 const AnimeAdminPost: NextPage<Props> = (props) => {
   const [series, setSeries] = useState(props.series);
 
-  const startAddSeries = async (e: any) => {
+  const startAddSeries = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const res = await fetchInsertSeries(
-      e.target.eng_name.value,
-      e.target.series_name.value
+      e.currentTarget.eng_name.value,
+      e.currentTarget.series_name.value
     );
     if (res.status === 200) {
       const ret = await fetchAllSeries();

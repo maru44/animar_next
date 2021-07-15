@@ -1,4 +1,3 @@
-import { NextPage } from "next";
 import { useEffect, useState } from "react";
 import { TReview } from "../types/anime";
 import { TUser } from "../types/auth";
@@ -10,7 +9,7 @@ interface Props {
   review: TReview;
 }
 
-const ReviewContentElement: NextPage<Props> = (props) => {
+const ReviewContentElement: React.FC<Props> = (props) => {
   const review = props.review;
   const [author, setAuthor] = useState<TUser>(undefined);
   useEffect(() => {

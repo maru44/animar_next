@@ -1,7 +1,6 @@
 import Link from "next/link";
-import { NextPage } from "next";
 
-const Footer: NextPage = () => {
+const Footer: React.FC = () => {
   return (
     <div>
       <footer>

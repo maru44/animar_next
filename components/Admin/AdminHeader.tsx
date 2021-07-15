@@ -1,5 +1,5 @@
-import { NextPage } from "next";
 import Link from "next/link";
+import React from "react";
 
 interface Props {
   list?: number;
@@ -10,7 +10,7 @@ interface AList {
   href: string;
 }
 
-const AdminHeader: NextPage<Props> = (props) => {
+const AdminHeader: React.FC<Props> = (props) => {
   const listList: AList[] = [
     { shown: "アニメ", href: `/admin` },
     { shown: "プラットフォーム", href: `/admin/platform` },

@@ -1,4 +1,3 @@
-import { NextPage } from "next";
 import Link from "next/link";
 
 interface Props {
@@ -15,7 +14,7 @@ const listList: AList[] = [
   { shown: "コラム", href: "/column" },
 ];
 
-const ListHeader: NextPage<Props> = (props) => {
+const ListHeader: React.FC<Props> = (props) => {
   return (
     <div className="headerCon2 w100 alCen flexNormal">
       {listList &&

@@ -1,8 +1,7 @@
-import { NextPage } from "next";
 import Head from "next/head";
 import { pageBaseProps } from "../types/page";
 
-const HeadCustom: NextPage<pageBaseProps> = (props) => {
+const HeadCustom: React.FC<pageBaseProps> = (props) => {
   return (
     <div>
       <Head>

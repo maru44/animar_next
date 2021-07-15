@@ -19,13 +19,13 @@ interface Params extends ParsedUrlQuery {
 const AdminEditPlatform: NextPage<Props> = (props) => {
   const [plat, setPlat] = useState(props.plat);
 
-  const startUpdatePlatform = async (e: any) => {
+  const startUpdatePlatform = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const ret = await fetchUpdatePlatform(
-      e.target.eng_name.value,
-      e.target.plat_name.value,
-      e.target.url.value,
-      e.target.thumb_url.files,
+      e.currentTarget.eng_name.value,
+      e.currentTarget.plat_name.value,
+      e.currentTarget.url.value,
+      e.currentTarget.thumb_url.files,
       e.currentTarget.valid.checked,
       plat.id
     );

@@ -1,4 +1,3 @@
-import { NextPage } from "next";
 import Link from "next/link";
 
 interface Props {
@@ -11,7 +10,7 @@ interface AList {
   href: string;
 }
 
-const UserHeader: NextPage<Props> = (props) => {
+const UserHeader: React.FC<Props> = (props) => {
   const listList: AList[] = [
     { shown: "見てるアニメ", href: `/watch/${props.uid}` },
     { shown: "レビュー", href: `/reviews/${props.uid}` },

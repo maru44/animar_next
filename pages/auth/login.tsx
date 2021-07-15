@@ -13,7 +13,7 @@ import GoogleOauth from "../../components/GoogleOauth";
 import CurrentUserState from "../../states/CurrentUser";
 import Header from "../../components/Header";
 import LocalMessage from "../../components/LocalMessage";
-import { useState } from "react";
+import React, { useState } from "react";
 
 const Login: NextPage = () => {
   useRequireAnonymous();
@@ -22,11 +22,11 @@ const Login: NextPage = () => {
 
   const [mess, setMess] = useState<string[]>(null);
 
-  const loginStart = async (e: any) => {
+  const loginStart = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setMess(["ログイン中です。"]);
-    const email = e.target.email.value;
-    const password = e.target.password.value;
+    const email = e.currentTarget.email.value;
+    const password = e.currentTarget.password.value;
     const ret = await SetJWTCookie(email, password);
     if (ret === 200) {
       const currentUser = await fetchCurrentUser();

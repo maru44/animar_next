@@ -1,6 +1,6 @@
 import { GetServerSideProps, NextPage } from "next";
 import { parseCookies } from "nookies";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   fetchAllSeries,
   fetchInsertSeries,
@@ -61,11 +61,11 @@ const AnimeAdminUpdate: NextPage<Props> = (props) => {
     })();
   }, []);
 
-  const startAddSeries = async (e: any) => {
+  const startAddSeries = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const res = await fetchInsertSeries(
-      e.target.eng_name.value,
-      e.target.series_name.value
+      e.currentTarget.eng_name.value,
+      e.currentTarget.series_name.value
     );
     if (res.status === 200) {
       const res = await fetchAllSeries();
@@ -104,26 +104,28 @@ const AnimeAdminUpdate: NextPage<Props> = (props) => {
     }
   };
 
-  const startAddRelationPlatform = async (e: any) => {
+  const startAddRelationPlatform = async (
+    e: React.FormEvent<HTMLFormElement>
+  ) => {
     e.preventDefault();
     const ret = await fetchInsertRelationPlatform(
       anime.id,
-      parseInt(e.target.plat.value),
-      e.target.url.value
+      parseInt(e.currentTarget.plat.value),
+      e.currentTarget.url.value
     );
   };
 
-  const startDelete = async (e: any) => {
+  const startDelete = async (e: React.MouseEvent<HTMLSpanElement>) => {
     const ret = await fetchDeleteRelationPlatform(
       anime.id,
-      e.target.dataset.pid
+      e.currentTarget.dataset.pid
     );
   };
 
-  const startAddSeason = async (e: any) => {
+  const startAddSeason = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const ret = await fetchInsertRelationSeason(
-      parseInt(e.target.season.value),
+      parseInt(e.currentTarget.season.value),
       anime.id
     );
   };

@@ -15,13 +15,13 @@ type Props = {
 const AdminPlatform: NextPage<Props> = (props) => {
   const [plats, setPlats] = useState(props.plats);
 
-  const startInsertPlatform = async (e: any) => {
+  const startInsertPlatform = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const ret = await fetchInsertPlatform(
-      e.target.eng_name.value,
-      e.target.plat_name.value,
-      e.target.url.value,
-      e.target.thumb_url.files,
+      e.currentTarget.eng_name.value,
+      e.currentTarget.plat_name.value,
+      e.currentTarget.url.value,
+      e.currentTarget.thumb_url.files,
       e.currentTarget.valid.checked
     );
   };

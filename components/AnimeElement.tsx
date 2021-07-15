@@ -1,4 +1,3 @@
-import { NextPage } from "next";
 import Link from "next/link";
 import { TAnime } from "../types/anime";
 
@@ -8,7 +7,7 @@ interface Props {
   mode?: string;
 }
 
-const AnimeElement: NextPage<Props> = (props) => {
+const AnimeElement: React.FC<Props> = (props) => {
   const anime = props.anime;
   const index = props.index;
   const mode = props.mode;

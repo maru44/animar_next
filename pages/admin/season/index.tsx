@@ -9,15 +9,15 @@ type Props = {
 } & pageBaseProps;
 
 const SeasonIndex: NextPage<Props> = (props) => {
-  const startInsertSeason = async (e: any) => {
+  const startInsertSeason = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const res = await fetch(`${BACKEND_URL}/admin/season/post/`, {
       method: "POST",
       mode: "cors",
       credentials: "include",
       body: JSON.stringify({
-        year: e.target.year.value,
-        season: e.target.season.value,
+        year: e.currentTarget.year.value,
+        season: e.currentTarget.season.value,
       }),
     });
     const ret = await res.json();

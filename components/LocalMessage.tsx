@@ -1,10 +1,8 @@
-import { NextPage } from "next";
-
 interface Props {
   message: string[];
 }
 
-const LocalMessage: NextPage<Props> = (props) => {
+const LocalMessage: React.FC<Props> = (props) => {
   if (!props.message || (props.message && props.message.length === 0))
     return null;
 

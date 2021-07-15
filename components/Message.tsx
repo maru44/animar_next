@@ -1,5 +1,3 @@
-import { GetServerSideProps, NextPage } from "next";
-
 export interface IMessage {
   title: string;
   content?: string;
@@ -14,7 +12,7 @@ interface Props {
   messages?: IMessage[];
 }
 
-const MessageComponent: NextPage<Props> = (props) => {
+const MessageComponent: React.FC<Props> = (props) => {
   if (props.messages) {
     return (
       <div className="pt20">

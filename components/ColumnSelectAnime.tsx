@@ -1,15 +1,14 @@
-import { NextPage } from "next";
 import { TAnimeMinimum } from "../types/anime";
 
 interface Props {
   searchedAnime: TAnimeMinimum[];
   relAnimeTitles: string[];
   changed: number;
-  addSelected: any;
-  deleteSelected: any;
+  addSelected: (e: React.MouseEvent<HTMLSpanElement>) => null;
+  deleteSelected: (e: React.MouseEvent<HTMLSpanElement>) => null;
 }
 
-const ColumnSelectAnime: NextPage<Props> = ({
+const ColumnSelectAnime: React.FC<Props> = ({
   searchedAnime,
   relAnimeTitles,
   changed,

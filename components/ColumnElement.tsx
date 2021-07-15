@@ -1,4 +1,3 @@
-import { NextPage } from "next";
 import { TBlog, TMinAnime } from "../types/blog";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -10,7 +9,7 @@ interface Props {
   column: TBlog;
 }
 
-const ColumnElement: NextPage<Props> = (props) => {
+const ColumnElement: React.FC<Props> = (props) => {
   const blog = props.column;
   const index = props.index;
   const [author, setAuthor] = useState<TUser>(undefined);

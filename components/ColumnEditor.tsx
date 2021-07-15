@@ -1,5 +1,4 @@
-import { NextPage } from "next";
-import { useState } from "react";
+import React, { useState } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { TAnimeMinimum } from "../types/anime";
@@ -22,7 +21,7 @@ interface Props {
   blog?: TBlog;
 }
 
-const ColumnEditor: NextPage<Props> = (props) => {
+const ColumnEditor: React.FC<Props> = (props) => {
   // inputed value
   useRequireLogin();
   const { isAuthChecking, CurrentUser } = useCurrentUser();
@@ -64,7 +63,7 @@ const ColumnEditor: NextPage<Props> = (props) => {
   );
   const [searchedAnime, setSearchedAnime] = useState<TAnimeMinimum[]>(null);
 
-  const startPostBlog = async (e: any) => {
+  const startPostBlog = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (title && prev) {
       const mess: IMessage = { title: "送信中" };
@@ -73,7 +72,7 @@ const ColumnEditor: NextPage<Props> = (props) => {
       res.status === 200 && router.push("/column");
     }
   };
-  const startEditBlog = async (e: any) => {
+  const startEditBlog = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const mess: IMessage = { title: "送信中" };
     setMess([mess]);
@@ -91,7 +90,7 @@ const ColumnEditor: NextPage<Props> = (props) => {
   };
 
   // relation anime
-  const searchAnime = async (e: any) => {
+  const searchAnime = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.value) {
       const res = await fetchSearchAnime(e.target.value);
       if (res.status === 200) {
@@ -105,9 +104,11 @@ const ColumnEditor: NextPage<Props> = (props) => {
     }
   };
 
-  const addSelected = (e: any): null => {
-    const id = parseInt(e.target.dataset.id);
-    const title = e.target.dataset.title;
+  const addSelected = (
+    e: React.MouseEvent<HTMLSpanElement, MouseEvent>
+  ): null => {
+    const id = parseInt(e.currentTarget.dataset.id);
+    const title = e.currentTarget.dataset.title;
     if (!relAnimeIds.includes(id) && relAnimeIds.length < 5) {
       const newC = changed + 1;
       setChanged(newC);
@@ -121,10 +122,12 @@ const ColumnEditor: NextPage<Props> = (props) => {
     return null;
   };
 
-  const deleteSelected = (e: any): null => {
+  const deleteSelected = (
+    e: React.MouseEvent<HTMLSpanElement, MouseEvent>
+  ): null => {
     const newC = changed - 1;
     setChanged(newC);
-    const idx = parseInt(e.target.dataset.idx);
+    const idx = parseInt(e.currentTarget.dataset.idx);
     const newIds = relAnimeIds.filter((v, i) => i !== idx);
     const newTitles = relAnimeTitles.filter((v, i) => i !== idx);
     setRelAnimeIds(newIds);
@@ -132,10 +135,10 @@ const ColumnEditor: NextPage<Props> = (props) => {
     return null;
   };
 
-  const dropImage = async (e: any) => {
+  const dropImage = async (e: React.DragEvent<HTMLTextAreaElement>) => {
     e.preventDefault();
     const prevLength = prev ? prev.length : 0;
-    const nowPosition = e.target.selectionStart;
+    const nowPosition = e.currentTarget.selectionStart;
     if (!CurrentUser) return;
     const imageUrl = await fetchUploadImageColumn(e.dataTransfer.files[0]);
     if (imageUrl) {
@@ -146,7 +149,7 @@ const ColumnEditor: NextPage<Props> = (props) => {
           )}\n`
         : `![](${imageUrl})\n`;
       setPrev(newPrev);
-      e.target.value = newPrev;
+      e.currentTarget.value = newPrev;
     }
   };
 
@@ -156,7 +159,7 @@ const ColumnEditor: NextPage<Props> = (props) => {
         <div className="mla mra content">
           <div
             className="mt40"
-            onClick={(e: any) => {
+            onClick={() => {
               setIsPrev(!isPrev);
             }}
           >
@@ -193,7 +196,7 @@ const ColumnEditor: NextPage<Props> = (props) => {
                   placeholder="タイトル"
                   maxLength={64}
                   name="blogtitle"
-                  onChange={(e: any) => {
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                     setTitle(e.target.value);
                   }}
                   required
@@ -206,7 +209,7 @@ const ColumnEditor: NextPage<Props> = (props) => {
                   className="abstract"
                   maxLength={160}
                   name="abst"
-                  onChange={(e: any) => {
+                  onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
                     setAbst(e.target.value);
                   }}
                   placeholder="概要: 160文字以内"
@@ -219,7 +222,7 @@ const ColumnEditor: NextPage<Props> = (props) => {
                 <textarea
                   name="content"
                   className="content"
-                  onChange={(e: any) => {
+                  onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
                     setPrev(e.target.value);
                     setTextHeight(e.target.scrollHeight); // height auto
                   }}
@@ -265,7 +268,7 @@ const ColumnEditor: NextPage<Props> = (props) => {
                       name="is_public"
                       id="isPublic"
                       className="mr20"
-                      onChange={(e: any) => {
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                         const isChecked = e.target.checked;
                         setIsPub(isChecked);
                       }}

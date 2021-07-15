@@ -1,4 +1,3 @@
-import { NextPage } from "next";
 import { ReactNode } from "react-markdown";
 import HeadCustom from "./HeadCustom";
 import Header from "./Header";
@@ -17,7 +16,7 @@ interface Props {
   robots?: string;
 }
 
-const BaseLayouts: NextPage<Props> = (props) => {
+const BaseLayouts: React.FC<Props> = (props) => {
   return (
     <div>
       <HeadCustom

@@ -1,6 +1,6 @@
 import { GetServerSideProps, NextPage } from "next";
 import { ParsedUrlQuery } from "querystring";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import WatchStateGraphPie from "../../components/WatchStateGraphPie";
 import { BACKEND_URL, baseFetcher } from "../../helper/Config";
 import {
@@ -90,21 +90,21 @@ const AnimeDetail: NextPage<Props> = (props) => {
   }, []);
 
   // review post start
-  const startPostContent = async (e: any) => {
+  const startPostContent = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const content = e.target.content.value;
+    const content = e.currentTarget.content.value;
     const ret = await fetchUpsertReviewContent(anime.id, content);
     setUserReviewContent(ret["data"]);
   };
 
-  const startPostStar = async (e: any) => {
+  const startPostStar = async (e: React.MouseEvent<HTMLSpanElement>) => {
     e.preventDefault();
-    const star = e.target.dataset.star;
+    const star = e.currentTarget.dataset.star;
     if (userReviewStar && userReviewStar === parseInt(star)) {
       const ret = await fetchUpsertReviewStar(anime.id, null);
       setUserReviewStar(ret["data"]);
     } else {
-      const ret = await fetchUpsertReviewStar(anime.id, star);
+      const ret = await fetchUpsertReviewStar(anime.id, parseInt(star));
       setUserReviewStar(ret["data"]);
     }
     const newAvg = await fetchAnimeStars(anime.id);

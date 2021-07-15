@@ -1,11 +1,9 @@
-import { NextPage } from "next";
-
 interface ModalParams {
   open: boolean;
-  closeFunc: any;
+  closeFunc: VoidFunction;
 }
 
-const RuleModal: NextPage<ModalParams> = (props) => {
+const RuleModal: React.FC<ModalParams> = (props) => {
   const parentOpen = props.open;
 
   if (parentOpen) {

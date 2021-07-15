@@ -27,8 +27,8 @@ const BlogDetail: NextPage<Props> = (props) => {
   const router = useRouter();
   const blog = props.blog;
 
-  const exeDeleteColumn = async (e: any) => {
-    const id = e.target.dataset.id;
+  const exeDeleteColumn = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    const id = e.currentTarget.dataset.id;
     const res = await fetchDeleteBlog(id);
     res.status === 200 ? router.back() : console.log(res);
   };

@@ -2,13 +2,14 @@ import { GetServerSideProps, NextPage } from "next";
 import { useCurrentUser } from "../../hooks/useCurrentUser";
 import { fetchUpdateProfile } from "../../helper/UserHelper";
 import { useRequireLogin } from "../../hooks/useRequireLogin";
+import React from "react";
 
 // login required
 const EditProfile: NextPage = (props) => {
   useRequireLogin();
   const { isAuthChecking, CurrentUser } = useCurrentUser();
 
-  const startUpdate = async (e: any) => {
+  const startUpdate = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const ret = await fetchUpdateProfile(e);
   };
