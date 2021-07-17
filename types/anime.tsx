@@ -13,6 +13,7 @@ export type TAnime = {
   count_episodes?: string;
   created_at: string;
   updated_at: string;
+  series_name?: string;
 };
 
 export type TReview = {

@@ -26,12 +26,13 @@ import { fetchRelationPlatform } from "../../helper/admin/PlatformHelper";
 import { TSeason } from "../../types/season";
 import { TRelationPlatform } from "../../types/platform";
 import Link from "next/link";
+import { pageBaseProps } from "../../types/page";
 
-interface Props {
+type Props = {
   anime: TAnime;
   reviews: TReview[];
   // ogp
-}
+} & pageBaseProps;
 
 interface Params extends ParsedUrlQuery {
   slug: string;
@@ -201,6 +202,14 @@ const AnimeDetail: NextPage<Props> = (props) => {
                     {s.season}
                   </span>
                 ))}
+              {anime.series_name && (
+                <Link href={`/anime/series/${anime.series_id}`} passHref>
+                  <span className="series hrefBox">
+                    {anime.series_name} シリーズ
+                    <a className="hrefBoxIn"></a>
+                  </span>
+                </Link>
+              )}
             </div>
             <div className="mt10 copyright">&copy;{anime.copyright}</div>
             <p className="brAll description mt30 preWrap">
