@@ -197,13 +197,24 @@ const AnimeDetail: NextPage<Props> = (props) => {
               {/* <span>{anime.series_id}</span> */}
               {seasons &&
                 seasons.map((s, i) => (
-                  <span className="seasons" key={i}>
+                  <span className="seasons hrefBox" key={i}>
                     {s.year}
                     {s.season}
+                    <Link
+                      href="/anime/s/[year]/[season]"
+                      as={`/anime/s/${s.year}/${s.season}`}
+                      passHref
+                    >
+                      <a className="hrefBoxIn"></a>
+                    </Link>
                   </span>
                 ))}
               {anime.series_name && (
-                <Link href={`/anime/series/${anime.series_id}`} passHref>
+                <Link
+                  href="/anime/series/[id]"
+                  as={`/anime/series/${anime.series_id}`}
+                  passHref
+                >
                   <span className="series hrefBox">
                     {anime.series_name} シリーズ
                     <a className="hrefBoxIn"></a>

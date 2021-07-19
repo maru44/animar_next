@@ -59,7 +59,7 @@ export const getStaticProps: GetStaticProps<Props, Params> = async (ctx) => {
       ogImageType: "summary_large_image",
       robots: "nofollow noindex",
     },
-    revalidate: 10,
+    revalidate: 1,
   };
 };
 
