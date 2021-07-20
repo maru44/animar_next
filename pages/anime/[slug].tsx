@@ -26,6 +26,7 @@ import { fetchRelationPlatform } from "../../helper/admin/PlatformHelper";
 import { TSeason } from "../../types/season";
 import { TRelationPlatform } from "../../types/platform";
 import Link from "next/link";
+import Image from "next/image";
 import { pageBaseProps } from "../../types/page";
 
 type Props = {
@@ -140,14 +141,11 @@ const AnimeDetail: NextPage<Props> = (props) => {
               </div>
               <div className="thumb frame">
                 {anime.thumb_url ? (
-                  <img
-                    className="w100 contain"
+                  <Image
                     src={anime.thumb_url}
                     alt={anime.title}
-                    loading="lazy"
-                    width={560}
-                    height={745}
-                  />
+                    layout="fill"
+                  ></Image>
                 ) : (
                   <img className="w100 contain" />
                 )}
