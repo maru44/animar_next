@@ -18,13 +18,16 @@ const AnimeElement: React.FC<Props> = (props) => {
       <div className="flexNormal">
         <div className="w20 thumb frame">
           {anime.thumb_url ? (
-            <Image
+            // <Image
+            //   className="w100 contain"
+            //   src={anime.thumb_url}
+            //   alt={anime.title}
+            //   layout="fill"
+            // />
+            <img
               className="w100 contain"
               src={anime.thumb_url}
               alt={anime.title}
-              layout="fill"
-              // placeholder="blur"
-              // blurDataURL=""
             />
           ) : (
             <img className="w100 contain" />

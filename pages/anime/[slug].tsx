@@ -142,11 +142,12 @@ const AnimeDetail: NextPage<Props> = (props) => {
               </div>
               <div className="thumb frame">
                 {anime.thumb_url ? (
-                  <Image
-                    src={anime.thumb_url}
-                    alt={anime.title}
-                    layout="fill"
-                  ></Image>
+                  // <Image
+                  //   src={anime.thumb_url}
+                  //   alt={anime.title}
+                  //   layout="fill"
+                  // ></Image>
+                  <img src={anime.thumb_url} alt={anime.title} />
                 ) : (
                   <img className="w100 contain" />
                 )}
