@@ -17,6 +17,10 @@ a:hover {
   opacity: 0.6;
 }
 
+a.notDecoration {
+  text-decoration: none;
+}
+
 .off {
   display: none;
 }
@@ -92,6 +96,10 @@ a.active {
   color: blue;
   text-decoration: underline;
   cursor: pointer;
+}
+
+.twitterColor {
+  color: #1da1f2;
 }
 
 /*//////////////////////

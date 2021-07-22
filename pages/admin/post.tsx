@@ -45,7 +45,10 @@ const AnimeAdminPost: NextPage<Props> = (props) => {
       t.state.value,
       t.series.value,
       t.copyright.value,
-      t.count_episodes.value
+      t.count_episodes.value,
+      t.hash_tag.value,
+      t.twitter_url.value,
+      t.official_url.value
     );
     if (res.status === 200) {
       const ret = await res.json();

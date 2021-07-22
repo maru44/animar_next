@@ -20,7 +20,10 @@ export const fetchInsertAnime = async (
   state?: string,
   seriesId?: string,
   copyright?: string,
-  stories?: string
+  stories?: string,
+  hashTag?: string,
+  twitterUrl?: string,
+  OfficialUrl?: string
 ) => {
   const formData = new FormData();
   formData.set("title", title);
@@ -34,6 +37,9 @@ export const fetchInsertAnime = async (
   formData.set("series_id", seriesId);
   formData.set("count_episodes", stories);
   formData.set("copyright", copyright);
+  formData.set("hash_tag", hashTag);
+  formData.set("twitter_url", twitterUrl);
+  formData.set("official_url", OfficialUrl);
   const res = await fetch(`${BACKEND_URL}/admin/anime/post/`, {
     method: "POST",
     mode: "cors",
@@ -58,7 +64,10 @@ export const fetchUpdateAnime = async (
   state?: string,
   seriesId?: string,
   copyright?: string,
-  stories?: string
+  stories?: string,
+  hashTag?: string,
+  twitterUrl?: string,
+  OfficialUrl?: string
 ) => {
   const formData = new FormData();
   formData.set("title", title);
@@ -72,6 +81,9 @@ export const fetchUpdateAnime = async (
   formData.set("series_id", seriesId);
   formData.set("count_episodes", stories);
   formData.set("copyright", copyright);
+  formData.set("hash_tag", hashTag);
+  formData.set("twitter_url", twitterUrl);
+  formData.set("official_url", OfficialUrl);
   const res = await fetch(`${BACKEND_URL}/admin/anime/update/?id=${animeId}`, {
     method: "PUT",
     mode: "cors",

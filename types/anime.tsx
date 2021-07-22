@@ -9,11 +9,17 @@ export type TAnime = {
   description?: string;
   copyright?: string;
   series_id: number;
+  company_id?: number;
   state: string;
   count_episodes?: string;
+  hash_tag?: string;
+  twitter_url?: string;
+  official_url?: string;
   created_at: string;
   updated_at: string;
   series_name?: string;
+  company_name?: string;
+  company_eng_name?: string;
 };
 
 export type TReview = {
@@ -73,9 +79,13 @@ export type TAnimeAdmin = {
   eng_name: string;
   thumb_url: string;
   description: string;
+  company_id?: number;
   state: string;
+  count_episodes?: string;
+  hash_tag?: string;
+  twitter_url?: string;
+  official_url?: string;
   series_id: number;
-  count_episodes: string;
   created_at: string;
   updated_at: string;
 };
@@ -86,4 +96,11 @@ export type TSeries = {
   series_name: string;
   created_at: string;
   updated_at: string;
+};
+
+export type TSubData1 = {
+  name?: string;
+  hash_tag?: string;
+  twitter_url?: string;
+  official_url?: string;
 };

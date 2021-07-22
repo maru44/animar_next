@@ -28,6 +28,7 @@ import { TRelationPlatform } from "../../types/platform";
 import Link from "next/link";
 import Image from "next/image";
 import { pageBaseProps } from "../../types/page";
+import SubData from "../../components/Anime/SubData";
 
 type Props = {
   anime: TAnime;
@@ -224,6 +225,13 @@ const AnimeDetail: NextPage<Props> = (props) => {
             <p className="brAll description mt30 preWrap">
               {anime.description}
             </p>
+            <div className="mt20">
+              <SubData
+                twitter_url={anime.twitter_url}
+                official_url={anime.official_url}
+                hash_tag={anime.hash_tag}
+              ></SubData>
+            </div>
             <div className="mt20 platformZone flexNormal flexWrap">
               {plats &&
                 plats.map((p, i) => (

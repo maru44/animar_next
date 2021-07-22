@@ -142,6 +142,30 @@ const AnimePost: React.FC<Props> = (props) => {
           />
         </div>
         <div className="field mt20">
+          <input
+            type="text"
+            name="hash_tag"
+            placeholder="hash_tag"
+            defaultValue={anime && anime.hash_tag ? anime.hash_tag : ""}
+          />
+        </div>
+        <div className="field mt20">
+          <input
+            type="text"
+            name="twitter_url"
+            placeholder="twitter_url"
+            defaultValue={anime && anime.twitter_url ? anime.twitter_url : ""}
+          />
+        </div>
+        <div className="field mt20">
+          <input
+            type="text"
+            name="official_url"
+            placeholder="official_url"
+            defaultValue={anime && anime.official_url ? anime.official_url : ""}
+          />
+        </div>
+        <div className="field mt20">
           <button type="submit">{anime ? "編集" : "アニメ追加"}</button>
         </div>
       </form>
