@@ -30,7 +30,7 @@ export const getStaticPaths: GetStaticPaths = async (ctx) => {
   const ret = await res.json();
 
   const paths = ret["data"].map((id: number, i: number) => `/reviews/d/${id}`);
-  return { paths, fallback: blocking };
+  return { paths, fallback: "blocking" };
 };
 
 export const getStaticProps: GetStaticProps<Props, Params> = async (ctx) => {
