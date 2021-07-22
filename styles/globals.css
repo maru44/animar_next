@@ -16,9 +16,16 @@ a {
 a:hover {
   opacity: 0.6;
 }
-
 a.notDecoration {
   text-decoration: none;
+}
+a.active {
+  color: blue;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.twitterColor {
+  color: #1da1f2;
 }
 
 .off {
@@ -90,16 +97,6 @@ span.circleButton {
 
 .cursorP {
   cursor: pointer;
-}
-
-a.active {
-  color: blue;
-  text-decoration: underline;
-  cursor: pointer;
-}
-
-.twitterColor {
-  color: #1da1f2;
 }
 
 /*//////////////////////
