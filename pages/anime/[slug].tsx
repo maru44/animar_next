@@ -147,7 +147,11 @@ const AnimeDetail: NextPage<Props> = (props) => {
                   //   alt={anime.title}
                   //   layout="fill"
                   // ></Image>
-                  <img src={anime.thumb_url} alt={anime.title} />
+                  <img
+                    className="w100 contain"
+                    src={anime.thumb_url}
+                    alt={anime.title}
+                  />
                 ) : (
                   <img className="w100 contain" />
                 )}
