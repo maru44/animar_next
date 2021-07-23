@@ -178,7 +178,9 @@ const AnimePost: React.FC<Props> = (props) => {
             <option value={0}>------------</option>
             {props.companies &&
               props.companies.map((c, index) => (
-                <option value={c.id}>{c.name}</option>
+                <option value={c.id} key={index}>
+                  {c.name}
+                </option>
               ))}
           </select>
         </div>
