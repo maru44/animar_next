@@ -1,7 +1,7 @@
 import { GetServerSideProps, NextPage } from "next";
 import Link from "next/link";
 import { parseCookies } from "nookies";
-import AnimeElement from "../../components/AnimeElement";
+import AnimeElement from "../../components/Anime/AnimeElement";
 import { BACKEND_URL } from "../../helper/Config";
 import { TAnime, TAnimeAdmin } from "../../types/anime";
 import { pageBaseProps } from "../../types/page";

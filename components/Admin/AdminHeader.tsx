@@ -15,6 +15,7 @@ const AdminHeader: React.FC<Props> = (props) => {
     { shown: "アニメ", href: `/admin` },
     { shown: "プラットフォーム", href: `/admin/platform` },
     { shown: "シーズン", href: `/admin/season` },
+    { shown: "制作陣", href: `/admin/creater` },
   ];
 
   return (

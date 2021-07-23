@@ -6,11 +6,14 @@ import {
   fetchInsertSeries,
 } from "../../helper/admin/SeriesHelper";
 import { fetchInsertAnime } from "../../helper/AnimeHelper";
+import { fetchCompanies } from "../../helper/admin/CompanyHelper";
 import { BACKEND_URL } from "../../helper/Config";
 import { TSeries } from "../../types/anime";
 import AnimePost from "../../components/Admin/AnimePost";
 import router from "next/router";
 import { pageBaseProps } from "../../types/page";
+import { useEffect } from "react";
+import { TCompany } from "../../types/company";
 
 type Props = {
   series: TSeries[];
@@ -18,6 +21,7 @@ type Props = {
 
 const AnimeAdminPost: NextPage<Props> = (props) => {
   const [series, setSeries] = useState(props.series);
+  const [companies, setCompanies] = useState<TCompany[]>(null);
 
   const startAddSeries = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -48,13 +52,24 @@ const AnimeAdminPost: NextPage<Props> = (props) => {
       t.count_episodes.value,
       t.hash_tag.value,
       t.twitter_url.value,
-      t.official_url.value
+      t.official_url.value,
+      t.company.value
     );
     if (res.status === 200) {
       const ret = await res.json();
       router.push(`/admin/update/${ret["data"]}`);
     }
   };
+
+  useEffect(() => {
+    (async () => {
+      const res = await fetchCompanies();
+      if (res.status === 200) {
+        const ret = await res.json();
+        setCompanies(ret["data"]);
+      }
+    })();
+  }, []);
 
   return (
     <div>
@@ -63,6 +78,7 @@ const AnimeAdminPost: NextPage<Props> = (props) => {
           <AnimePost
             series={series}
             anime={null}
+            companies={companies}
             addSeriesFunc={startAddSeries}
             startFetchFunc={startAddAnime}
           ></AnimePost>

@@ -26,10 +26,13 @@ import { TPlatformAdmin, TRelationPlatform } from "../../../types/platform";
 import { TSeason } from "../../../types/season";
 import router from "next/router";
 import { pageBaseProps } from "../../../types/page";
+import { TCompany } from "../../../types/company";
+import { fetchCompanies } from "../../../helper/admin/CompanyHelper";
 
 type Props = {
   series: TSeries[];
   anime: TAnimeAdmin;
+  companies: TCompany[];
   plats: TPlatformAdmin[]; // all plats
   seasons: TSeason[]; // all season
 } & pageBaseProps;
@@ -92,7 +95,8 @@ const AnimeAdminUpdate: NextPage<Props> = (props) => {
       t.count_episodes.value,
       t.hash_tag.value,
       t.twitter_url.value,
-      t.official_url.value
+      t.official_url.value,
+      t.company.value
     );
     if (res.status === 200) {
       const res = await fetch(
@@ -145,6 +149,7 @@ const AnimeAdminUpdate: NextPage<Props> = (props) => {
           <AnimePost
             series={series}
             anime={anime ?? null}
+            companies={props.companies}
             addSeriesFunc={startAddSeries}
             startFetchFunc={startUpdateAnime}
           ></AnimePost>
@@ -261,11 +266,15 @@ export const getServerSideProps: GetServerSideProps<Props, Params> = async (
   });
   const seasonRet = await seasonRes.json();
 
+  const comRes = await fetchCompanies();
+  const comRet = await comRes.json();
+
   return {
     props: {
       series: ret["data"],
       robots: "nofollow noopener noreferrer noindex",
       anime: animeRet["data"],
+      companies: comRet["data"],
       kind: "admin",
       plats: platRet["data"],
       seasons: seasonRet["data"],

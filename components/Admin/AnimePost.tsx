@@ -1,9 +1,11 @@
 import { TSeries, TAnimeAdmin } from "../../types/anime";
+import { TCompany } from "../../types/company";
 import React, { useState } from "react";
 
 interface Props {
   series: TSeries[];
   anime: TAnimeAdmin;
+  companies: TCompany[];
   addSeriesFunc: (e: React.FormEvent<HTMLFormElement>) => Promise<void>;
   startFetchFunc: (e: React.FormEvent<HTMLFormElement>) => Promise<void>;
 }
@@ -164,6 +166,21 @@ const AnimePost: React.FC<Props> = (props) => {
             placeholder="official_url"
             defaultValue={anime && anime.official_url ? anime.official_url : ""}
           />
+        </div>
+        <div className="field mt20">
+          <label>制作会社</label>
+          <select
+            name="company"
+            defaultValue={
+              anime && anime.company_id ? anime.company_id.toString() : 0
+            }
+          >
+            <option value={0}>------------</option>
+            {props.companies &&
+              props.companies.map((c, index) => (
+                <option value={c.id}>{c.name}</option>
+              ))}
+          </select>
         </div>
         <div className="field mt20">
           <button type="submit">{anime ? "編集" : "アニメ追加"}</button>

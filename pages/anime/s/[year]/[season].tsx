@@ -42,6 +42,7 @@ export const getServerSideProps: GetServerSideProps<Props, Params> = async (
 ) => {
   const year = ctx.params.year;
   const season = ctx.params.season;
+  console.log(`${BACKEND_URL}/db/anime/?year=${year}&season=${season}`);
   const res = await fetch(
     `${BACKEND_URL}/db/anime/?year=${year}&season=${season}`
   );

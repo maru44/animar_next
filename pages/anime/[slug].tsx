@@ -1,7 +1,7 @@
 import { GetServerSideProps, NextPage } from "next";
 import { ParsedUrlQuery } from "querystring";
 import React, { useEffect, useState } from "react";
-import WatchStateGraphPie from "../../components/WatchStateGraphPie";
+import WatchStateGraphPie from "../../components/Anime/WatchStateGraphPie";
 import { BACKEND_URL, baseFetcher } from "../../helper/Config";
 import {
   fetchUpsertReviewContent,
@@ -26,7 +26,6 @@ import { fetchRelationPlatform } from "../../helper/admin/PlatformHelper";
 import { TSeason } from "../../types/season";
 import { TRelationPlatform } from "../../types/platform";
 import Link from "next/link";
-import Image from "next/image";
 import { pageBaseProps } from "../../types/page";
 import SubData from "../../components/Anime/SubData";
 
@@ -206,7 +205,7 @@ const AnimeDetail: NextPage<Props> = (props) => {
                     {s.season}
                     <Link
                       href="/anime/s/[year]/[season]"
-                      as={`/anime/s/${s.year}/${s.season}`}
+                      as={`/anime/s/${s.year}/${s.season_eng}`}
                       passHref
                     >
                       <a className="hrefBoxIn"></a>
@@ -230,7 +229,7 @@ const AnimeDetail: NextPage<Props> = (props) => {
             <p className="brAll description mt30 preWrap">
               {anime.description}
             </p>
-            <div className="mt20">
+            <div className="mt40">
               <SubData
                 twitter_url={anime.twitter_url}
                 official_url={anime.official_url}
