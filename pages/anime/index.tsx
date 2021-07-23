@@ -1,7 +1,7 @@
 import { GetServerSideProps, NextPage } from "next";
 import { TAnime } from "../../types/anime";
 import { BACKEND_URL } from "../../helper/Config";
-import AnimeElement from "../../components/AnimeElement";
+import AnimeElement from "../../components/Anime/AnimeElement";
 import SeasonScope from "../../components/SeasonScope";
 import { pageBaseProps } from "../../types/page";
 

@@ -3,7 +3,7 @@ import { pageBaseProps } from "../../../types/page";
 import { TAnime } from "../../../types/anime";
 import { ParsedUrlQuery } from "querystring";
 import { BACKEND_URL } from "../../../helper/Config";
-import AnimeElement from "../../../components/AnimeElement";
+import AnimeElement from "../../../components/Anime/AnimeElement";
 
 type Props = {
   animes: TAnime[];
