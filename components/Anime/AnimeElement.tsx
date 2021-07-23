@@ -1,6 +1,5 @@
-import Image from "next/image";
 import Link from "next/link";
-import { TAnime } from "../types/anime";
+import { TAnime } from "../../types/anime";
 
 interface Props {
   index: number;
