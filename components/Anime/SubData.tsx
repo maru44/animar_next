@@ -15,7 +15,7 @@ const SubData: React.FC<TSubData1> = (props) => {
     <div className="subData1 flexNormal spBw">
       <div className="mr20">
         {props.company_name && <p>制作会社</p>}
-        {props.official_url && <p>公式URL</p>}
+        {props.official_url && <p className="mt5">公式URL</p>}
         {props.twitter_url && <p className="mt5">twitter</p>}
         {props.hash_tag && <p className="mt5">ハッシュタグ</p>}
       </div>
