@@ -36,7 +36,9 @@ const SubData: React.FC<TSubData1> = (props) => {
           <p className="mt5">
             :{" "}
             <Link href={props.official_url} passHref>
-              <a className="">{props.official_url}</a>
+              <a target="_new" className="">
+                {props.official_url}
+              </a>
             </Link>
           </p>
         )}

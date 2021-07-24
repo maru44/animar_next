@@ -30,7 +30,11 @@ export const getStaticPaths: GetStaticPaths = async (ctx) => {
   const ret = await res.json();
 
   const paths = ret["data"].map((id: number, i: number) => `/reviews/d/${id}`);
-  return { paths, fallback: "blocking" };
+  return {
+    paths,
+    // fallback: "blocking",
+    fallback: true,
+  };
 };
 
 export const getStaticProps: GetStaticProps<Props, Params> = async (ctx) => {
@@ -59,7 +63,7 @@ export const getStaticProps: GetStaticProps<Props, Params> = async (ctx) => {
       ogImageType: "summary_large_image",
       robots: "nofollow noindex",
     },
-    revalidate: 1,
+    revalidate: 3,
   };
 };
 
