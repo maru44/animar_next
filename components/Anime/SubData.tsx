@@ -33,7 +33,7 @@ const SubData: React.FC<TSubData1> = (props) => {
           </p>
         )}
         {props.official_url && (
-          <p>
+          <p className="mt5">
             :{" "}
             <Link href={props.official_url} passHref>
               <a className="">{props.official_url}</a>
