@@ -45,13 +45,17 @@ export const getServerSideProps: GetServerSideProps<Props, Params> = async (
   const res = await fetch(`${BACKEND_URL}/db/anime/?company=${company}`);
   const ret = await res.json();
   const animes = ret["data"];
-  const comp = ret["company"];
+  const comp: TCompany = ret["company"];
 
   return {
     props: {
       animes: animes,
       list: 1,
       comp: comp,
+      title: comp.name,
+      ogType: "article",
+      // ogDescription: anime.description ?? null,
+      // ogSeoDescription: anime.description ?? null,
     },
   };
 };
