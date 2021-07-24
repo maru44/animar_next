@@ -266,7 +266,11 @@ export const getServerSideProps: GetServerSideProps<Props, Params> = async (
   });
   const seasonRet = await seasonRes.json();
 
-  const comRes = await fetchCompanies();
+  const comRes = await fetch(`${BACKEND_URL}/admin/company/`, {
+    method: "POST",
+    mode: "cors",
+    body: JSON.stringify({ token: token }),
+  });
   const comRet = await comRes.json();
 
   return {
