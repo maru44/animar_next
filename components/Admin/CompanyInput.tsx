@@ -7,7 +7,9 @@ const CompanyInput: React.FC = () => {
     const res = await InsertCompany(
       t.company_name.value,
       t.company_eng.value,
-      t.official_url.value
+      t.official_url.value,
+      t.twitter.value,
+      t.explanation.value
     );
     if (res.status === 200) {
       return true;
@@ -37,6 +39,12 @@ const CompanyInput: React.FC = () => {
         </div>
         <div className="field mt20">
           <input type="text" name="official_url" placeholder="official url" />
+        </div>
+        <div className="field mt20">
+          <input type="text" name="twitter" placeholder="twitter" />
+        </div>
+        <div className="field mt20">
+          <textarea name="explanation" rows={5} placeholder="説明"></textarea>
         </div>
         <div className="field mt40">
           <button type="submit">会社追加</button>

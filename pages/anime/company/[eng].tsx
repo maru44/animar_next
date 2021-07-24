@@ -42,7 +42,6 @@ export const getServerSideProps: GetServerSideProps<Props, Params> = async (
   ctx
 ) => {
   const company = ctx.params.eng;
-  console.log(company);
   const res = await fetch(`${BACKEND_URL}/db/anime/?company=${company}`);
   const ret = await res.json();
   const animes = ret["data"];
