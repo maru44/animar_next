@@ -231,6 +231,8 @@ const AnimeDetail: NextPage<Props> = (props) => {
             </p>
             <div className="mt40">
               <SubData
+                company_name={anime.company_name}
+                company_eng={anime.company_eng_name}
                 twitter_url={anime.twitter_url}
                 official_url={anime.official_url}
                 hash_tag={anime.hash_tag}

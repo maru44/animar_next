@@ -99,7 +99,8 @@ export type TSeries = {
 };
 
 export type TSubData1 = {
-  name?: string;
+  company_name?: string;
+  company_eng?: string;
   hash_tag?: string;
   twitter_url?: string;
   official_url?: string;
