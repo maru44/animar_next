@@ -19,10 +19,18 @@ const Review: NextPage<Props> = (props) => {
   const review = props.review;
   const router = useRouter();
   useEffect(() => {
-    router.push(`/anime/${review.anime_slug}`);
+    router.isFallback || router.push(`/anime/${review.anime_slug}`);
   }, []);
 
-  return <div></div>;
+  return (
+    <div>
+      <main>
+        <div className="mla mra content flexCen">
+          <h2 className="textCen">Loading...</h2>
+        </div>
+      </main>
+    </div>
+  );
 };
 
 export const getStaticPaths: GetStaticPaths = async (ctx) => {
@@ -32,7 +40,8 @@ export const getStaticPaths: GetStaticPaths = async (ctx) => {
   const paths = ret["data"].map((id: number, i: number) => `/reviews/d/${id}`);
   return {
     paths,
-    fallback: "blocking",
+    // fallback: "blocking",
+    fallback: true,
   };
 };
 
