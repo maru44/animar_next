@@ -39,7 +39,7 @@ export const getStaticPaths: GetStaticPaths = async (ctx) => {
 
   const paths = ret["data"].map((id: number, i: number) => `/reviews/d/${id}`);
   return {
-    paths,
+    paths: paths,
     // fallback: "blocking",
     fallback: true,
   };
@@ -52,14 +52,21 @@ export const getStaticProps: GetStaticProps<Props, Params> = async (ctx) => {
   const ret = await res.json();
   const data = ret["data"];
 
-  if (ret["data"]["content"]) {
-    await createOgp({
-      id: parseInt(id),
-      title: data["anime_title"],
-      rating: data["rating"] ?? null,
-      content: data["content"],
-    });
-  }
+  /*  real image generate  */
+  // if (ret["data"]["content"]) {
+  //   await createOgp({
+  //     id: parseInt(id),
+  //     title: data["anime_title"],
+  //     rating: data["rating"] ?? null,
+  //     content: data["content"],
+  //   });
+  // }
+
+  /*  image buf  */
+  // const imgRes = await fetch(
+  //   `${process.env.NEXT_PUBLIC_FRONT_URL}/api/review/${id}`
+  // );
+  // const img = await imgRes.text();
 
   return {
     props: {
@@ -67,7 +74,8 @@ export const getStaticProps: GetStaticProps<Props, Params> = async (ctx) => {
       ogType: "article",
       ogDescription: `"${data["anime_title"]}"を見た感想` ?? null, //アニメの説明
       ogSeoDescription: `"${data["anime_title"]}"を見た感想` ?? null, // アニメの説明
-      ogImage: `${process.env.NEXT_PUBLIC_FRONT_URL}/ogp/review_${id}.png`,
+      // ogImage: `${process.env.NEXT_PUBLIC_FRONT_URL}/ogp/review_${id}.png`,
+      ogImage: `${process.env.NEXT_PUBLIC_FRONT_URL}/api/review/${id}`,
       ogImageType: "summary_large_image",
       robots: "nofollow noindex",
     },
