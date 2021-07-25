@@ -19,7 +19,8 @@ const Review: NextPage<Props> = (props) => {
   const review = props.review;
   const router = useRouter();
   useEffect(() => {
-    router.isFallback || router.push(`/anime/${review.anime_slug}`);
+    router.push(`/anime/${review.anime_slug}`);
+    // router.isFallback || router.push(`/anime/${review.anime_slug}`);
   }, []);
 
   return (
@@ -40,8 +41,8 @@ export const getStaticPaths: GetStaticPaths = async (ctx) => {
   const paths = ret["data"].map((id: number, i: number) => `/reviews/d/${id}`);
   return {
     paths: paths,
-    // fallback: "blocking",
-    fallback: true,
+    fallback: "blocking",
+    // fallback: true,
   };
 };
 
