@@ -24,7 +24,7 @@ const AnimeList: NextPage<Props> = (props) => {
       <main>
         <div className="mla mra content">
           <SeasonScope></SeasonScope>
-          <h2 className="brAll mt20">"{props.keyword}" の検索結果</h2>
+          <h2 className="brAll mt30">"{props.keyword}" の検索結果</h2>
           <div className="animeList mt30">
             {animes &&
               animes.map((anime, index) => (
@@ -42,7 +42,9 @@ export const getServerSideProps: GetServerSideProps<Props, Params> = async (
 ) => {
   const keyword = ctx.params.keyword;
 
-  const res = await fetch(`${BACKEND_URL}/db/anime/?keyword=${keyword}`);
+  const res = await fetch(
+    `${BACKEND_URL}/db/anime/?keyword=${encodeURI(keyword)}`
+  );
   const ret = await res.json();
   const animes = ret["data"];
 

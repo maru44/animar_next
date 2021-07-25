@@ -41,7 +41,7 @@ const SeasonScope: React.FC<Props> = (props) => {
 
   const linkSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    router.push(`/anime/search/${e.currentTarget.keyword.value}`);
+    router.push(`/anime/search/${encodeURI(e.currentTarget.keyword.value)}`);
   };
 
   return (

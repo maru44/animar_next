@@ -26,7 +26,7 @@ const AnimeList: NextPage<Props> = (props) => {
       <main>
         <div className="mla mra content">
           <SeasonScope year={props.year} season={props.season}></SeasonScope>
-          <h2 className="brAll mt20">
+          <h2 className="brAll mt30">
             {props.year}年{SeasonJapanese[props.season]}のアニメ
           </h2>
           <div className="animeList mt30">
