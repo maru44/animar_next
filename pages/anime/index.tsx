@@ -17,7 +17,8 @@ const AnimeList: NextPage<Props> = (props) => {
       <main>
         <div className="mla mra content">
           <SeasonScope></SeasonScope>
-          <div className="animeList mt30">
+          <h2 className="brAll mt20">現在放送中のアニメ</h2>
+          <div className="animeList mt20">
             {animes &&
               animes.map((anime, index) => (
                 <AnimeElement index={index} anime={anime}></AnimeElement>

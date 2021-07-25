@@ -1,21 +1,19 @@
 import { GetServerSideProps, NextPage } from "next";
-import { TAnime } from "../../../../types/anime";
-import { BACKEND_URL } from "../../../../helper/Config";
-import AnimeElement from "../../../../components/Anime/AnimeElement";
-import SeasonScope from "../../../../components/SeasonScope";
+import { TAnime } from "../../../types/anime";
+import { BACKEND_URL } from "../../../helper/Config";
+import AnimeElement from "../../../components/Anime/AnimeElement";
+import SeasonScope from "../../../components/SeasonScope";
 import { ParsedUrlQuery } from "querystring";
-import { pageBaseProps } from "../../../../types/page";
-import { SeasonJapanese } from "../../../../helper/admin/SeasonHelper";
+import { pageBaseProps } from "../../../types/page";
+import { SeasonJapanese } from "../../../helper/admin/SeasonHelper";
 
 type Props = {
   animes: TAnime[];
-  year: string;
-  season: string;
+  keyword: string;
 } & pageBaseProps;
 
 interface Params extends ParsedUrlQuery {
-  year: string;
-  season: string;
+  keyword: string;
 }
 
 const AnimeList: NextPage<Props> = (props) => {
@@ -25,10 +23,8 @@ const AnimeList: NextPage<Props> = (props) => {
     <div>
       <main>
         <div className="mla mra content">
-          <SeasonScope year={props.year} season={props.season}></SeasonScope>
-          <h2 className="brAll mt20">
-            {props.year}年{SeasonJapanese[props.season]}のアニメ
-          </h2>
+          <SeasonScope></SeasonScope>
+          <h2 className="brAll mt20">"{props.keyword}" の検索結果</h2>
           <div className="animeList mt30">
             {animes &&
               animes.map((anime, index) => (
@@ -44,12 +40,9 @@ const AnimeList: NextPage<Props> = (props) => {
 export const getServerSideProps: GetServerSideProps<Props, Params> = async (
   ctx
 ) => {
-  const year = ctx.params.year;
-  const season = ctx.params.season;
+  const keyword = ctx.params.keyword;
 
-  const res = await fetch(
-    `${BACKEND_URL}/db/anime/?year=${year}&season=${season}`
-  );
+  const res = await fetch(`${BACKEND_URL}/db/anime/?keyword=${keyword}`);
   const ret = await res.json();
   const animes = ret["data"];
 
@@ -57,8 +50,7 @@ export const getServerSideProps: GetServerSideProps<Props, Params> = async (
     props: {
       animes: animes,
       list: 1,
-      year: year,
-      season: season,
+      keyword: keyword,
     },
   };
 };

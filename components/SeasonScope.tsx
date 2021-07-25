@@ -1,4 +1,5 @@
 import router from "next/router";
+import React from "react";
 
 interface Props {
   year?: string;
@@ -31,35 +32,58 @@ const SeasonScope: React.FC<Props> = (props) => {
     "fall",
   ];
 
-  const linkSeason = (e: any) => {
+  const linkSeason = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    router.push(`/anime/s/${e.target.year.value}/${e.target.season.value}`);
+    router.push(
+      `/anime/s/${e.currentTarget.year.value}/${e.currentTarget.season.value}`
+    );
+  };
+
+  const linkSearch = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    router.push(`/anime/search/${e.currentTarget.keyword.value}`);
   };
 
   return (
     <div>
-      <form onSubmit={linkSeason} className="pt20 flexNormal alCen">
-        <select
-          name="year"
-          className="mla"
-          defaultValue={props.year ?? date.getFullYear().toString()}
-        >
-          {yearList && yearList}
-        </select>
-        <select
-          className="ml20"
-          name="season"
-          defaultValue={props.season ?? seasonList[month]}
-        >
-          <option value="winter">冬</option>
-          <option value="spring">春</option>
-          <option value="summer">夏</option>
-          <option value="fall">秋</option>
-        </select>
-        <button type="submit" className="ml20">
-          変更
-        </button>
-      </form>
+      <div className="flexNormal alCen flexWrap">
+        <form onSubmit={linkSearch} className="flexNormal alCen pt20 mra">
+          <input
+            type="text"
+            name="keyword"
+            required
+            placeholder="タイトル検索"
+          />
+          <button
+            type="submit"
+            className="ml20"
+            style={{ whiteSpace: "nowrap" }}
+          >
+            検索
+          </button>
+        </form>
+        <form onSubmit={linkSeason} className="flexNormal alCen pt20">
+          <select
+            name="year"
+            defaultValue={props.year ?? date.getFullYear().toString()}
+          >
+            {yearList && yearList}
+          </select>
+          <select
+            className="ml20"
+            name="season"
+            defaultValue={props.season ?? seasonList[month]}
+          >
+            <option value="winter">冬</option>
+            <option value="spring">春</option>
+            <option value="summer">夏</option>
+            <option value="fall">秋</option>
+          </select>
+          <button type="submit" className="ml20">
+            変更
+          </button>
+        </form>
+      </div>
     </div>
   );
 };

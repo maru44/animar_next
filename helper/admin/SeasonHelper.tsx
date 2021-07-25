@@ -22,3 +22,10 @@ export const fetchRelationSeason = async (animeId: number) => {
   });
   return res;
 };
+
+export const SeasonJapanese: { [key: string]: string } = {
+  winter: "冬",
+  spring: "春",
+  summer: "夏",
+  fall: "秋",
+};
