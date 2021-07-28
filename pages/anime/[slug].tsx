@@ -95,8 +95,12 @@ const AnimeDetail: NextPage<Props> = (props) => {
   const startPostContent = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const content = e.currentTarget.content.value;
+    // post
     const ret = await fetchUpsertReviewContent(anime.id, content);
-    setUserReviewContent(ret["data"]);
+
+    const dataRU = await fetchUserAnimeReview(anime.id); //reviews of login user
+    dataRU && setUserReviewId(dataRU["id"]);
+    dataRU && setUserReviewContent(dataRU["content"]);
   };
 
   const startPostStar = async (e: React.MouseEvent<HTMLSpanElement>) => {
@@ -250,8 +254,10 @@ const AnimeDetail: NextPage<Props> = (props) => {
                 ))}
             </div>
           </div>
+
           {CurrentUser && CurrentUser.isVerify && (
             <section className="mt40">
+              {/* review of user */}
               {userReviewContent && (
                 <div className="flexNormal alCen spBw">
                   <p className="brAll">{userReviewContent}</p>
@@ -273,6 +279,7 @@ const AnimeDetail: NextPage<Props> = (props) => {
                   </div>
                 </div>
               )}
+              {/* review post */}
               <div className="mt20">
                 <span className="titleSpan ">レビュー</span>
               </div>
