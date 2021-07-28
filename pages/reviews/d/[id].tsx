@@ -44,6 +44,13 @@ const Review: NextPage<Props> = (props) => {
 //   };
 // };
 
+export const getStaticPaths: GetStaticPaths = async (ctx) => {
+  return {
+    paths: [],
+    fallback: "blocking",
+  };
+};
+
 export const getStaticProps: GetStaticProps<Props, Params> = async (ctx) => {
   const id = ctx.params.id;
 
