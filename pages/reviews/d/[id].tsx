@@ -20,7 +20,6 @@ const Review: NextPage<Props> = (props) => {
   const router = useRouter();
   useEffect(() => {
     router.push(`/anime/${review.anime_slug}`);
-    // router.isFallback || router.push(`/anime/${review.anime_slug}`);
   }, []);
 
   return (
@@ -34,17 +33,16 @@ const Review: NextPage<Props> = (props) => {
   );
 };
 
-export const getStaticPaths: GetStaticPaths = async (ctx) => {
-  const res = await fetch(`${BACKEND_URL}/reviews/`);
-  const ret = await res.json();
+// export const getStaticPaths: GetStaticPaths = async (ctx) => {
+//   const res = await fetch(`${BACKEND_URL}/reviews/`);
+//   const ret = await res.json();
 
-  const paths = ret["data"].map((id: number, i: number) => `/reviews/d/${id}`);
-  return {
-    paths: paths,
-    fallback: "blocking",
-    // fallback: true,
-  };
-};
+//   const paths = ret["data"].map((id: number, i: number) => `/reviews/d/${id}`);
+//   return {
+//     paths: paths,
+//     fallback: "blocking",
+//   };
+// };
 
 export const getStaticProps: GetStaticProps<Props, Params> = async (ctx) => {
   const id = ctx.params.id;
@@ -62,12 +60,6 @@ export const getStaticProps: GetStaticProps<Props, Params> = async (ctx) => {
   //     content: data["content"],
   //   });
   // }
-
-  /*  image buf  */
-  // const imgRes = await fetch(
-  //   `${process.env.NEXT_PUBLIC_FRONT_URL}/api/review/${id}`
-  // );
-  // const img = await imgRes.text();
 
   return {
     props: {
