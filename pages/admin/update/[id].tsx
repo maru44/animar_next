@@ -28,6 +28,7 @@ import router from "next/router";
 import { pageBaseProps } from "../../../types/page";
 import { TCompany } from "../../../types/company";
 import { fetchCompanies } from "../../../helper/admin/CompanyHelper";
+import StaffRoleInput from "../../../components/Admin/StaffRoleInput";
 
 type Props = {
   series: TSeries[];
@@ -221,6 +222,9 @@ const AnimeAdminUpdate: NextPage<Props> = (props) => {
               </button>
             </div>
           </form>
+          <div className="mt40">
+            <StaffRoleInput animeId={anime.id}></StaffRoleInput>
+          </div>
           <div className="field mt100">
             <button className="" type="button" onClick={startDeleteAnime}>
               削除する
