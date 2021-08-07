@@ -9,7 +9,8 @@ interface Props {
 const SeasonScope: React.FC<Props> = (props) => {
   const date = new Date();
   const yearList = [];
-  for (let i = date.getFullYear() + 1; 1969 < i; i--) {
+  // for (let i = date.getFullYear() + 1; 1969 < i; i--) {
+  for (let i = date.getFullYear() + 1; 2018 < i; i--) {
     yearList.push(
       <option value={i} key={i}>
         {i}
