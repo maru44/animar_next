@@ -19,6 +19,7 @@ import {
   fetchRelationPlatform,
 } from "../../../helper/admin/PlatformHelper";
 import {
+  deleteRelationSeason,
   fetchInsertRelationSeason,
   fetchRelationSeason,
 } from "../../../helper/admin/SeasonHelper";
@@ -112,6 +113,11 @@ const AnimeAdminUpdate: NextPage<Props> = (props) => {
     }
   };
 
+  const startDeleteSeason = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    const rawSeasonId = e.currentTarget.value;
+    const res = await deleteRelationSeason(anime.id, parseInt(rawSeasonId));
+  };
+
   const startAddRelationPlatform = async (
     e: React.FormEvent<HTMLFormElement>
   ) => {
@@ -124,7 +130,7 @@ const AnimeAdminUpdate: NextPage<Props> = (props) => {
   };
 
   const startDelete = async (e: React.MouseEvent<HTMLSpanElement>) => {
-    const ret = await fetchDeleteRelationPlatform(
+    const res = await fetchDeleteRelationPlatform(
       anime.id,
       e.currentTarget.dataset.pid
     );
@@ -198,9 +204,17 @@ const AnimeAdminUpdate: NextPage<Props> = (props) => {
             <div className="mt20">
               {seasons &&
                 seasons.map((s, index) => (
-                  <div key={index}>
+                  <div key={index} className="mb5">
                     {s.year}
                     {s.season}
+                    <button
+                      className="floatR"
+                      type="button"
+                      onClick={startDeleteSeason}
+                      value={s.id}
+                    >
+                      削除
+                    </button>
                   </div>
                 ))}
             </div>

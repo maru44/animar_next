@@ -23,6 +23,21 @@ export const fetchRelationSeason = async (animeId: number) => {
   return res;
 };
 
+export const deleteRelationSeason = async (
+  animeId: number,
+  seasonId: number
+) => {
+  const res = await fetch(
+    `${BACKEND_URL}/admin/season/anime/delete/?anime=${animeId}&season=${seasonId}`,
+    {
+      method: "DELETE",
+      mode: "cors",
+      credentials: "include",
+    }
+  );
+  return res;
+};
+
 export const SeasonJapanese: { [key: string]: string } = {
   winter: "冬",
   spring: "春",
