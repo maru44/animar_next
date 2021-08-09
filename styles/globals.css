@@ -875,6 +875,14 @@ anime
   font-size: 40px;
 }
 
+.animeInfo .chainInfo {
+  display: flex;
+  display: -webkit-flex;
+  flex-wrap: wrap;
+}
+.animeInfo .chainInfo span {
+  margin-bottom: 5px;
+}
 .animeInfo span {
   margin-right: 10px;
   padding: 5px 10px;

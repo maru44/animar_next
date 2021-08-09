@@ -194,7 +194,7 @@ const AnimeDetail: NextPage<Props> = (props) => {
             </div>
           )}
           <div className="mt40 animeInfo">
-            <div className="">
+            <div className="flexNormal flexWrap chainInfo">
               {anime.state && (
                 <span className={`onAirState ${anime.state}`}>
                   {AnimeStateDict[anime.state]}
