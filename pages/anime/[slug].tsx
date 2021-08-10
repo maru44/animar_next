@@ -340,6 +340,7 @@ const AnimeDetail: NextPage<Props> = (props) => {
                       <ReviewContentElement
                         key={index}
                         review={review}
+                        animeTitle={anime.title}
                       ></ReviewContentElement>
                     )
                 )}

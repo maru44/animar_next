@@ -6,6 +6,7 @@ import { DEFAULT_USER_IMAGE } from "../helper/Config";
 import Link from "next/link";
 
 interface Props {
+  animeTitle: string;
   review: TReview;
 }
 
@@ -25,7 +26,22 @@ const ReviewContentElement: React.FC<Props> = (props) => {
   return (
     <div className="mb10">
       <article>
-        <p>{review.content}</p>
+        <div className="flexNormal alCen spBw">
+          <p>{review.content}</p>
+          <div className="ml20 cursorP hrefBox" style={{ width: `${30}px` }}>
+            <img className="w100" src="/image/twitter_black.png" />
+            <Link
+              href={`https://twitter.com/intent/tweet?hashtags=loveanime,ラブアニメ&text=${props.animeTitle}-感想&url=${process.env.NEXT_PUBLIC_FRONT_URL}/reviews/d/${review.id}`}
+              passHref
+            >
+              <a
+                className="hrefBoxIn"
+                target="_new"
+                data-text={`${props.animeTitle}-感想`}
+              ></a>
+            </Link>
+          </div>
+        </div>
         <div className="mt5 flexNormal hrefBox">
           <div
             className="imgCircle mla mr20"
