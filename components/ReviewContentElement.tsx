@@ -24,11 +24,13 @@ const ReviewContentElement: React.FC<Props> = (props) => {
   }, []);
 
   return (
-    <div className="mb10">
+    <div className="mb15">
       <article>
         <div className="flexNormal alCen spBw">
           <p>{review.content}</p>
-          <div className="ml20 cursorP hrefBox" style={{ width: `${30}px` }}>
+        </div>
+        <div className="mt10 flexNormal alCen">
+          <div className="cursorP hrefBox" style={{ width: `${18}px` }}>
             <img className="w100" src="/image/twitter_black.png" />
             <Link
               href={`https://twitter.com/intent/tweet?hashtags=loveanime,ラブアニメ&text=${props.animeTitle}-感想&url=${process.env.NEXT_PUBLIC_FRONT_URL}/reviews/d/${review.id}`}
@@ -41,26 +43,30 @@ const ReviewContentElement: React.FC<Props> = (props) => {
               ></a>
             </Link>
           </div>
-        </div>
-        <div className="mt5 flexNormal hrefBox">
-          <div
-            className="imgCircle mla mr20"
-            style={
-              author && author.photoUrl
-                ? {
-                    backgroundImage: `url(${author.photoUrl})`,
-                  }
-                : {
-                    backgroundImage: `url(${DEFAULT_USER_IMAGE})`,
-                  }
-            }
-          ></div>
-          <p>{author && author.displayName ? author.displayName : "----"}</p>
-          {author && (
-            <Link href="/watch/[uid]" as={`/watch/${review.user_id}`} passHref>
-              <a className="hrefBoxIn"></a>
-            </Link>
-          )}
+          <div className="mla flexNormal hrefBox">
+            <div
+              className="imgCircle mla mr20"
+              style={
+                author && author.photoUrl
+                  ? {
+                      backgroundImage: `url(${author.photoUrl})`,
+                    }
+                  : {
+                      backgroundImage: `url(${DEFAULT_USER_IMAGE})`,
+                    }
+              }
+            ></div>
+            <p>{author && author.displayName ? author.displayName : "----"}</p>
+            {author && (
+              <Link
+                href="/watch/[uid]"
+                as={`/watch/${review.user_id}`}
+                passHref
+              >
+                <a className="hrefBoxIn"></a>
+              </Link>
+            )}
+          </div>
         </div>
       </article>
     </div>
