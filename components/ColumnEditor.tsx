@@ -22,8 +22,7 @@ interface Props {
 }
 
 const ColumnEditor: React.FC<Props> = (props) => {
-  // inputed value
-  // useRequireLogin();
+  props.blog && useRequireLogin();
   const { isAuthChecking, CurrentUser } = useCurrentUser();
 
   const router = useRouter();
