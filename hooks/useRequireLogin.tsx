@@ -7,7 +7,7 @@ export const useRequireLogin = () => {
   const router = useRouter();
   useEffect(() => {
     if (isAuthChecking) return;
-    if (!CurrentUser) router.push("/user/login");
+    if (!CurrentUser) router.push("/auth/login");
   }, [isAuthChecking, CurrentUser]);
 };
 
@@ -18,7 +18,7 @@ export const useRequireVerified = () => {
   useEffect(() => {
     if (isAuthChecking) return;
     if (!CurrentUser || (CurrentUser && !CurrentUser.isVerify))
-      router.push("/user/login");
+      router.push("/auth/login");
   }, [isAuthChecking, CurrentUser]);
 };
 
