@@ -18,6 +18,7 @@
     },
     "include": [
         "pages/**/*",
+        "pages/*",
         "components/**/*",
         "hooks/**/*",
         "state/**/*",

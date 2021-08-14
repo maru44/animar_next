@@ -1,4 +1,6 @@
 import { NextPage } from "next";
+import Image from "next/image";
+import Link from "next/link";
 
 const Index: NextPage = () => {
   return (
@@ -15,16 +17,52 @@ const Index: NextPage = () => {
             </h4>
             <div className="mt40 homeCardList flexNormal spBw flexWrap">
               <div className="homeCard">
-                <p className="brAll">見ているアニメを簡単に管理できる</p>
+                <h4 className="brAll">見ているアニメを簡単に管理できる</h4>
               </div>
               <div className="homeCard">
-                <p>今熱いアニメがわかる</p>
+                <h4>今熱いアニメがわかる</h4>
               </div>
               <div className="homeCard">
-                <p>簡単レビュー</p>
+                <h4>簡単レビューと共有機能</h4>
+                <p className="mb10 mt5">
+                  レビューを投稿すると画像のように綺麗な見た目で簡単に共有できます。
+                </p>
+                <Link
+                  href={
+                    "/_next/image?url=%2Fimage%2Freview_function.png&w=640&q=75"
+                  }
+                  passHref
+                >
+                  <a target="_new">
+                    <Image
+                      src={`/image/review_function.png`}
+                      alt={`レビュー共有機能`}
+                      width={584}
+                      height={486}
+                    />
+                  </a>
+                </Link>
               </div>
               <div className="homeCard">
-                <p>簡単コラム作成</p>
+                <h4>簡単コラム作成</h4>
+                <p className="mb10 mt5">
+                  快適な記事作成をサポートします。
+                  <br />
+                  ※以下の動画をクリックすると実際に作成している様子が見れます。
+                </p>
+                <Link href={`/image/column2.mp4`}>
+                  <a target="_new">
+                    <video
+                      width={`${100}%`}
+                      max-width={1280}
+                      max-height={720}
+                      muted
+                      loop
+                    >
+                      <source src={`/image/column2.mp4`} type="video/mp4" />
+                    </video>
+                  </a>
+                </Link>
               </div>
             </div>
             <div className="mt60 releaseSchedule wM500px mla mra">
