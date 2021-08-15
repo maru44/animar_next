@@ -4,6 +4,7 @@ import { TUser } from "../types/auth";
 import { fetchUserModel } from "../helper/UserHelper";
 import { DEFAULT_USER_IMAGE } from "../helper/Config";
 import Link from "next/link";
+import Image from "next/image";
 
 interface Props {
   animeTitle: string;
@@ -42,6 +43,16 @@ const ReviewContentElement: React.FC<Props> = (props) => {
                 data-text={`${props.animeTitle}-感想`}
               ></a>
             </Link>
+          </div>
+          <div
+            className="cursorP ml30"
+            onClick={() => {
+              navigator.clipboard.writeText(
+                `${process.env.NEXT_PUBLIC_FRONT_URL}/reviews/d/${review.id}`
+              );
+            }}
+          >
+            <Image className="" width={20} height={20} src="/image/copy.png" />
           </div>
           <div className="mla flexNormal hrefBox">
             <div
