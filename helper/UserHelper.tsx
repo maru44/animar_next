@@ -114,3 +114,11 @@ export const sendJwtCookie = async (idToken: string, refreshToken: string) => {
   });
   return res.status;
 };
+
+export const getCsrfToken = async () => {
+  const res = await fetch(`${BACKEND_URL}/csrf/`, {
+    method: "GET",
+    mode: "cors",
+    credentials: "include",
+  });
+};

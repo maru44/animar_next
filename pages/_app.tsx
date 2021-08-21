@@ -1,7 +1,7 @@
 import { AppProps } from "next/dist/next-server/lib/router/router";
 import { useEffect } from "react";
 import { RecoilRoot, useSetRecoilState } from "recoil";
-import { fetchCurrentUser } from "../helper/UserHelper";
+import { fetchCurrentUser, getCsrfToken } from "../helper/UserHelper";
 import { useRouter } from "next/router";
 import CurrentUserState from "../states/CurrentUser";
 import BaseLayouts from "../components/BaseLayouts";
@@ -26,6 +26,9 @@ const AppInt = (): null => {
     (async function () {
       try {
         const CurrentUser = await fetchCurrentUser();
+        if (CurrentUser) {
+          await getCsrfToken();
+        }
         setCurrentUser(CurrentUser);
       } catch {
         setCurrentUser(null);
