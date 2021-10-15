@@ -17,6 +17,7 @@ import {
   fetchDeleteRelationPlatform,
   fetchInsertRelationPlatform,
   fetchRelationPlatform,
+  listInterval,
 } from "../../../helper/admin/PlatformHelper";
 import {
   deleteRelationSeason,
@@ -122,10 +123,12 @@ const AnimeAdminUpdate: NextPage<Props> = (props) => {
     e: React.FormEvent<HTMLFormElement>
   ) => {
     e.preventDefault();
-    const ret = await fetchInsertRelationPlatform(
+    const res = await fetchInsertRelationPlatform(
       anime.id,
       parseInt(e.currentTarget.plat.value),
-      e.currentTarget.url.value
+      e.currentTarget.url.value,
+      e.currentTarget.interval.value,
+      e.currentTarget.fb.value,
     );
   };
 
@@ -181,7 +184,7 @@ const AnimeAdminUpdate: NextPage<Props> = (props) => {
           <form className="mt40" onSubmit={startAddRelationPlatform}>
             <h3>配信プラットフォーム</h3>
             <div className="field mt20">
-              <input type="text" name="url" />
+              <input type="text" name="url" required />
             </div>
             <div className="field mt20">
               <select name="plat">
@@ -193,6 +196,20 @@ const AnimeAdminUpdate: NextPage<Props> = (props) => {
                   ))}
               </select>
             </div>
+            <div className="field mt20">
+              <label>初回放送日時</label>
+              <input type="datetime-local" name="fb" />
+            </div>
+            <div className="field mt20">
+              <select name="interval">
+                <option value="">------------</option>
+                {listInterval.map((v: string, i:number) => (
+                  <option key={i} value={v}>
+                    {v}
+                  </option>
+                ))}
+              </select>
+            </div> 
             <div className="field mt20">
               <button className="" type="submit">
                 追加する
