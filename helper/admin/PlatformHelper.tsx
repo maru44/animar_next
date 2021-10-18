@@ -77,6 +77,28 @@ export const fetchInsertRelationPlatform = async (
   return res;
 };
 
+export const updateRelationPlatform = async (
+  animeId: number,
+  platId: number,
+  linkUrl: string,
+  interval: string,
+  first_broadcast: string
+) => {
+  const res = await fetch(`${BACKEND_URL}/admin/relation/plat/update/`, {
+    method: 'PUT',
+    mode: 'cors',
+    credentials: 'include',
+    body: JSON.stringify({
+      anime_id: animeId,
+      platform_id: platId,
+      link_url: linkUrl,
+      interval: interval != '' ? interval : null,
+      first_broadcast: first_broadcast != '' ? first_broadcast : null,
+    }),
+  });
+  return res;
+};
+
 export const fetchDeleteRelationPlatform = async (
   animeId: number,
   platformId: string

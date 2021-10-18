@@ -1,6 +1,6 @@
-import { Canvas, createCanvas, loadImage, registerFont } from "canvas";
-import * as path from "path";
-import fs from "fs";
+import { Canvas, createCanvas, loadImage, registerFont } from 'canvas';
+import * as path from 'path';
+import fs from 'fs';
 
 type OgpMaterial = {
   id: number;
@@ -20,23 +20,23 @@ export const createOgp = async (props: OgpMaterial) => {
   const DX = 0;
   const DY = 0;
   const canvas = createCanvas(WIDTH, HEIGHT);
-  const ctx = canvas.getContext("2d");
+  const ctx = canvas.getContext('2d');
 
-  registerFont(path.resolve("./public/fonts/NotoSansJP-Medium.otf"), {
-    family: "Noto",
+  registerFont(path.resolve('./public/fonts/NotoSansJP-Medium.otf'), {
+    family: 'Noto',
   });
 
   const backgroundImage = await loadImage(
-    path.resolve("./public/ogp_background1.jpg")
+    path.resolve('./public/ogp_background1.jpg')
   );
   ctx.drawImage(backgroundImage, DX, DY, WIDTH, HEIGHT);
 
   /**
    * title
    */
-  ctx.font = "60px Noto";
-  ctx.textAlign = "left";
-  ctx.textBaseline = "middle";
+  ctx.font = '60px Noto';
+  ctx.textAlign = 'left';
+  ctx.textBaseline = 'middle';
   const rawTitle = props.title;
   const sepText = createTextLine(canvas, rawTitle);
   ctx.fillText(sepText.line, 100, 60);
@@ -44,9 +44,9 @@ export const createOgp = async (props: OgpMaterial) => {
   /**
    * content
    */
-  ctx.font = "45px Noto";
+  ctx.font = '45px Noto';
   const content = props.content;
-  const lines = createTextLines(canvas, content.replace(/\r?\n/g, " "));
+  const lines = createTextLines(canvas, content.replace(/\r?\n/g, ' '));
   lines.forEach((line, index) => {
     if (index < 6) ctx.fillText(line, 100, 150 + index * 60);
   });
@@ -54,14 +54,14 @@ export const createOgp = async (props: OgpMaterial) => {
   /**
    * additional
    */
-  ctx.font = "36px Noto";
+  ctx.font = '36px Noto';
   const rating = props.rating;
   if (rating) {
     const star = `★ ${rating}`;
     ctx.fillText(star, 100, 580);
   }
-  const loveanime = "loveani.me";
-  ctx.textAlign = "right";
+  const loveanime = 'loveani.me';
+  ctx.textAlign = 'right';
   ctx.fillText(loveanime, 1100, 580);
 
   const buffer = canvas.toBuffer();
@@ -74,23 +74,23 @@ export const createOgpBuffer = async (props: OgpMaterial) => {
   const DX = 0;
   const DY = 0;
   const canvas = createCanvas(WIDTH, HEIGHT);
-  const ctx = canvas.getContext("2d");
+  const ctx = canvas.getContext('2d');
 
-  registerFont(path.resolve("./public/fonts/NotoSansJP-Medium.otf"), {
-    family: "Noto",
+  registerFont(path.resolve('./public/fonts/NotoSansJP-Medium.otf'), {
+    family: 'Noto',
   });
 
   const backgroundImage = await loadImage(
-    path.resolve("./public/ogp_background1.jpg")
+    path.resolve('./public/ogp_background1.jpg')
   );
   ctx.drawImage(backgroundImage, DX, DY, WIDTH, HEIGHT);
 
   /**
    * title
    */
-  ctx.font = "60px Noto";
-  ctx.textAlign = "left";
-  ctx.textBaseline = "middle";
+  ctx.font = '60px Noto';
+  ctx.textAlign = 'left';
+  ctx.textBaseline = 'middle';
   const rawTitle = props.title;
   const sepText = createTextLine(canvas, rawTitle);
   ctx.fillText(sepText.line, 100, 60);
@@ -98,9 +98,9 @@ export const createOgpBuffer = async (props: OgpMaterial) => {
   /**
    * content
    */
-  ctx.font = "45px Noto";
+  ctx.font = '45px Noto';
   const content = props.content;
-  const lines = createTextLines(canvas, content.replace(/\r?\n/g, " "));
+  const lines = createTextLines(canvas, content.replace(/\r?\n/g, ' '));
   lines.forEach((line, index) => {
     if (index < 6) ctx.fillText(line, 100, 150 + index * 60);
   });
@@ -108,14 +108,14 @@ export const createOgpBuffer = async (props: OgpMaterial) => {
   /**
    * additional
    */
-  ctx.font = "36px Noto";
+  ctx.font = '36px Noto';
   const rating = props.rating;
   if (rating) {
     const star = `★ ${rating}`;
     ctx.fillText(star, 100, 580);
   }
-  const loveanime = "loveani.me";
-  ctx.textAlign = "right";
+  const loveanime = 'loveani.me';
+  ctx.textAlign = 'right';
   ctx.fillText(loveanime, 1100, 580);
 
   const buffer = canvas.toBuffer();
@@ -126,7 +126,7 @@ const createTextLines = (canvas: Canvas, text: string): string[] => {
   const lines: string[] = [];
   let currentText = text;
 
-  while (currentText !== "") {
+  while (currentText !== '') {
     const separatedText = createTextLine(canvas, currentText);
     lines.push(separatedText.line);
     currentText = separatedText.remaining;
@@ -135,7 +135,7 @@ const createTextLines = (canvas: Canvas, text: string): string[] => {
 };
 
 const createTextLine = (canvas: Canvas, text: string): sepText => {
-  const context = canvas.getContext("2d");
+  const context = canvas.getContext('2d');
   const MAX_WIDTH = 1000;
 
   for (let i = 0; i < text.length; i++) {
@@ -150,6 +150,6 @@ const createTextLine = (canvas: Canvas, text: string): sepText => {
 
   return {
     line: text,
-    remaining: "",
+    remaining: '',
   };
 };
