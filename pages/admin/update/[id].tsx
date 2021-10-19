@@ -12,11 +12,13 @@ import {
 import { BACKEND_URL } from '../../../helper/Config';
 import { TAnimeAdmin, TSeries } from '../../../types/anime';
 import AnimePost from '../../../components/Admin/AnimePost';
-import RelationPlatformComponent from '../../../components/admin/RelationPlatformComponent';
+import RelationPlatformComponent from '../../../components/Admin/RelationPlatformComponent';
+import RelationPlatformUpdateComponent from '../../../components/Admin/RelationPlatformUpdateComponent';
 import { ParsedUrlQuery } from 'querystring';
 import {
   fetchDeleteRelationPlatform,
   fetchRelationPlatform,
+  updateRelationPlatform,
 } from '../../../helper/admin/PlatformHelper';
 import { startAddRelationPlatform } from '../../../interactor/admin/platform_interactor';
 import {
@@ -50,6 +52,8 @@ const AnimeAdminUpdate: NextPage<Props> = (props) => {
   const [plats, setPlats] = useState<TRelationPlatform[]>(null);
   const [allSeasons, setAllSeasons] = useState<TSeason[]>(props.seasons);
   const [seasons, setSeasons] = useState<TSeason[]>(null);
+  const [isOpenUpdateRelPlat, setIsOpenUpdateRelPlat] = useState(false);
+  const [updateRelPlat, setUpdateRelPlat] = useState<TRelationPlatform>(null);
 
   useEffect(() => {
     (async () => {
@@ -158,7 +162,15 @@ const AnimeAdminUpdate: NextPage<Props> = (props) => {
                     URL: {p.link_url}
                   </div>
                   <div className="">
-                    <span className="mr15">編集する</span>
+                    <span
+                      className="mr15"
+                      onClick={() => {
+                        setIsOpenUpdateRelPlat(true);
+                        setUpdateRelPlat(p);
+                      }}
+                    >
+                      編集する
+                    </span>
                     <span data-pid={p.platform_id} onClick={startDelete}>
                       削除する
                     </span>
@@ -219,6 +231,11 @@ const AnimeAdminUpdate: NextPage<Props> = (props) => {
           </div>
         </div>
       </main>
+      <RelationPlatformUpdateComponent
+        isOpen={isOpenUpdateRelPlat}
+        closeFunc={() => setIsOpenUpdateRelPlat(false)}
+        relPlat={updateRelPlat}
+      ></RelationPlatformUpdateComponent>
     </div>
   );
 };

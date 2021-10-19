@@ -10,10 +10,20 @@ interface Props {
   ) => void;
   allPlats: TPlatformAdmin[];
   animeId: number;
-  platId?: number;
+  relPlat?: TRelationPlatform;
 }
 
 const RelationPlatformComponent: React.FC<Props> = (props) => {
+  const plat = props.relPlat;
+  const fDay = (): string => {
+    if (plat.first_broadcast) {
+      const lst = plat.first_broadcast.split(' ');
+      return `${lst[0]}T${lst[1]}`;
+    }
+
+    return null;
+  };
+
   return (
     <div>
       <form
@@ -23,10 +33,19 @@ const RelationPlatformComponent: React.FC<Props> = (props) => {
         }
       >
         <div className="field">
-          <input type="text" name="url" />
+          <input
+            type="text"
+            name="url"
+            defaultValue={plat && plat.link_url && plat.link_url}
+          />
         </div>
-        {props.platId ? (
-          <input className="field" type="hidden" value={props.platId} />
+        {plat && plat.platform_id ? (
+          <input
+            className="field"
+            type="hidden"
+            name="plat"
+            value={plat.platform_id}
+          />
         ) : (
           <div className="field mt20">
             <select name="plat">
@@ -41,10 +60,17 @@ const RelationPlatformComponent: React.FC<Props> = (props) => {
         )}
         <div className="field mt20">
           <label>初回放送日時</label>
-          <input type="datetime-local" name="fb" />
+          <input
+            type="datetime-local"
+            name="fb"
+            defaultValue={plat && fDay() && fDay()}
+          />
         </div>
         <div className="field mt20">
-          <select name="interval">
+          <select
+            name="interval"
+            defaultValue={plat && plat.interval && plat.interval}
+          >
             <option value="">------------</option>
             {listInterval.map((v: string, i: number) => (
               <option key={i} value={v}>
@@ -55,7 +81,7 @@ const RelationPlatformComponent: React.FC<Props> = (props) => {
         </div>
         <div className="field mt20">
           <button className="" type="submit">
-            {props.platId ? '編集する' : '追加する'}
+            {plat ? '編集する' : '追加する'}
           </button>
         </div>
       </form>

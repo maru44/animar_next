@@ -16,4 +16,6 @@ export type TRelationPlatform = {
   created_at: string;
   updated_at: string;
   plat_name: string;
+  first_broadcast: string;
+  interval: string;
 };
