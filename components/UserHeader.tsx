@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from 'next/link';
 
 interface Props {
   list?: number;
@@ -12,9 +12,10 @@ interface AList {
 
 const UserHeader: React.FC<Props> = (props) => {
   const listList: AList[] = [
-    { shown: "見てるアニメ", href: `/watch/${props.uid}` },
-    { shown: "レビュー", href: `/reviews/${props.uid}` },
-    { shown: "コラム", href: `/column/u/${props.uid}` },
+    { shown: '見てるアニメ', href: `/watch/${props.uid}` },
+    { shown: 'レビュー', href: `/reviews/${props.uid}` },
+    { shown: 'コラム', href: `/column/u/${props.uid}` },
+    { shown: '放送予定通知', href: `/notification` },
   ];
 
   return (
@@ -25,9 +26,9 @@ const UserHeader: React.FC<Props> = (props) => {
             className={
               props.list
                 ? props.list === index + 1
-                  ? "hrefBox flexCen now"
-                  : "hrefBox flexCen"
-                : "hrefBox flexCen"
+                  ? 'hrefBox flexCen now'
+                  : 'hrefBox flexCen'
+                : 'hrefBox flexCen'
             }
           >
             {lst.shown}
