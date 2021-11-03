@@ -1,6 +1,6 @@
-import { NextPage } from "next";
-import Image from "next/image";
-import Link from "next/link";
+import { NextPage } from 'next';
+import Image from 'next/image';
+import Link from 'next/link';
 
 const Index: NextPage = () => {
   return (
@@ -29,7 +29,7 @@ const Index: NextPage = () => {
                 </p>
                 <Link
                   href={
-                    "/_next/image?url=%2Fimage%2Freview_function.png&w=640&q=75"
+                    '/_next/image?url=%2Fimage%2Freview_function.png&w=640&q=75'
                   }
                   passHref
                 >
@@ -71,10 +71,9 @@ const Index: NextPage = () => {
                 <li>お問い合わせフォーム</li>
                 <li>コラムのコメント、いいね機能</li>
                 <li>ユーザー同士のフォロー機能</li>
-                <li>検索、フィルター、ソート</li>
                 <li>etc</li>
                 <li className="mt20">
-                  <strong>鋭意制作中です。ご期待ください</strong>
+                  <strong>のんびりと制作中です。ご期待ください</strong>
                 </li>
               </ul>
             </div>
