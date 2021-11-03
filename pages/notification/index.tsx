@@ -1,4 +1,4 @@
-import { NextPage } from 'next';
+import { NextPage, GetServerSideProps } from 'next';
 import React, { useEffect, useState } from 'react';
 import {
   fetchUsersSlackChannelId,
@@ -6,6 +6,7 @@ import {
   UpdateNotifiedSlack,
 } from '../../helper/PlatformHelper';
 import LocalMessage from '../../components/LocalMessage';
+import { pageBaseProps } from '../../types/page';
 
 const NotificationRegister: NextPage = () => {
   const [channelId, setChannelId] = useState<string | null>(null);
@@ -104,6 +105,19 @@ const NotificationRegister: NextPage = () => {
       </main>
     </div>
   );
+};
+
+export const getServerSideProps: GetServerSideProps<pageBaseProps> = async () => {
+  return {
+    props: {
+      title: '放送スケジュール通知',
+      list: 3,
+      ogDescription:
+        '登録することでその日の放送スケジュールを毎日04:00に通知します。',
+      ogSeoDescription:
+        '登録することでその日の放送スケジュールを毎日04:00に通知します。',
+    },
+  };
 };
 
 export default NotificationRegister;

@@ -15,7 +15,6 @@ const UserHeader: React.FC<Props> = (props) => {
     { shown: '見てるアニメ', href: `/watch/${props.uid}` },
     { shown: 'レビュー', href: `/reviews/${props.uid}` },
     { shown: 'コラム', href: `/column/u/${props.uid}` },
-    { shown: '放送予定通知', href: `/notification` },
   ];
 
   return (
